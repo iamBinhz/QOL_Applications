@@ -1,0 +1,1775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Blueprint — Accounting and Finance for Decision Making</title>
+<meta name="description" content="A revision companion for the Accounting and Finance for Decision Making module: twelve lectures from the time value of money to mergers, explained plainly with worked examples, stories and interactive calculators." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   THE BLUEPRINT — BRIGHT EDITION
+   White background. EB Garamond everywhere. Classic blueprint palette.
+   ============================================================ */
+
+:root{
+  --paper:#E7EEF3;
+  --paper-card:#F4F8FB;
+  --paper-sink:#D9E4EC;
+  --treasury:#0F3A5C;
+  --treasury-deep:#0A2942;
+  --ink:#15242E;
+  --ink-soft:#4F6373;
+  --brass:#1F6E91;
+  --brass-bright:#3A93BC;
+  --seal:#D2542E;
+  --seal-soft:#FEF2EE;
+  --engrave:#C2D3DE;
+  --engrave-soft:#E2EAF0;
+  --grid-line:rgba(15,58,92,.055);
+
+  --maxw:780px;
+  --side:300px;
+  --radius-sm:6px;
+  --radius-md:10px;
+  --radius-lg:16px;
+  --radius-xl:24px;
+  --radius-full:999px;
+
+  --shadow-xs:0 1px 2px rgba(15,58,92,.04);
+  --shadow-sm:0 1px 3px rgba(15,58,92,.06), 0 1px 2px rgba(15,58,92,.04);
+  --shadow-md:0 4px 12px rgba(15,58,92,.08);
+  --shadow-lg:0 12px 32px rgba(15,58,92,.10);
+  --shadow-glow:0 0 24px rgba(31,110,145,.15);
+
+  --font-serif:'EB Garamond', Georgia, 'Times New Roman', serif;
+  --font-mono:'EB Garamond', Georgia, serif; /* Garamond for numbers too */
+
+  --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
+  --ease-out-back:cubic-bezier(0.34,1.56,0.64,1);
+}
+
+*{box-sizing:border-box; margin:0; padding:0}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size:28px 28px;
+  background-position:-1px -1px;
+  color:var(--ink);
+  font-family:var(--font-serif);
+  font-size:19px;
+  line-height:1.68;
+  font-feature-settings:"onum" 1, "kern" 1, "liga" 1;
+  -webkit-font-smoothing:antialiased;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:0.01ms!important;transition-duration:0.01ms!important}
+}
+
+::selection{background:rgba(31,110,145,.12); color:var(--treasury-deep)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--engrave); border-radius:var(--radius-full)}
+::-webkit-scrollbar-thumb:hover{background:var(--brass)}
+
+/* Progress bar */
+.progress{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--brass),var(--brass-bright));
+  z-index:1000; transition:width .12s linear;
+  box-shadow:0 0 8px rgba(31,110,145,.3);
+}
+
+/* Skip link */
+.skip{
+  position:fixed; left:-999px; top:10px; z-index:1001;
+  background:var(--treasury); color:var(--paper); padding:10px 18px;
+  border-radius:var(--radius-sm); font-weight:700; font-size:.9rem;
+  text-decoration:none; font-family:var(--font-serif);
+  box-shadow:var(--shadow-lg);
+}
+.skip:focus{left:10px; outline:2px solid var(--brass-bright); outline-offset:2px}
+
+/* Shell */
+.shell{display:flex; align-items:flex-start}
+
+/* ============================================================
+   SIDEBAR
+   ============================================================ */
+.sidebar{
+  width:var(--side); flex:0 0 var(--side);
+  position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto;
+  background:linear-gradient(180deg,var(--treasury-deep),var(--treasury));
+  color:#DCE8F0;
+  border-right:1px solid rgba(0,0,0,.18);
+  padding:28px 22px 70px;
+  z-index:50;
+}
+.brand{display:flex; flex-direction:column; gap:3px; margin-bottom:8px}
+.brand-mark{
+  font-size:.72rem; letter-spacing:.34em; text-transform:uppercase;
+  color:var(--brass-bright); font-weight:700; font-family:var(--font-serif);
+}
+.brand-name{
+  font-size:1.8rem; font-weight:800; line-height:1; color:#EAF2F8;
+  font-family:var(--font-serif); letter-spacing:-.01em;
+}
+.brand-sub{
+  font-size:.88rem; color:#9FB8C8; font-style:italic; margin-top:4px;
+  font-family:var(--font-serif);
+}
+.brand-rule{
+  height:1px; background:linear-gradient(90deg,var(--brass-bright),transparent);
+  margin:20px 0 14px;
+}
+
+.nav-group{margin-bottom:8px}
+.nav-head{
+  width:100%; text-align:left; cursor:pointer;
+  background:none; border:0; color:#E3EDF4; font-family:var(--font-serif);
+  font-size:.78rem; letter-spacing:.2em; text-transform:uppercase; font-weight:700;
+  padding:12px 4px 10px; display:flex; align-items:center; justify-content:space-between;
+}
+.nav-head .chev{transition:transform .25s ease; color:var(--brass-bright); font-size:.9rem}
+.nav-group.collapsed .chev{transform:rotate(-90deg)}
+.nav-list{list-style:none; margin:0 0 8px; padding:0; overflow:hidden}
+.nav-group.collapsed .nav-list{display:none}
+.nav-list a{
+  display:flex; gap:10px; align-items:baseline;
+  text-decoration:none; color:#BFD0DC;
+  padding:7px 10px; border-radius:var(--radius-sm); border-left:2px solid transparent;
+  font-size:1rem; line-height:1.35; font-family:var(--font-serif);
+  transition:all .2s ease;
+}
+.nav-list a .wk{
+  color:var(--brass-bright); font-weight:700;
+  font-variant-numeric:tabular-nums; min-width:1.6em;
+  font-family:var(--font-mono);
+}
+.nav-list a:hover{background:rgba(255,255,255,.06); color:#fff}
+.nav-list a.active{
+  background:rgba(58,147,188,.18); color:#fff; border-left-color:var(--brass-bright);
+}
+
+/* ============================================================
+   MAIN
+   ============================================================ */
+.main{flex:1 1 auto; min-width:0}
+
+/* Hero */
+.hero{
+  position:relative; overflow:hidden;
+  padding:clamp(52px,9vw,120px) 24px clamp(44px,6vw,80px);
+  text-align:center;
+  border-bottom:1px solid var(--engrave);
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(15,58,92,.08), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 20%, rgba(31,110,145,.04), transparent),
+    var(--paper);
+}
+.hero-orn{
+  margin:0 auto 28px; width:min(200px,42vw); aspect-ratio:1/1;
+  display:block;
+}
+.hero-orn svg{width:100%; height:100%; display:block; overflow:visible}
+.schematic .curve{fill:none; stroke:var(--treasury); stroke-width:2.4; opacity:.9; stroke-linecap:round; stroke-linejoin:round}
+.schematic .axis{stroke:var(--ink-soft); stroke-width:1; opacity:.55}
+.schematic .stem{stroke:var(--brass); stroke-width:1; stroke-dasharray:2 3; opacity:.75}
+.schematic .node{fill:var(--brass-bright); stroke:var(--paper-card); stroke-width:1.5}
+.schematic .area{fill:var(--brass); opacity:.08}
+.schematic .tick{stroke:var(--ink-soft); stroke-width:1; opacity:.45}
+
+.hero-eyebrow{
+  font-size:.82rem; letter-spacing:.34em; text-transform:uppercase;
+  color:var(--brass); font-weight:700; display:inline-block;
+  background:var(--paper-sink); padding:8px 20px; border-radius:var(--radius-full);
+  border:1px solid var(--engrave-soft); margin-bottom:20px;
+}
+.hero-title{
+  font-size:clamp(2.6rem,6.5vw,4.8rem); font-weight:800; color:var(--treasury-deep);
+  line-height:1.02; margin:.18em 0 .1em; letter-spacing:-.02em;
+  font-family:var(--font-serif);
+}
+.hero-sub{
+  font-size:clamp(1.1rem,2.3vw,1.35rem); color:var(--ink-soft); font-style:italic;
+  max-width:34ch; margin:0 auto; font-family:var(--font-serif);
+}
+.flow{
+  display:flex; flex-wrap:wrap; gap:12px 16px; justify-content:center; align-items:center;
+  margin:36px auto 0; font-size:clamp(.92rem,2vw,1.08rem); color:var(--treasury);
+}
+.flow .node{
+  border:1px solid var(--engrave); background:var(--paper-card);
+  padding:9px 20px; border-radius:var(--radius-full); box-shadow:var(--shadow-sm);
+  font-weight:600; transition:all .25s var(--ease-out-back);
+  font-family:var(--font-serif);
+}
+.flow .node:hover{transform:translateY(-2px); box-shadow:var(--shadow-md); border-color:var(--brass-bright); color:var(--brass)}
+.flow .node.center{
+  background:var(--treasury); color:var(--paper); border-color:var(--treasury);
+  font-weight:700; box-shadow:var(--shadow-md), 0 0 20px rgba(15,58,92,.2);
+}
+.flow .arrow{color:var(--seal); font-weight:800; font-size:1.3rem}
+.hero-meta{
+  margin-top:28px; font-size:.84rem; letter-spacing:.16em; text-transform:uppercase;
+  color:var(--ink-soft); font-weight:600;
+}
+.hero-meta span{color:var(--brass); font-weight:700}
+
+/* Intro / Legend */
+.intro{max-width:var(--maxw); margin:0 auto; padding:52px 24px 12px}
+.intro p{color:var(--ink-soft); font-size:1.05rem}
+.intro .lead{font-size:1.12rem; color:var(--ink)}
+
+.legend{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:28px 0 10px;
+}
+.legend-item{
+  display:flex; gap:12px; align-items:flex-start;
+  padding:16px 18px; border:1px solid var(--engrave-soft);
+  border-radius:var(--radius-md); background:var(--paper-card);
+  box-shadow:var(--shadow-xs); transition:all .25s var(--ease-out-back);
+  position:relative; overflow:hidden;
+}
+.legend-item::before{
+  content:''; position:absolute; left:0; top:0; bottom:0; width:3px;
+  border-radius:var(--radius-md) 0 0 var(--radius-md); opacity:0; transition:opacity .2s ease;
+}
+.legend-item:nth-child(1)::before{background:var(--seal)}
+.legend-item:nth-child(2)::before{background:var(--brass-bright)}
+.legend-item:nth-child(3)::before{background:var(--brass)}
+.legend-item:nth-child(4)::before{background:var(--treasury)}
+.legend-item:hover{transform:translateY(-3px); box-shadow:var(--shadow-md); border-color:var(--engrave)}
+.legend-item:hover::before{opacity:1}
+.legend-item .ic{font-size:1.3rem; line-height:1.4; filter:drop-shadow(0 1px 2px rgba(0,0,0,.08))}
+.legend-item b{display:block; font-size:1rem; color:var(--treasury); font-weight:700; margin-bottom:2px}
+.legend-item small{color:var(--ink-soft); font-size:.88rem; line-height:1.4}
+
+/* Part divider */
+.sem-divider{
+  max-width:var(--maxw); margin:72px auto 12px; padding:0 24px; text-align:center;
+}
+.sem-divider .sem-k{
+  font-size:.82rem; letter-spacing:.34em; text-transform:uppercase;
+  color:var(--brass); font-weight:700; display:inline-block;
+  background:var(--paper-sink); padding:6px 16px; border-radius:var(--radius-full);
+  border:1px solid var(--engrave-soft); margin-bottom:14px;
+}
+.sem-divider .sem-t{
+  font-size:clamp(1.7rem,4.2vw,2.6rem); color:var(--treasury-deep);
+  font-weight:800; margin:.1em 0 0; font-family:var(--font-serif);
+}
+.sem-divider .sem-d{color:var(--ink-soft); font-style:italic; margin:.4em 0 0; font-size:1.1rem}
+.sem-line{
+  height:2px; max-width:120px; margin:20px auto 0;
+  background:linear-gradient(90deg,transparent,var(--brass),transparent);
+  border-radius:var(--radius-full);
+}
+
+/* ============================================================
+   LECTURE SECTIONS
+   ============================================================ */
+.week{
+  position:relative; max-width:var(--maxw); margin:0 auto;
+  padding:56px 28px; border-bottom:1px solid var(--engrave-soft);
+  scroll-margin-top:18px;
+}
+.week-head{position:relative; margin-bottom:22px}
+.week-num{
+  position:absolute; right:-6px; top:-32px; width:120px; height:120px;
+  opacity:.45; pointer-events:none; z-index:0;
+}
+.week-num svg{width:100%;height:100%; overflow:visible}
+.week-num .lbl{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:2.2rem; font-weight:800; color:var(--engrave); font-variant-numeric:tabular-nums;
+  font-family:var(--font-serif);
+}
+.eyebrow{
+  font-size:.78rem; letter-spacing:.22em; text-transform:uppercase;
+  color:var(--brass); font-weight:700; position:relative; z-index:1;
+  display:inline-block; background:var(--paper-sink); padding:6px 14px;
+  border-radius:var(--radius-full); border:1px solid var(--engrave-soft); margin-bottom:10px;
+}
+.week-title{
+  font-size:clamp(1.8rem,3.8vw,2.6rem); color:var(--treasury); font-weight:800;
+  line-height:1.08; margin:.14em 0 0; position:relative; z-index:1;
+  font-family:var(--font-serif); letter-spacing:-.01em;
+}
+
+.big-idea{
+  position:relative; margin:24px 0 10px; padding:18px 22px 18px 24px;
+  border-left:4px solid var(--seal); border-radius:0 var(--radius-md) var(--radius-md) 0;
+  background:var(--paper-card); font-size:1.15rem; font-style:italic;
+  color:var(--treasury-deep); box-shadow:var(--shadow-xs);
+  transition:all .25s var(--ease-out-back);
+}
+.big-idea:hover{transform:translateX(4px); box-shadow:var(--shadow-sm)}
+.big-idea b{display:block; font-style:normal; font-size:.72rem; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--seal); font-weight:700; margin-bottom:4px;
+  font-family:var(--font-serif);
+}
+
+.week h3{
+  font-size:1.35rem; color:var(--treasury); font-weight:700; margin:38px 0 8px;
+  padding-bottom:8px; border-bottom:1px solid var(--engrave);
+  position:relative; font-family:var(--font-serif);
+}
+.week h3::after{
+  content:''; position:absolute; left:0; bottom:-1px; width:50px; height:2px;
+  background:var(--brass); border-radius:var(--radius-full);
+}
+.week h4{font-size:1.1rem; color:var(--treasury-deep); font-weight:700; margin:22px 0 4px; font-family:var(--font-serif)}
+.week p{margin:.55em 0; color:var(--ink-soft)}
+.week ul,.week ol{margin:.55em 0; padding-left:1.4em}
+.week li{margin:.3em 0; color:var(--ink-soft)}
+.week li::marker{color:var(--brass); font-weight:700}
+
+.term{
+  color:var(--treasury-deep); font-weight:700;
+  background:rgba(31,110,145,.08); padding:1px 6px; border-radius:3px;
+  font-size:.95em; cursor:default; transition:all .2s ease;
+  border-bottom:1px solid rgba(31,110,145,.15);
+}
+.term:hover{background:var(--brass); color:var(--paper); box-shadow:0 2px 8px rgba(31,110,145,.25)}
+
+.lead{font-size:1.1rem; color:var(--ink)}
+
+.xref{
+  color:var(--treasury); text-decoration:none;
+  border-bottom:1px solid var(--brass); font-style:italic; white-space:nowrap;
+  font-weight:600; transition:all .2s ease; padding:0 2px; border-radius:2px;
+}
+.xref:hover{background:rgba(31,110,145,.1)}
+.xref::after{content:" 97"; color:var(--brass); font-style:normal; font-weight:700}
+
+/* Formula block */
+.formula{
+  margin:22px 0; padding:22px 24px; text-align:center;
+  background:var(--paper-card); border-top:2px solid var(--brass); border-bottom:2px solid var(--brass);
+  border-radius:var(--radius-md); box-shadow:var(--shadow-xs);
+  position:relative; overflow:hidden; transition:all .3s var(--ease-out-back);
+}
+.formula:hover{transform:translateY(-2px); box-shadow:var(--shadow-sm)}
+.formula .eq{font-size:1.25rem; color:var(--treasury-deep); font-family:var(--font-mono); font-weight:500}
+.formula .eq i{color:var(--seal); font-style:italic; font-weight:700}
+.formula small{display:block; margin-top:10px; color:var(--ink-soft); font-size:.88rem; font-style:italic}
+
+/* Ledger */
+.ledger{
+  margin:24px 0; border:1px solid var(--engrave-soft); border-radius:var(--radius-md); overflow:hidden;
+  background:var(--paper-card); box-shadow:var(--shadow-sm); transition:all .3s var(--ease-out-back);
+}
+.ledger:hover{box-shadow:var(--shadow-md); transform:translateY(-2px)}
+.ledger-cap{
+  padding:10px 16px; background:var(--treasury); color:var(--paper);
+  font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; text-align:center; font-weight:700;
+}
+.ledger-grid{display:grid; grid-template-columns:1fr 1fr}
+.ledger-col{padding:14px 18px}
+.ledger-col:first-child{border-right:1px solid var(--engrave-soft)}
+.ledger-col h5{margin:0 0 10px; font-size:.76rem; letter-spacing:.18em; text-transform:uppercase; color:var(--brass); font-weight:700; display:flex; align-items:center; gap:8px}
+.ledger-col h5::before{content:''; width:7px; height:7px; border-radius:50%; background:var(--brass)}
+.ledger-col .row{display:flex; justify-content:space-between; gap:12px; padding:4px 0; font-size:1rem; border-bottom:1px dotted var(--engrave-soft); transition:background .15s ease}
+.ledger-col .row:hover{background:rgba(31,110,145,.02); margin:0 -6px; padding:4px 6px; border-radius:4px}
+.ledger-col .row span:last-child{font-variant-numeric:tabular-nums; color:var(--treasury-deep); font-weight:600}
+.ledger-col .row.tot{border-bottom:0; border-top:2px solid var(--brass); font-weight:700; margin-top:6px; padding-top:8px; color:var(--treasury-deep)}
+
+/* Notes */
+.note{
+  margin:22px 0; padding:18px 20px 18px 24px; border-radius:var(--radius-md);
+  border:1px solid var(--engrave-soft); border-left-width:4px;
+  background:var(--paper-card); position:relative; transition:all .25s var(--ease-out-back);
+  box-shadow:var(--shadow-xs);
+}
+.note:hover{transform:translateY(-2px); box-shadow:var(--shadow-sm)}
+.note .note-k{display:flex; align-items:center; gap:8px; font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; font-weight:700; margin-bottom:6px}
+.note p{margin:.4em 0; color:var(--ink-soft); font-size:1rem}
+.note p:first-of-type{margin-top:0}
+.note--story{border-left-color:var(--seal)}
+.note--story .note-k{color:var(--seal)}
+.note--fact{border-left-color:var(--brass)}
+.note--fact .note-k{color:var(--brass)}
+.note--life{border-left-color:var(--treasury)}
+.note--life .note-k{color:var(--treasury)}
+.note--key{border-left-color:var(--ink); background:var(--paper-sink)}
+.note--key .note-k{color:var(--ink)}
+.note--key .mnem{font-weight:700; color:var(--treasury-deep); font-style:italic; background:rgba(31,110,145,.06); padding:2px 8px; border-radius:3px; font-size:1.02em}
+
+/* Reckoner */
+.lab{
+  margin:28px 0; border:1.5px solid var(--brass); border-radius:var(--radius-md);
+  background:linear-gradient(180deg,var(--paper-card),var(--paper-sink));
+  box-shadow:var(--shadow-sm); overflow:hidden; transition:all .3s var(--ease-out-expo);
+  position:relative;
+}
+.lab::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:3px;
+  background:linear-gradient(90deg,var(--brass),var(--brass-bright)); opacity:.7;
+}
+.lab:hover{box-shadow:var(--shadow-md), 0 0 30px rgba(31,110,145,.08); transform:translateY(-3px)}
+.lab-k{
+  display:flex; align-items:center; gap:8px; padding:11px 18px;
+  background:var(--treasury); color:var(--paper);
+  font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; font-weight:700;
+}
+.lab-k .lab-mark{color:var(--brass-bright); font-size:1.1rem; letter-spacing:0; font-weight:800}
+.lab-body{padding:20px 22px}
+.lab-controls{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px 26px}
+.lab-ctl{display:flex; flex-direction:column}
+.lab-lbl{display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:.95rem; color:var(--treasury-deep); font-weight:600}
+.lab-lbl output{font-weight:700; font-variant-numeric:tabular-nums; color:var(--seal); font-family:var(--font-mono); font-size:1.05rem; background:var(--seal-soft); padding:2px 10px; border-radius:var(--radius-sm); min-width:3.5em; text-align:center}
+.lab-toggle{display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 4px}
+.lab-btn{
+  font-family:var(--font-serif); font-size:.86rem; cursor:pointer;
+  padding:5px 14px; border-radius:var(--radius-full); border:1px solid var(--engrave);
+  background:var(--paper); color:var(--treasury); font-weight:600; transition:all .2s var(--ease-out-back);
+}
+.lab-btn:hover{border-color:var(--brass); color:var(--brass); transform:translateY(-1px)}
+.lab-btn.on{background:var(--treasury); color:var(--paper); border-color:var(--treasury); font-weight:700}
+.lab-out{
+  margin-top:18px; padding-top:16px; border-top:2px solid var(--engrave-soft);
+  font-size:1.05rem; line-height:1.6; color:var(--ink-soft);
+}
+.lab-out .big{font-size:1.25rem; font-weight:700; font-variant-numeric:tabular-nums; font-family:var(--font-mono)}
+.lab-out .pos{color:var(--brass)}
+.lab-out .neg{color:var(--seal)}
+.lab-out .muted{color:var(--ink-soft); font-size:.95rem}
+
+.lab-bars{margin:8px 0 12px}
+.lab-bar-k{font-size:.74rem; color:var(--ink-soft); letter-spacing:.1em; text-transform:uppercase; margin-top:8px; font-weight:700}
+.lab-bar{display:flex; height:28px; border-radius:var(--radius-sm); overflow:hidden; border:1px solid var(--engrave-soft); margin:5px 0; background:var(--paper-sink); box-shadow:var(--shadow-inner)}
+.lab-bar i{display:flex; align-items:center; justify-content:center; color:#fff; font-style:normal; font-variant-numeric:tabular-nums; min-width:0; white-space:nowrap; overflow:hidden; transition:width .3s ease; font-size:.82rem; font-weight:700; text-shadow:0 1px 2px rgba(0,0,0,.2); letter-spacing:.02em}
+.lab-bar .seg-a{background:var(--treasury)}
+.lab-bar .seg-b{background:var(--brass)}
+.lab-bar .seg-c{background:var(--brass-bright)}
+
+.lab input[type=range]{
+  -webkit-appearance:none; appearance:none; width:100%; height:5px; margin:10px 0 2px;
+  border-radius:var(--radius-full); background:var(--engrave-soft); outline:none; cursor:pointer;
+}
+.lab input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:20px; height:20px; border-radius:50%;
+  background:var(--brass); border:3px solid var(--paper); cursor:pointer;
+  box-shadow:0 2px 6px rgba(15,58,92,.3); transition:transform .2s var(--ease-out-back);
+}
+.lab input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.lab input[type=range]::-moz-range-thumb{
+  width:20px; height:20px; border-radius:50%; background:var(--brass);
+  border:3px solid var(--paper); cursor:pointer; box-shadow:0 2px 6px rgba(15,58,92,.3);
+}
+.lab input[type=range]:focus-visible{outline:2px solid var(--brass); outline-offset:4px}
+
+/* Footer */
+.foot{max-width:var(--maxw); margin:0 auto; padding:56px 24px 90px; color:var(--ink-soft); font-size:.92rem; text-align:center; position:relative}
+.foot::before{content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:60px; height:2px; background:linear-gradient(90deg,transparent,var(--brass),transparent); border-radius:var(--radius-full)}
+.foot-orn{width:60px; height:60px; margin:0 auto 16px; opacity:.5}
+.foot-orn svg{width:100%;height:100%;overflow:visible}
+.to-top{
+  display:inline-flex; align-items:center; gap:8px; margin-top:14px; color:var(--treasury); text-decoration:none;
+  font-weight:700; font-size:.9rem; padding:10px 20px; border-radius:var(--radius-full);
+  border:1.5px solid var(--engrave); background:var(--paper-card); transition:all .25s var(--ease-out-back);
+}
+.to-top:hover{background:var(--treasury); color:var(--paper); border-color:var(--treasury); transform:translateY(-3px); box-shadow:var(--shadow-md)}
+
+/* Mobile chrome */
+.hamburger{
+  position:fixed; top:14px; left:14px; z-index:70;
+  display:none; width:46px; height:46px; border-radius:var(--radius-sm);
+  background:var(--treasury); color:var(--paper); border:1px solid rgba(0,0,0,.25);
+  cursor:pointer; font-size:1.3rem; line-height:1; align-items:center; justify-content:center;
+  box-shadow:var(--shadow-md); font-family:var(--font-serif);
+}
+.backdrop{
+  position:fixed; inset:0; background:rgba(10,41,66,.45); z-index:45;
+  opacity:0; visibility:hidden; transition:opacity .25s; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px);
+}
+.backdrop.show{opacity:1; visibility:visible}
+
+/* Reveal on scroll */
+html.js .reveal{opacity:0; transform:translateY(20px); transition:opacity .7s ease, transform .7s var(--ease-out-expo)}
+html.js .reveal.in{opacity:1; transform:none}
+
+html.js .reveal-stagger > *{opacity:0; transform:translateY(16px); transition:opacity .5s ease, transform .5s var(--ease-out-expo)}
+html.js .reveal-stagger.in > *:nth-child(1){transition-delay:.05s}
+html.js .reveal-stagger.in > *:nth-child(2){transition-delay:.1s}
+html.js .reveal-stagger.in > *:nth-child(3){transition-delay:.15s}
+html.js .reveal-stagger.in > *:nth-child(4){transition-delay:.2s}
+html.js .reveal-stagger.in > *{opacity:1; transform:none}
+
+@media (prefers-reduced-motion: reduce){
+  html.js .reveal{opacity:1; transform:none; transition:none}
+  html.js .reveal-stagger > *{opacity:1; transform:none; transition:none}
+}
+
+/* Focus */
+a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--brass); outline-offset:3px; border-radius:2px}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:960px){
+  body{font-size:17px}
+  .hamburger{display:flex}
+  .sidebar{
+    position:fixed; left:0; top:0; height:100dvh; transform:translateX(-100%);
+    transition:transform .35s var(--ease-out-expo); box-shadow:0 0 60px rgba(0,0,0,.35);
+  }
+  .sidebar.open{transform:none}
+  .main{width:100%}
+  .hero{padding-top:85px}
+  .legend{grid-template-columns:1fr}
+  .ledger-grid{grid-template-columns:1fr}
+  .ledger-col:first-child{border-right:0; border-bottom:1px solid var(--engrave-soft)}
+  .week-num{width:90px;height:90px;top:-20px}
+  .week-num .lbl{font-size:1.6rem}
+  .hero-meta{font-size:.74rem; letter-spacing:.08em}
+  .flow{gap:10px 12px; font-size:.9rem}
+  .lab-controls{grid-template-columns:1fr}
+}
+
+@media (max-width:520px){
+  .hero-meta{letter-spacing:.04em}
+  .flow .arrow{display:none}
+  .flow .node{flex:0 0 auto; font-size:.85rem; padding:8px 16px}
+  .week{padding:44px 22px}
+  .big-idea{padding:16px 18px; font-size:1.05rem}
+  .formula{padding:18px 16px}
+  .formula .eq{font-size:1.1rem}
+  .note{padding:16px 16px 16px 20px}
+}
+
+/* ============================================================
+   PRINT
+   ============================================================ */
+@media print{
+  :root{--paper:#fff}
+  body{background:#fff !important; color:#000 !important; font-size:11.5pt}
+  .sidebar,.progress,.hamburger,.backdrop,.hero-orn,.flow,.to-top,.lab{display:none !important}
+  .shell{display:block}
+  .hero{padding:0 0 12pt; border-bottom:1px solid #999; text-align:left; background:none !important}
+  .hero-title{color:#000 !important; font-size:24pt}
+  .week{max-width:none; padding:14pt 0; page-break-inside:avoid; border-bottom:1px solid #ccc}
+  .week-title,.week h3,.big-idea,.eyebrow,.hero-eyebrow{color:#000 !important}
+  .note,.ledger,.formula{border:1px solid #999 !important; background:#fff !important; box-shadow:none !important}
+  .week-num{display:none}
+  a{color:#000 !important; text-decoration:none !important}
+  .term{background:none !important; color:#000 !important; font-weight:700; border:0 !important}
+}
+
+/* ============================================================
+   EXTRA COMPONENTS (Timeline, Stat Grid, Table, Blockquote)
+   ============================================================ */
+
+/* Stat grid */
+.stat-grid{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:14px; margin:22px 0;
+}
+.stat-card{
+  background:var(--paper-card); border-radius:var(--radius-md);
+  padding:18px; text-align:center; box-shadow:var(--shadow-xs);
+  border:1px solid var(--engrave-soft); transition:all .25s var(--ease-out-back);
+}
+.stat-card:hover{transform:translateY(-3px); box-shadow:var(--shadow-sm); border-color:var(--engrave)}
+.stat-card .num{
+  font-family:var(--font-mono); font-size:1.5rem; font-weight:700;
+  color:var(--treasury); line-height:1.2; margin-bottom:4px;
+}
+.stat-card .label{font-size:.76rem; color:var(--ink-soft); font-weight:700; text-transform:uppercase; letter-spacing:.06em}
+
+/* Timeline */
+.timeline{
+  position:relative; margin:22px 0; padding-left:28px;
+}
+.timeline::before{
+  content:''; position:absolute; left:8px; top:0; bottom:0; width:2px;
+  background:linear-gradient(180deg,var(--brass),var(--brass-bright)); border-radius:var(--radius-full);
+}
+.timeline-item{
+  position:relative; margin-bottom:18px; padding:14px 18px;
+  background:var(--paper-card); border-radius:var(--radius-md);
+  box-shadow:var(--shadow-xs); border:1px solid var(--engrave-soft); transition:all .2s ease;
+}
+.timeline-item:hover{transform:translateX(4px); box-shadow:var(--shadow-sm)}
+.timeline-item::before{
+  content:''; position:absolute; left:-24px; top:20px; width:11px; height:11px;
+  background:var(--brass); border-radius:50%; border:3px solid var(--paper);
+  box-shadow:0 0 0 2px var(--engrave-soft);
+}
+.timeline-item .year{
+  font-family:var(--font-mono); font-size:.78rem; color:var(--brass);
+  font-weight:700; margin-bottom:4px; letter-spacing:.02em;
+}
+.timeline-item .event{font-weight:700; color:var(--treasury-deep); margin-bottom:4px; font-size:1.05rem}
+.timeline-item .detail{font-size:.95rem; color:var(--ink-soft)}
+
+/* Comparison table */
+.compare-table{
+  width:100%; border-collapse:separate; border-spacing:0;
+  margin:20px 0; border-radius:var(--radius-md); overflow:hidden;
+  box-shadow:var(--shadow-xs); background:var(--paper-card);
+  border:1px solid var(--engrave-soft); font-size:.98rem;
+}
+.compare-table th,.compare-table td{padding:12px 16px; text-align:left}
+.compare-table th{
+  background:var(--treasury); color:var(--paper); font-weight:700;
+  font-size:.78rem; letter-spacing:.06em; text-transform:uppercase;
+  font-family:var(--font-serif);
+}
+.compare-table td{border-bottom:1px solid var(--engrave-soft); color:var(--ink-soft)}
+.compare-table tr:last-child td{border-bottom:0}
+.compare-table tr:hover td{background:rgba(31,110,145,.02)}
+.compare-table td:first-child{font-weight:700; color:var(--treasury-deep)}
+
+/* Blockquote */
+.blockquote{
+  margin:22px 0; padding:22px 28px;
+  border-left:4px solid var(--brass); border-radius:0 var(--radius-md) var(--radius-md) 0;
+  background:var(--paper-sink); font-style:italic; color:var(--ink-soft);
+  font-size:1.08rem; position:relative; box-shadow:var(--shadow-xs);
+}
+.blockquote::before{
+  content:'"'; position:absolute; top:6px; left:16px;
+  font-size:3rem; color:var(--brass); opacity:.15; font-family:var(--font-serif); line-height:1;
+}
+
+/* Icon lists */
+.icon-list li{position:relative; padding-left:1.6em}
+.icon-list li::before{content:'▸'; position:absolute; left:0; color:var(--brass); font-weight:800; font-size:1.15em}
+
+/* Section decoration */
+.section-deco{text-align:center; margin:50px 0; opacity:.25}
+.section-deco svg{width:36px; height:36px}
+
+/* Glossary hover */
+.glossary-term{
+  border-bottom:2px dotted var(--brass); cursor:help; transition:all .2s ease;
+}
+.glossary-term:hover{background:rgba(31,110,145,.06); border-bottom-style:solid; padding:0 3px; border-radius:2px}
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<button class="hamburger" id="hamburger" aria-label="Open lecture menu" aria-controls="sidebar" aria-expanded="false">☰</button>
+<div class="backdrop" id="backdrop"></div>
+
+<div class="shell">
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar" aria-label="Lecture navigation">
+    <div class="brand">
+      <span class="brand-mark">Revision Companion</span>
+      <span class="brand-name">The Blueprint</span>
+      <span class="brand-sub">Accounting and Finance for Decision Making</span>
+    </div>
+    <div class="brand-rule"></div>
+
+    <nav class="nav-group" id="grp-found" aria-label="Foundations">
+      <button class="nav-head" data-toggle="grp-found" aria-expanded="true">I · Foundations <span class="chev">▾</span></button>
+      <ul class="nav-list">
+        <li><a href="#L2"><span class="wk">02</span> Time Value of Money I</a></li>
+        <li><a href="#L3"><span class="wk">03</span> Time Value of Money II</a></li>
+        <li><a href="#L4"><span class="wk">04</span> Financial Analysis</a></li>
+      </ul>
+    </nav>
+
+    <nav class="nav-group" id="grp-invest" aria-label="Investment and Risk">
+      <button class="nav-head" data-toggle="grp-invest" aria-expanded="true">II · Investment &amp; Risk <span class="chev">▾</span></button>
+      <ul class="nav-list">
+        <li><a href="#L5"><span class="wk">05</span> Investment Decision Criteria</a></li>
+        <li><a href="#L6"><span class="wk">06</span> Risk &amp; Return</a></li>
+      </ul>
+    </nav>
+
+    <nav class="nav-group" id="grp-fin" aria-label="Financing the firm">
+      <button class="nav-head" data-toggle="grp-fin" aria-expanded="true">III · Financing the Firm <span class="chev">▾</span></button>
+      <ul class="nav-list">
+        <li><a href="#L7"><span class="wk">07</span> Sources of Finance</a></li>
+        <li><a href="#L8"><span class="wk">08</span> Capital Structure: Debt</a></li>
+        <li><a href="#L9"><span class="wk">09</span> Capital Structure: Equity</a></li>
+        <li><a href="#L10"><span class="wk">10</span> Cost of Capital &amp; WACC</a></li>
+      </ul>
+    </nav>
+
+    <nav class="nav-group" id="grp-payout" aria-label="Payout, hedging and deals">
+      <button class="nav-head" data-toggle="grp-payout" aria-expanded="true">IV · Payout, Hedging &amp; Deals <span class="chev">▾</span></button>
+      <ul class="nav-list">
+        <li><a href="#L11"><span class="wk">11</span> Dividend Policy</a></li>
+        <li><a href="#L12"><span class="wk">12</span> Financial Risk Management</a></li>
+        <li><a href="#L13"><span class="wk">13</span> Mergers &amp; Acquisitions</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="main" id="main">
+    <header class="hero">
+      <div class="hero-orn" id="heroOrn" aria-hidden="true"></div>
+      <div class="hero-eyebrow">A Revision Companion</div>
+      <h1 class="hero-title">The Blueprint</h1>
+      <p class="hero-sub">Accounting and Finance for Decision Making — every lecture, engineered to actually stick.</p>
+      <div class="flow" aria-label="The spine of the module: raise capital, invest it wisely, and create value">
+        <span class="node">Raise capital</span>
+        <span class="arrow">→</span>
+        <span class="node center">Invest wisely</span>
+        <span class="arrow">→</span>
+        <span class="node">Create value</span>
+      </div>
+      <div class="hero-meta"><span>12</span> lectures &nbsp;·&nbsp; one question: <span>does it create value?</span></div>
+    </header>
+
+    <section class="intro reveal" aria-label="How to use this guide">
+      <p class="lead">This guide walks every lecture in order. Each one opens with the single idea that holds it together, then explains the moving parts in plain English with worked examples and live calculators you can drag. Watch for four kinds of margin notes:</p>
+      <div class="legend reveal-stagger">
+        <div class="legend-item"><span class="ic">🏛</span><span><b>Real Story</b><small>A case from the real world of finance.</small></span></div>
+        <div class="legend-item"><span class="ic">💡</span><span><b>Did You Know?</b><small>A number or fact that sticks.</small></span></div>
+        <div class="legend-item"><span class="ic">🌍</span><span><b>In Plain Life</b><small>The idea, in everyday terms.</small></span></div>
+        <div class="legend-item"><span class="ic">🔑</span><span><b>Lock It In</b><small>A trick to remember it in the exam.</small></span></div>
+      </div>
+      <p>Look for the <span class="term">⊞ Reckoner</span> panels — drag the sliders and watch the answer move. Every calculator runs on the real formula from the lecture.</p>
+    </section>
+
+    <!-- ===================== PART I ===================== -->
+    <div class="sem-divider reveal">
+      <div class="sem-k">Part One</div>
+      <h2 class="sem-t">Foundations</h2>
+      <p class="sem-d">Money has a price, and so does time. Learn to move cash across dates and read a set of accounts.</p>
+      <div class="sem-line"></div>
+    </div>
+
+    <!-- ===== L2 — TVM I ===== -->
+    <section class="week reveal" id="L2">
+      <div class="week-head">
+        <div class="week-num" data-n="2"><span class="lbl">02</span></div>
+        <div class="eyebrow">Lecture 02 · Foundations</div>
+        <h2 class="week-title">Time Value of Money I</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A pound today is worth more than a pound tomorrow — so before you can compare cash from different dates, you must move it all to a common point in time.</div>
+
+      <p class="lead">Your bank offers you £100 cashback: take it today, or in a year. Almost everyone takes it today. Why? Three reasons: you'd rather consume now, inflation erodes future pounds, and the future is uncertain. To tempt you to wait, the bank must offer <em>more</em> — say £115. That extra £15 is the <span class="term">return</span> that makes you indifferent between now and later.</p>
+      <p>Cash flows at different dates are like cash flows in different currencies: you can't add them until you convert to a common unit. The "exchange rate" between time periods is the <span class="term">interest rate</span>.</p>
+
+      <h3>Simple vs compound interest</h3>
+      <p><span class="term">Simple interest</span> pays only on the original principal. <span class="term">Compound interest</span> pays interest on previous interest too — so it snowballs. Over 5 years at 5%, £1,000 grows to £1,250 simply, but £1,276 with compounding. The longer the horizon, the wider that gap yawns.</p>
+      <div class="formula">
+        <div class="eq">FV = PV &times; (1 + <i>r</i>)<sup>n</sup></div>
+        <small>FV future value · PV present value (principal) · <i>r</i> interest rate per period · n number of periods.</small>
+      </div>
+
+      <h3>Compounding vs discounting</h3>
+      <p>Pushing a present value <em>forward</em> in time is <span class="term">compounding</span> (multiply by (1+r)<sup>n</sup>). Pulling a future value <em>back</em> to today is <span class="term">discounting</span> (divide by it). Discounting is the engine of almost everything that follows — <a class="xref" href="#L5">investment appraisal</a>, <a class="xref" href="#L8">bond pricing</a> and <a class="xref" href="#L9">share valuation</a> are all just present values.</p>
+      <div class="formula">
+        <div class="eq">PV = FV &divide; (1 + <i>r</i>)<sup>n</sup></div>
+        <small>The discount rate <i>r</i> shrinks distant cash; the further away, the smaller it becomes today.</small>
+      </div>
+
+      <h3>Continuous compounding</h3>
+      <p>If interest is added not yearly or quarterly but <em>infinitely often</em>, the formula limits to <span class="term">FV = PV &times; e<sup>rn</sup></span>, where e ≈ 2.718. It's the theoretical ceiling of compounding frequency.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card"><div class="num">£1,276</div><div class="label">Compounded</div></div>
+        <div class="stat-card"><div class="num">£1,250</div><div class="label">Simple</div></div>
+        <div class="stat-card"><div class="num">£26</div><div class="label">Extra gain</div></div>
+        <div class="stat-card"><div class="num">5 yrs</div><div class="label">At 5%</div></div>
+      </div>
+
+      <div class="lab" data-lab="fvc">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Compounding a Single Sum</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Principal today <output data-for="pv">£1,000</output></span>
+              <input type="range" data-f="pv" data-pre="£" min="100" max="50000" step="100" value="1000" aria-label="Principal today"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Interest rate <output data-for="rate">5%</output></span>
+              <input type="range" data-f="rate" data-suf="%" data-dec="1" min="0" max="20" step="0.5" value="5" aria-label="Interest rate"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Years <output data-for="yrs">5</output></span>
+              <input type="range" data-f="yrs" min="1" max="40" step="1" value="5" aria-label="Number of years"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>Every savings account, mortgage and student loan is this one idea running in the background. When a lender quotes you a rate, they're telling you their personal "exchange rate" between your money today and your money later.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The <strong>Rule of 72</strong>: divide 72 by the interest rate to get the years it takes money to double. At 6% that's 12 years; at 9%, just 8. A back-of-the-napkin shortcut for compound growth that's accurate to within a fraction of a year.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Albert Einstein allegedly called compound interest the "eighth wonder of the world." Whether he said it or not, the math is undeniable: £1,000 at 7% doubles every 10.3 years. Over a 40-year career, that's <strong>4 doublings</strong> — turning £1,000 into £16,000.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Compound = push forward (×). Discount = pull back (÷).</span> Future value multiplies by (1+r)<sup>n</sup>; present value divides by it. Same lever, opposite directions.</p>
+      </div>
+    </section>
+
+    <!-- ===== L3 — TVM II ===== -->
+    <section class="week reveal" id="L3">
+      <div class="week-head">
+        <div class="week-num" data-n="3"><span class="lbl">03</span></div>
+        <div class="eyebrow">Lecture 03 · Foundations</div>
+        <h2 class="week-title">Time Value of Money II</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Real decisions involve <em>streams</em> of cash, not single sums — and annuity and perpetuity formulas let you value an entire stream in one line instead of discounting every year by hand.</div>
+
+      <p class="lead">Discounting one cash flow is easy. But a course costs £1,000 next year, £1,500 the year after and £2,000 the year after that — and a pension pays out for decades. You <em>could</em> discount each payment separately and add them up. For long streams that's painful, so we use shortcuts.</p>
+
+      <h3>Annuities — a constant stream</h3>
+      <p>An <span class="term">annuity</span> is the same cash flow each year for a fixed number of years (a loan repayment, a fixed pension). Its present value collapses to a tidy formula:</p>
+      <div class="formula">
+        <div class="eq">PV = C &times; [ 1 &minus; (1 + <i>r</i>)<sup>&minus;n</sup> ] &divide; <i>r</i></div>
+        <small>C the constant annual cash flow · <i>r</i> the discount rate · n the number of payments.</small>
+      </div>
+
+      <h3>Growing annuities &amp; perpetuities</h3>
+      <p>If the cash flow <em>grows</em> each year by rate g, it's a <span class="term">growing annuity</span> (think rent that rises 3% a year). If a constant payment lasts <em>forever</em>, it's a <span class="term">perpetuity</span> — and the maths gets even simpler: <span class="term">PV = C ÷ r</span>. A growing perpetuity is <span class="term">PV = C ÷ (r − g)</span>, which reappears as the <a class="xref" href="#L9">Gordon model</a> for valuing shares.</p>
+
+      <h3>The frequency trap: nominal vs effective rates</h3>
+      <p>Cash doesn't only arrive annually, and interest isn't only compounded annually. A 5% rate compounded <em>quarterly</em> actually earns about <span class="term">5.09%</span> a year — the <span class="term">Effective Annual Rate (EAR)</span>. When payments are monthly or quarterly, convert the rate and the period count to match the cash flows, or you'll get the wrong answer.</p>
+      <div class="formula">
+        <div class="eq">EAR = (1 + <i>r</i>/m)<sup>m</sup> &minus; 1</div>
+        <small>m the number of compounding periods per year. More frequent compounding ⇒ a higher effective rate.</small>
+      </div>
+
+      <div class="lab" data-lab="ann">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Annuity vs Perpetuity</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Annual cash flow <output data-for="c">£1,000</output></span>
+              <input type="range" data-f="c" data-pre="£" min="100" max="20000" step="100" value="1000" aria-label="Annual cash flow"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Discount rate <output data-for="rate">5%</output></span>
+              <input type="range" data-f="rate" data-suf="%" data-dec="1" min="1" max="20" step="0.5" value="5" aria-label="Discount rate"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Years <output data-for="yrs">10</output></span>
+              <input type="range" data-f="yrs" min="1" max="50" step="1" value="10" aria-label="Number of years"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>Choosing between two flats — one £10,000 a year rising 5%, the other £12,000 a year rising 1% — is a growing-annuity problem. The cheaper-looking flat today can cost far more once you discount a decade of rising rent to its present value.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>A credit card "2% per month" is not 24% a year — it's an EAR of about <strong>26.8%</strong>, because each month's interest compounds on the last. Frequency quietly makes borrowing dearer than the headline rate suggests.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The UK government's <strong>Consol bonds</strong> (first issued in 1751) are perpetual — they never mature. The government just keeps paying the coupon forever. Valuing them is literally the perpetuity formula in action.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Perpetuity = C ÷ r. Growing perpetuity = C ÷ (r − g).</span> An annuity is just a perpetuity with the tail (everything beyond year n) chopped off and discounted away.</p>
+      </div>
+    </section>
+
+    <!-- ===== L4 — Financial Analysis ===== -->
+    <section class="week reveal" id="L4">
+      <div class="week-head">
+        <div class="week-num" data-n="4"><span class="lbl">04</span></div>
+        <div class="eyebrow">Lecture 04 · Foundations</div>
+        <h2 class="week-title">Financial Statement Analysis</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Raw figures hide the story; a ratio expresses one number against another, stripping out size so you can compare a corner shop with a supermarket — or this year with last.</div>
+
+      <p class="lead">Company A makes £250m operating profit; Company B makes £125m. Who did better? You can't say — until you learn A turned over £1,500m and B only £500m. As a margin that's 17% vs 25%: each £1 of B's sales kept 25p, against A's 17p. <span class="term">Ratios</span> remove the size problem and let you judge performance, then compare across firms (<span class="term">cross-sectional</span>) or over time (<span class="term">time series</span>).</p>
+
+      <h3>The five families of ratio</h3>
+      <ul class="icon-list">
+        <li><span class="term">Profitability</span> — gross/operating/net margin and Return on Capital Employed (ROCE): how well resources turn into earnings.</li>
+        <li><span class="term">Investment</span> — EPS, dividend per share, the P/E ratio: how shareholders' stake is performing.</li>
+        <li><span class="term">Efficiency</span> — inventory days, receivable days, payable days: how hard the assets are working.</li>
+        <li><span class="term">Gearing (leverage)</span> — debt vs equity and interest cover: the prime measure of <a class="xref" href="#L10">financial risk</a>.</li>
+        <li><span class="term">Liquidity</span> — current ratio and the acid test: can it pay the bills due now?</li>
+      </ul>
+
+      <h3>Liquidity, up close</h3>
+      <p>The <span class="term">current ratio</span> = current assets ÷ current liabilities. The stricter <span class="term">acid test</span> strips out inventory (harder to turn into cash). <span class="term">Interest cover</span> = EBIT ÷ interest; a common rule of thumb says it should clear 1.5×, or lenders get nervous.</p>
+
+      <div class="lab" data-lab="ratio">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Liquidity &amp; Margin</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Current assets <output data-for="ca">£1,300m</output></span>
+              <input type="range" data-f="ca" data-pre="£" data-suf="m" min="100" max="8000" step="50" value="1300" aria-label="Current assets"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Current liabilities <output data-for="cl">£3,400m</output></span>
+              <input type="range" data-f="cl" data-pre="£" data-suf="m" min="100" max="8000" step="50" value="3400" aria-label="Current liabilities"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Net income <output data-for="ni">£348m</output></span>
+              <input type="range" data-f="ni" data-pre="£" data-suf="m" min="0" max="3000" step="10" value="348" aria-label="Net income"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Sales <output data-for="sales">£17,500m</output></span>
+              <input type="range" data-f="sales" data-pre="£" data-suf="m" min="500" max="40000" step="100" value="17500" aria-label="Sales"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>In 2020 Morrisons and Sainsbury's looked alike on the shelf, but their ratios told different stories: Morrisons' interest was covered 22.7×, Sainsbury's only 1.65×. Same sector, very different financial risk — exactly what ratios are built to expose.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Warren Buffett's favourite metric is <strong>Return on Equity (ROE)</strong> — and he looks for 15% or better over 10 years. It's not just the number; it's the consistency that matters. A firm that swings between 5% and 25% is riskier than one that steady-states at 14%.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">A ratio alone means nothing — it needs a benchmark.</span> Always compare to a peer, the industry, or last year. And remember ratios are backward-looking and can be flattered by accounting choices.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>The current ratio is your own bank balance versus this month's bills. Below 1.0 means you can't cover what's due without selling something — fine for a day, alarming as a habit.</p>
+      </div>
+    </section>
+
+    <!-- ===================== PART II ===================== -->
+    <div class="sem-divider reveal">
+      <div class="sem-k">Part Two</div>
+      <h2 class="sem-t">Investment &amp; Risk</h2>
+      <p class="sem-d">Which projects create value — and what return should you demand for the risk you take?</p>
+      <div class="sem-line"></div>
+    </div>
+
+    <!-- ===== L5 — Investment Decision Criteria ===== -->
+    <section class="week reveal" id="L5">
+      <div class="week-head">
+        <div class="week-num" data-n="5"><span class="lbl">05</span></div>
+        <div class="eyebrow">Lecture 05 · Investment &amp; Risk</div>
+        <h2 class="week-title">Investment Decision Criteria</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A good project returns more than it costs <em>once you respect the timing of cash</em> — which is exactly why NPV outranks payback and ARR.</div>
+
+      <p class="lead"><span class="term">Capital budgeting</span> is choosing which long-term projects to back. Projects are <span class="term">independent</span> (judged alone) or <span class="term">mutually exclusive</span> (pick one, reject the rest). Four techniques compete to make the call — two ignore the <a class="xref" href="#L2">time value of money</a>, and two respect it.</p>
+
+      <h3>1 · Payback Period — how fast you get your money back</h3>
+      <p>The time for cumulative cash flows to repay the initial outlay. Quick, intuitive, and favours liquidity — but it <span class="term">ignores the time value of money</span>, ignores everything after the cut-off, and needs an arbitrary benchmark.</p>
+
+      <h3>2 · Accounting Rate of Return (ARR)</h3>
+      <p>Average annual <em>profit</em> ÷ average investment, as a %. Accept if it beats a target. Easy and ties to ROCE — but it uses accounting profit (not cash), smooths over timing, and again ignores the time value of money. Three projects with identical totals can score the same ARR even though one front-loads its cash.</p>
+
+      <h3>3 · Net Present Value (NPV) — the gold standard</h3>
+      <p>Discount every cash flow to today and subtract the outlay. <span class="term">NPV &gt; 0 → accept</span> (it adds to shareholder wealth); for mutually exclusive projects, take the highest positive NPV.</p>
+      <div class="formula">
+        <div class="eq">NPV = &minus;C<sub>0</sub> + &Sigma; C<sub>t</sub> &divide; (1 + <i>r</i>)<sup>t</sup></div>
+        <small>C<sub>0</sub> the initial outlay · C<sub>t</sub> the cash flow in year t · <i>r</i> the discount / hurdle rate.</small>
+      </div>
+
+      <h3>4 · Internal Rate of Return (IRR)</h3>
+      <p>The discount rate that makes NPV exactly zero — the project's own break-even return. <span class="term">Accept if IRR &gt; the required return.</span> Expressed as a %, so it's easy to compare, but it can mislead on scale and on unusual cash-flow patterns. When NPV and IRR disagree, <em>trust NPV</em>.</p>
+
+      <div class="lab" data-lab="npv">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Project NPV</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Initial outlay <output data-for="out">£100,000</output></span>
+              <input type="range" data-f="out" data-pre="£" min="10000" max="500000" step="5000" value="100000" aria-label="Initial outlay"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Annual cash flow <output data-for="cf">£30,000</output></span>
+              <input type="range" data-f="cf" data-pre="£" min="5000" max="150000" step="1000" value="30000" aria-label="Annual cash flow"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Years <output data-for="yrs">5</output></span>
+              <input type="range" data-f="yrs" min="1" max="20" step="1" value="5" aria-label="Project life in years"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Discount rate <output data-for="rate">10%</output></span>
+              <input type="range" data-f="rate" data-suf="%" data-dec="1" min="1" max="25" step="0.5" value="10" aria-label="Discount rate"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>The UK's HS2 rail line was appraised at around <strong>£56bn</strong>; estimates later ballooned past <strong>£108bn</strong> with the opening date repeatedly slipping. A reminder that an appraisal is only as good as its cash-flow forecasts — garbage in, garbage out.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Netflix's 2007 decision to invest <strong>$40m</strong> in streaming technology had a negative short-term payback but a transformational NPV. If they'd used payback alone, they'd still be mailing DVDs. The method you choose literally shapes the future of the firm.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">NPV &gt; 0 accept · IRR &gt; hurdle accept · shortest Payback wins.</span> Payback and ARR ignore time; NPV and IRR don't. When two clash, NPV is king because it measures pounds of wealth, not percentages.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The IRR is just the discount rate where the NPV line crosses zero. Spreadsheet users never solve it by hand — <code>=IRR(cashflows)</code> does it instantly — but the exam still wants the trial-and-error interpolation between two guesses.</p>
+      </div>
+    </section>
+
+    <!-- ===== L6 — Risk & Return ===== -->
+    <section class="week reveal" id="L6">
+      <div class="week-head">
+        <div class="week-num" data-n="6"><span class="lbl">06</span></div>
+        <div class="eyebrow">Lecture 06 · Investment &amp; Risk</div>
+        <h2 class="week-title">Risk &amp; Return</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> You're only rewarded for the risk you <em>can't</em> diversify away — and that surviving slice, market risk, is measured by beta.</div>
+
+      <p class="lead">Hold a share and your return comes from two streams: <span class="term">dividends</span> and <span class="term">capital gains</span> (the price change). <span class="term">Risk</span> is the chance the actual return differs from what you expected — its <span class="term">volatility</span>, measured by the <span class="term">standard deviation</span> of returns.</p>
+
+      <h3>Two kinds of risk</h3>
+      <ul class="icon-list">
+        <li><span class="term">Unsystematic (firm-specific) risk</span> — a strike, a product flop, a CEO leaving. <em>Diversifiable</em>: hold many shares and these average out.</li>
+        <li><span class="term">Systematic (market) risk</span> — inflation, interest rates, recessions. Hits everyone at once and <em>cannot</em> be diversified away.</li>
+      </ul>
+      <p>So <span class="term">diversification</span> — not putting all your eggs in one basket — kills firm-specific risk for free. What's left is market risk, and that's the only risk the market pays you to bear.</p>
+
+      <h3>Beta — measuring market risk</h3>
+      <p><span class="term">Beta (β)</span> is how much a stock moves when the market moves 1%. β &gt; 1 amplifies the market (M&amp;S ≈ 1.6); β &lt; 1 dampens it (Tesco ≈ 0.58); β = 0 means no market sensitivity. Beta is unitless systematic risk — distinct from standard deviation, which captures <em>total</em> risk.</p>
+
+      <h3>CAPM — the price of risk</h3>
+      <p>The <span class="term">Capital Asset Pricing Model</span> turns beta into a required return: start from the risk-free rate and add beta times the market's <span class="term">equity risk premium</span>. It gives the minimum return an investor should demand — and the <a class="xref" href="#L10">cost of equity</a> used in WACC.</p>
+      <div class="formula">
+        <div class="eq">E(r<sub>i</sub>) = R<sub>f</sub> + &beta;<sub>i</sub> &times; ( E(r<sub>m</sub>) &minus; R<sub>f</sub> )</div>
+        <small>R<sub>f</sub> risk-free rate · &beta; the asset's beta · ( E(r<sub>m</sub>) − R<sub>f</sub> ) the equity risk premium.</small>
+      </div>
+
+      <div class="lab" data-lab="capm">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · CAPM Required Return</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Risk-free rate <output data-for="rf">4%</output></span>
+              <input type="range" data-f="rf" data-suf="%" data-dec="1" min="0" max="8" step="0.25" value="4" aria-label="Risk-free rate"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Beta (β) <output data-for="beta">1.20</output></span>
+              <input type="range" data-f="beta" data-dec="2" min="0" max="2.5" step="0.05" value="1.20" aria-label="Beta"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Equity risk premium <output data-for="erp">5%</output></span>
+              <input type="range" data-f="erp" data-suf="%" data-dec="1" min="2" max="9" step="0.25" value="5" aria-label="Equity risk premium"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>The FTSE 100 swung violently through the Global Financial Crisis, COVID-19 and Brexit — proof that market (systematic) risk is real and unavoidable. No amount of diversifying across UK shares would have spared you those market-wide plunges.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>A stock can have a <em>lower</em> beta but <em>higher</em> total volatility than another — that gap is pure firm-specific risk. Tesco's beta sits below M&amp;S's, yet its share price can still be the bumpier ride.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The equity risk premium has averaged about <strong>5–6%</strong> historically in the UK and US, but it varies wildly by decade. In the 1980s it was closer to 8%; in the 2010s, barely 4%. Your CAPM answer is only as good as your premium guess.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Reward = risk-free + β × market premium.</span> The Security Market Line plots it: above the line the asset is underpriced (great deal), below it overpriced. Only β earns you a premium — firm risk you should have diversified away.</p>
+      </div>
+    </section>
+
+    <!-- ===================== PART III ===================== -->
+    <div class="sem-divider reveal">
+      <div class="sem-k">Part Three</div>
+      <h2 class="sem-t">Financing the Firm</h2>
+      <p class="sem-d">Where the money comes from — debt, equity, and the blend that minimises the cost of capital.</p>
+      <div class="sem-line"></div>
+    </div>
+
+    <!-- ===== L7 — Sources of Finance ===== -->
+    <section class="week reveal" id="L7">
+      <div class="week-head">
+        <div class="week-num" data-n="7"><span class="lbl">07</span></div>
+        <div class="eyebrow">Lecture 07 · Financing the Firm</div>
+        <h2 class="week-title">Sources of Finance</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Every pound a firm raises is either borrowed (debt) or owned (equity) — and that single choice sets its obligations, its risk and who controls it.</div>
+
+      <p class="lead">The mix of debt and equity a firm uses is its <span class="term">capital structure</span>. Finance comes from <span class="term">internal</span> sources (retained earnings — the CFO's clear favourite) and <span class="term">external</span> ones (new shares, bonds, bank loans). Surveys of CFOs rank the pecking order the same way again and again: <strong>retained earnings first, debt second, new equity last</strong>.</p>
+
+      <h3>Debt vs equity, side by side</h3>
+      <div class="ledger">
+        <div class="ledger-cap">The two ways to fund a firm</div>
+        <div class="ledger-grid">
+          <div class="ledger-col"><h5>Debt (lenders)</h5>
+            <div class="row"><span>Return</span><span>Fixed interest</span></div>
+            <div class="row"><span>Obligation</span><span>Compulsory</span></div>
+            <div class="row"><span>Tax</span><span>Deductible ✓</span></div>
+            <div class="row"><span>Priority</span><span>Paid first</span></div>
+            <div class="row"><span>Control</span><span>No vote</span></div>
+            <div class="row tot"><span>Risk to firm</span><span>Insolvency</span></div>
+          </div>
+          <div class="ledger-col"><h5>Equity (owners)</h5>
+            <div class="row"><span>Return</span><span>Dividends (if any)</span></div>
+            <div class="row"><span>Obligation</span><span>None — residual</span></div>
+            <div class="row"><span>Tax</span><span>Not deductible</span></div>
+            <div class="row"><span>Priority</span><span>Paid last</span></div>
+            <div class="row"><span>Control</span><span>Votes &amp; takeover risk</span></div>
+            <div class="row tot"><span>Risk to firm</span><span>Dilution</span></div>
+          </div>
+        </div>
+      </div>
+
+      <p>Debt looks cheap — interest is <span class="term">tax-deductible</span> and must be paid before any dividend — but those compulsory payments add <a class="xref" href="#L4">financial risk</a>. Equity never has to be repaid and shares the risk, yet it's the costliest and most public to raise. The tension between them is the whole of <a class="xref" href="#L10">capital structure theory</a>.</p>
+
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The world finances itself differently: <strong>bonds</strong> dominate corporate debt in the United States, while <strong>bank lending</strong> still rules in the Euro area and China. Geography shapes the capital structure as much as theory does.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Apple — despite sitting on <strong>$200 billion</strong> in cash — still issues bonds. Why? Much of it is trapped overseas, and repatriating it triggers US tax. It's cheaper to borrow at 2% than to pay 35% tax to bring cash home. Even cash-rich firms use debt.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Pecking order: Retained earnings → Debt → New equity.</span> Cheapest and least hassle first, most expensive and most scrutinised last. Debt = a fixed claim; equity = a residual claim.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>It's the difference between a bank loan and taking on a business partner. The loan demands fixed repayments whatever happens; the partner wants no fixed payment but a permanent share of the profits — and a say in decisions.</p>
+      </div>
+    </section>
+
+    <!-- ===== L8 — Capital Structure: Debt ===== -->
+    <section class="week reveal" id="L8">
+      <div class="week-head">
+        <div class="week-num" data-n="8"><span class="lbl">08</span></div>
+        <div class="eyebrow">Lecture 08 · Financing the Firm</div>
+        <h2 class="week-title">Capital Structure: Debt</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A bond is just a tradeable loan; its fair price is the present value of its promised cash, and the rate that makes price and cash agree is its yield.</div>
+
+      <p class="lead">Beyond bank loans and leases, the headline form of debt is the <span class="term">bond</span> — a marketable loan between an issuer (borrower) and investors (lenders). Each bond fixes its terms: a <span class="term">face value</span> (usually £100 or £1,000), a <span class="term">coupon</span> (annual interest as a % of face value), and a <span class="term">maturity</span> date when the face value is repaid.</p>
+
+      <h3>Pricing a bond = present value</h3>
+      <p>A straight bond's cash flows are an <a class="xref" href="#L3">annuity</a> of coupons plus the face value at maturity. Its fair price is simply all of that discounted to today:</p>
+      <div class="formula">
+        <div class="eq">Price = &Sigma; C &divide; (1+<i>r</i>)<sup>t</sup> + F &divide; (1+<i>r</i>)<sup>n</sup></div>
+        <small>C the coupon · F the face value · <i>r</i> the discount rate (the yield) · n years to maturity.</small>
+      </div>
+
+      <h3>Yield to Maturity — the true return</h3>
+      <p>Turn the equation around: given the <em>market price</em>, the <span class="term">Yield to Maturity (YTM)</span> is the discount rate that makes the present value of the cash equal that price. It's the real return a buyer earns, not the coupon. The YTM stacks up three building blocks:</p>
+      <ul class="icon-list">
+        <li><span class="term">Short-term risk-free rate</span> — inflation plus the real return (the Fisher equation).</li>
+        <li><span class="term">Maturity premium</span> — extra reward for lending longer; long bonds swing more when rates move.</li>
+        <li><span class="term">Default premium</span> — extra reward for credit risk, set by ratings (AAA down to junk).</li>
+      </ul>
+      <p>Two cousins: a <span class="term">convertible bond</span> can be swapped for shares (value it at the higher of face value or conversion value), and a <span class="term">zero-coupon bond</span> pays no coupon — all the return comes from buying it deep below face value.</p>
+
+      <div class="lab" data-lab="bond">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Bond Price &amp; Yield</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Coupon rate <output data-for="coup">5%</output></span>
+              <input type="range" data-f="coup" data-suf="%" data-dec="1" min="0" max="12" step="0.25" value="5" aria-label="Coupon rate"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Market yield <output data-for="mkt">5%</output></span>
+              <input type="range" data-f="mkt" data-suf="%" data-dec="1" min="1" max="14" step="0.25" value="5" aria-label="Market yield"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Years to maturity <output data-for="yrs">7</output></span>
+              <input type="range" data-f="yrs" min="1" max="30" step="1" value="7" aria-label="Years to maturity"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>A bond is an IOU you can sell on. If you lock in a 4% IOU and new IOUs start paying 6%, nobody will buy yours at full price — so it trades at a discount. That's why <span class="term">bond prices fall when interest rates rise</span>.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Credit ratings draw a hard line: <strong>BBB− and above is "investment grade"; below it is "junk".</strong> Many pension funds are legally barred from junk, so a single downgrade across that border can force a wave of selling.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The longest bond ever issued was a <strong>1,000-year</strong> bond by the Canadian Pacific Railway in 1883. It was finally redeemed in 1993 — after 110 years. Talk about long-term finance.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Coupon &gt; yield → premium (price above par). Coupon &lt; yield → discount. Rates up, price down.</span> Yield is the return that matters; the coupon is just the sticker.</p>
+      </div>
+    </section>
+
+    <!-- ===== L9 — Capital Structure: Equity ===== -->
+    <section class="week reveal" id="L9">
+      <div class="week-head">
+        <div class="week-num" data-n="9"><span class="lbl">09</span></div>
+        <div class="eyebrow">Lecture 09 · Financing the Firm</div>
+        <h2 class="week-title">Capital Structure: Equity</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A share is worth the present value of every dividend it will ever pay — which makes the growth assumption the most powerful number in the model.</div>
+
+      <p class="lead">Equity is ownership. <span class="term">Ordinary shares</span> carry votes and an unfixed dividend, paid last of all. <span class="term">Preference shares</span> skip the vote but take a fixed dividend ahead of ordinary holders. Firms raise fresh equity by <span class="term">retaining earnings</span>, an <span class="term">IPO</span> or placing, or a <span class="term">rights issue</span> to existing owners.</p>
+
+      <h3>Three values of a share</h3>
+      <ul class="icon-list">
+        <li><span class="term">Nominal (par) value</span> — an arbitrary figure on the books, often £1 or less.</li>
+        <li><span class="term">Book value</span> — net assets (assets − liabilities) per share, from the balance sheet.</li>
+        <li><span class="term">Market value</span> — what it trades at today; market cap = price × shares.</li>
+      </ul>
+
+      <h3>Valuing a share — the dividend model</h3>
+      <p>Because dividends go on indefinitely, a share is a <a class="xref" href="#L3">perpetuity</a> of dividends. If they grow at a constant rate g, the <span class="term">Gordon Growth Model</span> values them in one line:</p>
+      <div class="formula">
+        <div class="eq">P<sub>0</sub> = D<sub>1</sub> &divide; ( r<sub>e</sub> &minus; g )</div>
+        <small>D<sub>1</sub> next year's dividend · r<sub>e</sub> the required return on equity (cost of equity) · g the constant dividend growth rate (must be below r<sub>e</sub>).</small>
+      </div>
+      <p>Rearranged, it hands you the <span class="term">cost of equity</span> = D<sub>1</sub>/P<sub>0</sub> + g (dividend yield plus growth) — the very number CAPM also estimates and that feeds <a class="xref" href="#L10">WACC</a>.</p>
+
+      <h3>Rights issues &amp; TERP</h3>
+      <p>A rights issue sells new shares cheaply to existing holders. The <span class="term">Theoretical Ex-Rights Price (TERP)</span> is the weighted average of the old price and the issue price. Whether you take up, sell, or lapse the rights, your wealth is unchanged in theory — only lapsing actually loses you money.</p>
+
+      <div class="lab" data-lab="gordon">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Gordon Growth Share Value</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Next dividend D₁ <output data-for="d1">15.0p</output></span>
+              <input type="range" data-f="d1" data-suf="p" data-dec="1" min="1" max="60" step="0.5" value="15" aria-label="Next year dividend in pence"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Required return r <output data-for="re">8%</output></span>
+              <input type="range" data-f="re" data-suf="%" data-dec="1" min="3" max="15" step="0.25" value="8" aria-label="Required return on equity"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Dividend growth g <output data-for="g">3%</output></span>
+              <input type="range" data-f="g" data-suf="%" data-dec="1" min="0" max="10" step="0.25" value="3" aria-label="Dividend growth rate"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">P₀ = D₁ ÷ (r − g): next year's dividend over the gap between return and growth.</span> The narrower that gap, the higher — and more fragile — the valuation. g must always be less than r.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Because the value hinges on the <em>gap</em> (r − g), nudging growth from 3% to 4% when the required return is 5% doesn't raise the price a little — it <strong>doubles</strong> it. Tiny growth assumptions move giant valuations.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>During the dot-com bubble, analysts justified sky-high prices by assuming growth rates of <strong>15–20%</strong> forever. When reality returned, the NASDAQ fell 78%. The Gordon model is powerful — and dangerous when the gap is too tight.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>An increased dividend is a confident wave from management; a cut is a distress flare. That's why boards loathe cutting dividends even in a bad year — the <a class="xref" href="#L11">signal</a> can hurt more than the cash saved.</p>
+      </div>
+    </section>
+
+    <!-- ===== L10 — Cost of Capital & WACC ===== -->
+    <section class="week reveal" id="L10">
+      <div class="week-head">
+        <div class="week-num" data-n="10"><span class="lbl">10</span></div>
+        <div class="eyebrow">Lecture 10 · Financing the Firm</div>
+        <h2 class="week-title">Cost of Capital &amp; WACC</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A firm's cost of capital is the blended return all its investors demand — and the hurdle every new project must clear to create value.</div>
+
+      <p class="lead">A firm funded by both <a class="xref" href="#L8">debt</a> and <a class="xref" href="#L9">equity</a> must satisfy both groups. The <span class="term">Weighted Average Cost of Capital (WACC)</span> blends the cost of each, weighted by its share of the total — and crucially gives debt a discount for its <span class="term">tax shield</span>.</p>
+      <div class="formula">
+        <div class="eq">WACC = (E/V)&middot;r<sub>e</sub> + (D/V)&middot;r<sub>d</sub>&middot;(1 &minus; T)</div>
+        <small>E equity, D debt, V = E+D · r<sub>e</sub> cost of equity · r<sub>d</sub> cost of debt · T the corporate tax rate.</small>
+      </div>
+      <p>WACC is the discount rate for <a class="xref" href="#L5">NPV</a> and the benchmark for IRR. A firm wants it <em>low</em> — a lower hurdle means more projects clear it.</p>
+
+      <h3>Leverage: the double-edged sword</h3>
+      <p><span class="term">Financial leverage</span> means using debt to fund investment. Because debt is cheaper than equity, a dash of it lifts the <span class="term">return on equity</span> — but it also magnifies losses and raises the risk of <span class="term">financial distress</span>.</p>
+      <div class="ledger">
+        <div class="ledger-cap">£1,000 invested at 10% — leverage lifts shareholder return</div>
+        <div class="ledger-grid">
+          <div class="ledger-col"><h5>Equity only</h5>
+            <div class="row"><span>Equity used</span><span>£1,000</span></div>
+            <div class="row"><span>Profit (10%)</span><span>£100</span></div>
+            <div class="row"><span>Interest (5%)</span><span>£0</span></div>
+            <div class="row tot"><span>Return on equity</span><span>10%</span></div>
+          </div>
+          <div class="ledger-col"><h5>Half debt</h5>
+            <div class="row"><span>Equity used</span><span>£500</span></div>
+            <div class="row"><span>Profit (10%)</span><span>£100</span></div>
+            <div class="row"><span>Interest (5%)</span><span>£25</span></div>
+            <div class="row tot"><span>Return on equity</span><span>15%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lab" data-lab="wacc">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Weighted Average Cost of Capital</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Equity value <output data-for="e">£600m</output></span>
+              <input type="range" data-f="e" data-pre="£" data-suf="m" min="0" max="1000" step="10" value="600" aria-label="Equity value"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Debt value <output data-for="d">£400m</output></span>
+              <input type="range" data-f="d" data-pre="£" data-suf="m" min="0" max="1000" step="10" value="400" aria-label="Debt value"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Cost of equity <output data-for="re">9%</output></span>
+              <input type="range" data-f="re" data-suf="%" data-dec="1" min="4" max="16" step="0.25" value="9" aria-label="Cost of equity"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Cost of debt <output data-for="rd">5%</output></span>
+              <input type="range" data-f="rd" data-suf="%" data-dec="1" min="1" max="10" step="0.25" value="5" aria-label="Cost of debt"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Tax rate <output data-for="tax">21%</output></span>
+              <input type="range" data-f="tax" data-suf="%" min="0" max="35" step="1" value="21" aria-label="Corporate tax rate"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <h3>Is there an optimal structure?</h3>
+      <p><span class="term">Trade-Off Theory</span>: debt's tax shield lowers WACC, but rising bankruptcy risk eventually pushes it back up — so there's a target range that maximises value. <span class="term">Pecking Order Theory</span>: firms don't chase an optimum at all; they just prefer the cheapest source first (retained earnings, then debt, then equity), driven by issue costs and <a class="xref" href="#L6">asymmetric information</a>.</p>
+
+      <div class="lab" data-lab="lev">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Leverage &amp; Return on Equity</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Your equity <output data-for="own">£500</output></span>
+              <input type="range" data-f="own" data-pre="£" min="100" max="2000" step="50" value="500" aria-label="Your equity"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Borrowed <output data-for="bor">£500</output></span>
+              <input type="range" data-f="bor" data-pre="£" min="0" max="3000" step="50" value="500" aria-label="Amount borrowed"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Interest rate <output data-for="intr">5%</output></span>
+              <input type="range" data-f="intr" data-suf="%" data-dec="1" min="0" max="15" step="0.5" value="5" aria-label="Interest rate"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Project return <output data-for="ret">10%</output></span>
+              <input type="range" data-f="ret" data-suf="%" data-dec="1" min="-10" max="25" step="0.5" value="10" aria-label="Project return"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>Franco Modigliani and Merton Miller won Nobel Prizes for showing that, in a perfect market with no taxes, capital structure doesn't change firm value at all. The real world's taxes and bankruptcy costs are exactly what make the mix matter — and what the Trade-Off Theory tries to balance.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Weight each source by market value; tax-shield the debt.</span> Leverage lifts returns when the project beats the interest rate — and deepens the hole when it doesn't.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The tax shield is why debt is the only source whose cost you cut for tax. At a 21% tax rate, a 5% loan really costs the firm just <strong>3.95%</strong> — the taxman effectively subsidises the borrowing.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Private equity firms routinely use <strong>60–80% debt</strong> (leveraged buyouts) because the tax shield is so powerful. When it works, returns are extraordinary. When it doesn't — as with Toys "R" Us in 2017 — the bankruptcy is swift and brutal.</p>
+      </div>
+    </section>
+
+    <!-- ===================== PART IV ===================== -->
+    <div class="sem-divider reveal">
+      <div class="sem-k">Part Four</div>
+      <h2 class="sem-t">Payout, Hedging &amp; Deals</h2>
+      <p class="sem-d">Returning cash to owners, taming volatility, and combining whole firms.</p>
+      <div class="sem-line"></div>
+    </div>
+
+    <!-- ===== L11 — Dividend Policy ===== -->
+    <section class="week reveal" id="L11">
+      <div class="week-head">
+        <div class="week-num" data-n="11"><span class="lbl">11</span></div>
+        <div class="eyebrow">Lecture 11 · Payout, Hedging &amp; Deals</div>
+        <h2 class="week-title">Dividend Policy</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> In a perfect world, how you split earnings between dividends and reinvestment doesn't change firm value — but in the real world it sends powerful signals.</div>
+
+      <p class="lead">A <span class="term">dividend</span> pays earnings out to owners. Types run from <span class="term">regular</span> and <span class="term">special</span> (one-off) to <span class="term">stock dividends</span> (more shares, not cash). The <span class="term">ex-dividend date</span> is the cut-off: buy before it and you get the next payment; buy on or after, and the seller keeps it.</p>
+
+      <h3>Does dividend policy matter?</h3>
+      <ul class="icon-list">
+        <li><span class="term">M&amp;M irrelevance</span> — Modigliani &amp; Miller again: value comes from <em>investment</em> decisions, not from how earnings are split. Cut the dividend and reinvest well, and value is unharmed.</li>
+        <li><span class="term">Signalling</span> — in reality, a dividend rise signals confidence and a cut signals trouble; prices react sharply.</li>
+        <li><span class="term">Bird-in-the-hand &amp; clientele</span> — many investors prefer cash now, and different clienteles (pension funds vs growth investors) want different payout patterns.</li>
+      </ul>
+
+      <h3>Dividends vs share repurchases</h3>
+      <p>A <span class="term">buyback</span> returns cash by repurchasing shares instead of paying a dividend. In a perfect market the shareholder's wealth is identical either way — but buybacks can be more tax-efficient (capital gains vs income) and signal that managers think the shares are cheap. The <a class="xref" href="#L9">dividend valuation model</a> and Gordon model both price a share off its expected dividend stream.</p>
+
+      <div class="compare-table">
+        <table>
+          <thead><tr><th>Feature</th><th>Dividends</th><th>Buybacks</th></tr></thead>
+          <tbody>
+            <tr><td>Tax treatment</td><td>Income tax (usually higher)</td><td>Capital gains (often lower)</td></tr>
+            <tr><td>Signal</td><td>Stable, reliable income</td><td>Shares are undervalued</td></tr>
+            <tr><td>Flexibility</td><td>Hard to cut once set</td><td>One-off, easy to vary</td></tr>
+            <tr><td>Share count</td><td>Unchanged</td><td>Reduced (EPS rises)</td></tr>
+            <tr><td>Shareholder choice</td><td>None — cash received</td><td>Can sell or hold</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>Microsoft and Apple spent their early high-growth years paying <strong>no dividend at all</strong>, reinvesting every pound — and rewarded shareholders through soaring capital gains instead. Proof that "no dividend" can be a perfectly rational policy for a growth firm.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">M&amp;M: value lives in the investments, not the payout.</span> Five policies to know: constant dividend, constant growth, constant payout ratio, residual, and no dividend.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Share buybacks have surged so much that in the EU they now exceed <strong>half the value of ordinary dividends</strong> — a quiet shift in how companies hand cash back to their owners.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>In 2024, UK firms returned a record <strong>£85 billion</strong> to shareholders via dividends and buybacks — more than total UK government spending on defence. The scale of corporate payout is staggering.</p>
+      </div>
+    </section>
+
+    <!-- ===== L12 — Financial Risk Management ===== -->
+    <section class="week reveal" id="L12">
+      <div class="week-head">
+        <div class="week-num" data-n="12"><span class="lbl">12</span></div>
+        <div class="eyebrow">Lecture 12 · Payout, Hedging &amp; Deals</div>
+        <h2 class="week-title">Financial Risk Management</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Hedging doesn't delete risk — it trades away uncertainty (and usually the upside too) to protect cash flow, like buying insurance.</div>
+
+      <p class="lead">Every firm — not just banks — faces volatility in <span class="term">interest rates</span>, <span class="term">exchange rates</span> and <span class="term">commodity prices</span>. <span class="term">Hedging</span> (immunisation) reduces that exposure using <span class="term">derivatives</span> — instruments whose value derives from an underlying asset. Perfect hedging is rare; the goal is risk <em>reduction</em>, not elimination.</p>
+
+      <h3>The four instruments</h3>
+      <ul class="icon-list">
+        <li><span class="term">Forwards</span> — a bespoke, over-the-counter agreement to buy/sell at a fixed price on a future date. No upfront cost; a zero-sum game; settled only at maturity. Carries counterparty (credit) risk.</li>
+        <li><span class="term">Futures</span> — like forwards but <em>standardised</em> and exchange-traded, with daily <span class="term">marking-to-market</span> that slashes default risk. Enables <span class="term">cross-hedging</span> (e.g. hedging jet fuel with crude oil).</li>
+        <li><span class="term">Swaps</span> — exchange streams of cash flows; essentially a series of forwards. Interest-rate swaps trade fixed for floating; currency and commodity swaps exist too.</li>
+        <li><span class="term">Options</span> — the <em>right, not the obligation</em>, to buy (call) or sell (put) at a strike price, for an upfront <span class="term">premium</span>. Uniquely, they cap the downside while <em>keeping</em> the upside.</li>
+      </ul>
+
+      <div class="ledger">
+        <div class="ledger-cap">Forwards vs Futures</div>
+        <div class="ledger-grid">
+          <div class="ledger-col"><h5>Forward</h5>
+            <div class="row"><span>Venue</span><span>OTC, private</span></div>
+            <div class="row"><span>Terms</span><span>Customised</span></div>
+            <div class="row"><span>Settlement</span><span>At maturity</span></div>
+            <div class="row tot"><span>Credit risk</span><span>Higher</span></div>
+          </div>
+          <div class="ledger-col"><h5>Future</h5>
+            <div class="row"><span>Venue</span><span>Exchange</span></div>
+            <div class="row"><span>Terms</span><span>Standardised</span></div>
+            <div class="row"><span>Settlement</span><span>Daily</span></div>
+            <div class="row tot"><span>Credit risk</span><span>Lower</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>In 1993 German firm <span class="term">Metallgesellschaft</span> lost over <strong>$1 billion</strong> hedging long-term oil contracts with short-term futures — a maturity mismatch. The lesson: a badly designed hedge can <em>create</em> risk rather than remove it.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>A fixed-price energy tariff is a hedge. You give up the chance of cheaper bills if prices fall, in exchange for certainty if they rise. An option is closer to insurance — pay a premium, keep the good outcomes, cap the bad.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The global derivatives market is estimated at over <strong>$600 trillion</strong> in notional value — roughly 6× world GDP. Most of this is interest-rate swaps between banks, not speculation. Derivatives are the plumbing of modern finance.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Forwards bespoke &amp; OTC; Futures standard &amp; daily-settled; Swaps = a string of forwards; Options = a right, not an obligation.</span> Only options let you keep the upside — that's what the premium buys.</p>
+      </div>
+    </section>
+
+    <!-- ===== L13 — M&A ===== -->
+    <section class="week reveal" id="L13">
+      <div class="week-head">
+        <div class="week-num" data-n="13"><span class="lbl">13</span></div>
+        <div class="eyebrow">Lecture 13 · Payout, Hedging &amp; Deals</div>
+        <h2 class="week-title">Mergers &amp; Acquisitions</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Two firms combine because they should be worth more together than apart — but that synergy is promised far more often than it's delivered.</div>
+
+      <p class="lead">The vocabulary matters. A <span class="term">merger</span> absorbs one firm into another (the acquirer survives). A <span class="term">consolidation</span> dissolves both into a brand-new entity. An <span class="term">acquisition (takeover)</span> buys another firm's shares or assets — and can be <span class="term">friendly</span> (management cooperates) or <span class="term">hostile</span> (a direct tender offer to shareholders over management's objections).</p>
+
+      <h3>Three types of acquisition</h3>
+      <ul class="icon-list">
+        <li><span class="term">Horizontal</span> — a rival in the same industry (market share, scale, less competition).</li>
+        <li><span class="term">Vertical</span> — a firm up or down the supply chain (control costs, secure supply).</li>
+        <li><span class="term">Conglomerate</span> — an unrelated business (diversification, spreading risk).</li>
+      </ul>
+
+      <h3>Why do it — and how to pay</h3>
+      <p>Motives: <span class="term">synergy</span>, faster growth, diversification, economies of scale, tax losses — and sometimes plain managerial ego. The acquirer forecasts the target's cash flows, discounts them, and offers a price <em>above</em> market. Pay in <span class="term">cash</span>, <span class="term">shares</span>, or <span class="term">debt</span> — but overpay, and you simply transfer value from your shareholders to the target's. Targets resist with <span class="term">defensive tactics</span>: poison pills, golden parachutes, white knights, greenmail.</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="year">2000</div>
+          <div class="event">Vodafone / Mannesmann — $183bn</div>
+          <div class="detail">Still the largest completed acquisition in history.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2000</div>
+          <div class="event">AOL / Time Warner — $165bn</div>
+          <div class="detail">The textbook case of synergy failure and value destruction.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2025</div>
+          <div class="event">Silver Lake / Electronic Arts — $55bn</div>
+          <div class="detail">Largest leveraged buyout ever recorded.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="year">2026</div>
+          <div class="event">Rio Tinto / Glencore talks — $260bn</div>
+          <div class="detail">Could create the world's largest mining giant.</div>
+        </div>
+      </div>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>Vodafone's <strong>$183bn</strong> takeover of Mannesmann (2000) is still the largest completed acquisition in history. That same year, <span class="term">AOL / Time Warner</span> ($165bn) became the textbook case of <em>synergy failure</em> — a merger that destroyed staggering value. Bigger is not always better.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>M&amp;A keeps breaking records: the 2025 <strong>$55bn</strong> Silver Lake-led buyout of Electronic Arts became the largest leveraged buyout ever, and Rio Tinto / Glencore talks in 2026 could create a <strong>$260bn</strong> mining giant.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Studies show <strong>70–90%</strong> of mergers fail to create value for the acquirer's shareholders. The winner is almost always the target's shareholders, who pocket the premium. M&amp;A is a transfer of wealth, not a creation of it.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Horizontal = rivals · Vertical = supply chain · Conglomerate = strangers.</span> Value is created only if synergy exceeds the premium paid — discipline at the negotiating table matters more than the deal's size.</p>
+      </div>
+    </section>
+
+    <footer class="foot reveal">
+      <div class="foot-orn" id="footOrn" aria-hidden="true"></div>
+      <p>The Blueprint — built from your own lecture notes for the Accounting and Finance for Decision Making module (UMET9G-30-1).<br/>Primary text: Hillier, <i>Fundamentals of Corporate Finance</i> 4e (McGraw-Hill); McLaney &amp; Atrill, <i>Accounting and Finance: An Introduction</i>.</p>
+      <a class="to-top" href="#main">Back to the top ↑</a>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+  root.classList.add('js');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- blueprint signature: discounted-cashflow / compounding curve ---------- */
+  var X0=28,X1=188,Y0=168,Y1=26,K=2.15;
+  function ex(f){return (Math.exp(K*f)-1)/(Math.exp(K)-1);}
+  function px(f){return X0+(X1-X0)*f;}
+  function py(f){return Y0-(Y0-Y1)*ex(f);}
+  function curveD(){
+    var d='',n=64;
+    for(var i=0;i<=n;i++){var f=i/n; d+=(i?'L':'M')+px(f).toFixed(1)+' '+py(f).toFixed(1)+' ';}
+    return d.trim();
+  }
+  function svg(inner){
+    return '<svg viewBox="0 0 200 200" class="schematic" role="presentation">'+inner+'</svg>';
+  }
+  function schematic(full){
+    var d=curveD();
+    var s='';
+    if(full){ s+='<path class="area" d="'+d+' L'+px(1).toFixed(1)+' '+Y0+' L'+X0+' '+Y0+' Z"/>'; }
+    s+='<line class="axis" x1="'+X0+'" y1="'+Y0+'" x2="194" y2="'+Y0+'"/>';
+    s+='<line class="axis" x1="'+X0+'" y1="18" x2="'+X0+'" y2="'+Y0+'"/>';
+    if(full){
+      for(var t=0;t<=4;t++){var x=px(t/4); s+='<line class="tick" x1="'+x.toFixed(1)+'" y1="'+Y0+'" x2="'+x.toFixed(1)+'" y2="'+(Y0+5)+'"/>';}
+    }
+    s+='<path class="curve" d="'+d+'"/>';
+    if(full){
+      [0.30,0.55,0.78,1.0].forEach(function(f){
+        var x=px(f).toFixed(1), y=py(f).toFixed(1);
+        s+='<line class="stem" x1="'+x+'" y1="'+y+'" x2="'+x+'" y2="'+Y0+'"/>';
+        s+='<circle class="node" cx="'+x+'" cy="'+y+'" r="4.2"/>';
+      });
+    }
+    return svg(s);
+  }
+
+  var hero=document.getElementById('heroOrn');
+  if(hero){
+    hero.innerHTML=schematic(true);
+    if(!reduce){
+      var path=hero.querySelector('.curve');
+      if(path){
+        var len=path.getTotalLength();
+        path.style.strokeDasharray=len; path.style.strokeDashoffset=len;
+        path.style.transition='stroke-dashoffset 2.4s ease .2s';
+        var nodes=hero.querySelectorAll('.node,.stem');
+        nodes.forEach(function(n,i){n.style.opacity=0; n.style.transition='opacity .5s ease '+(1.2+i*0.18)+'s';});
+        requestAnimationFrame(function(){requestAnimationFrame(function(){
+          path.style.strokeDashoffset=0;
+          nodes.forEach(function(n){n.style.opacity='';});
+        });});
+      }
+    }
+  }
+  var foot=document.getElementById('footOrn');
+  if(foot){foot.innerHTML=schematic(false);}
+
+  document.querySelectorAll('.week-num[data-n]').forEach(function(el){
+    el.insertAdjacentHTML('afterbegin', schematic(false));
+  });
+
+  /* ---------- reading progress ---------- */
+  var bar=document.getElementById('progress');
+  function onScroll(){
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  }
+  document.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* ---------- scroll-spy ---------- */
+  var links={};
+  document.querySelectorAll('.nav-list a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+  var spy=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        var a=links[e.target.id]; if(!a) return;
+        Object.keys(links).forEach(function(k){links[k].classList.remove('active')});
+        a.classList.add('active');
+        a.scrollIntoView({block:'nearest'});
+      }
+    });
+  },{rootMargin:'-12% 0px -78% 0px'});
+  document.querySelectorAll('.week').forEach(function(s){spy.observe(s);});
+
+  /* ---------- reveal on scroll ---------- */
+  var revEls=document.querySelectorAll('.reveal');
+  if(location.hash || reduce || !('IntersectionObserver' in window)){
+    revEls.forEach(function(el){el.classList.add('in');});
+  }else{
+    var rev=new IntersectionObserver(function(es,o){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}});
+    },{rootMargin:'0px 0px -8% 0px'});
+    revEls.forEach(function(el){rev.observe(el);});
+  }
+
+  var stagEls=document.querySelectorAll('.reveal-stagger');
+  if(!reduce && 'IntersectionObserver' in window){
+    var stagObs=new IntersectionObserver(function(es,o){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}});
+    },{rootMargin:'0px 0px -5% 0px'});
+    stagEls.forEach(function(el){stagObs.observe(el);});
+  } else {
+    stagEls.forEach(function(el){el.classList.add('in');});
+  }
+
+  /* ---------- sidebar accordions ---------- */
+  document.querySelectorAll('.nav-head').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var g=document.getElementById(btn.dataset.toggle);
+      var c=g.classList.toggle('collapsed');
+      btn.setAttribute('aria-expanded', String(!c));
+    });
+  });
+
+  /* ---------- mobile drawer ---------- */
+  var sb=document.getElementById('sidebar'),
+      bd=document.getElementById('backdrop'),
+      hb=document.getElementById('hamburger');
+  function setDrawer(open){
+    sb.classList.toggle('open',open); bd.classList.toggle('show',open);
+    hb.setAttribute('aria-expanded',String(open));
+  }
+  hb.addEventListener('click',function(){setDrawer(!sb.classList.contains('open'));});
+  bd.addEventListener('click',function(){setDrawer(false);});
+  document.querySelectorAll('.nav-list a').forEach(function(a){
+    a.addEventListener('click',function(){if(window.innerWidth<=960) setDrawer(false);});
+  });
+
+  /* ---------- interactive "Reckoner" calculators ---------- */
+  function gb(n,dec){return (+n).toLocaleString('en-GB',{minimumFractionDigits:dec||0,maximumFractionDigits:dec||0});}
+  function money(v,dec){return (v<0?'−£':'£')+gb(Math.abs(v),dec||0);}
+  function cls(v){return v>0.0001?'pos':(v<-0.0001?'neg':'muted');}
+
+  var LAB={
+    fvc:function(lab,r){
+      var pv=r('pv'),rate=r('rate'),yrs=r('yrs'),i=rate/100;
+      var fvC=pv*Math.pow(1+i,yrs), fvS=pv*(1+i*yrs), gap=fvC-fvS;
+      lab.out.innerHTML='£'+gb(pv)+' at '+gb(rate,1)+'% for '+gb(yrs)+' year'+(yrs==1?'':'s')+' grows to <span class="big pos">'+money(fvC,2)+'</span> with compounding.<br>'
+        +'<span class="muted">Simple interest would give only '+money(fvS,2)+' — earning interest on interest adds '+money(gap,2)+'.</span>';
+    },
+    ann:function(lab,r){
+      var c=r('c'),rate=r('rate'),yrs=r('yrs'),i=rate/100;
+      var pvA=(i===0)?c*yrs:c*(1-Math.pow(1+i,-yrs))/i;
+      var pvP=(i>0)?c/i:Infinity;
+      lab.out.innerHTML='£'+gb(c)+' a year for '+gb(yrs)+' years is worth <span class="big">'+money(pvA,2)+'</span> today.<br>'
+        +'<span class="muted">Paid forever (a perpetuity) it would be worth '+(i>0?money(pvP,2):'∞')+(i>0?' — the extra '+money(pvP-pvA,2)+' is everything beyond year '+gb(yrs)+'.':'.')+'</span>';
+    },
+    ratio:function(lab,r){
+      var ca=r('ca'),cl=r('cl'),ni=r('ni'),sales=r('sales');
+      var cr=cl?ca/cl:0, nm=sales?ni/sales*100:0;
+      var band=cr>=1.5?'comfortable':(cr>=1?'adequate':'<span class="neg">below 1 — a short-term squeeze</span>');
+      lab.out.innerHTML='Current ratio <span class="big '+(cr>=1?'pos':'neg')+'">'+gb(cr,2)+'</span> — '+band+'.<br>'
+        +'<span class="muted">Net margin '+gb(nm,1)+'% — about '+gb(nm,1)+'p of every £1 of sales is kept as profit. A ratio only means something against a peer or last year.</span>';
+    },
+    npv:function(lab,r){
+      var out=r('out'),cf=r('cf'),yrs=r('yrs'),rate=r('rate'),i=rate/100,pv=0;
+      for(var t=1;t<=yrs;t++){pv+=cf/Math.pow(1+i,t);}
+      var npv=pv-out, payback=cf?out/cf:0;
+      lab.out.innerHTML='Spend £'+gb(out)+' now for £'+gb(cf)+' a year over '+gb(yrs)+' years.<br>'
+        +'<span class="big '+cls(npv)+'">NPV '+money(npv,0)+'</span> — '+(npv>0.5?'<span class="pos">accept ✓</span>':(npv<-0.5?'<span class="neg">reject ✗</span>':'break-even'))+'. '
+        +'<span class="muted">Simple payback ≈ '+gb(payback,1)+' years; the discount rate is the hurdle to clear.</span>';
+    },
+    capm:function(lab,r){
+      var rf=r('rf'),beta=r('beta'),erp=r('erp'),er=rf+beta*erp;
+      lab.out.innerHTML='Required return = '+gb(rf,1)+'% + '+gb(beta,2)+' × '+gb(erp,1)+'% = <span class="big">'+gb(er,2)+'%</span>.<br>'
+        +'<span class="muted">'+(beta>1?'β above 1 — swings more than the market, so investors demand more.':(beta<1?'β below 1 — calmer than the market, so a lower return suffices.':'β = 1 — moves in step with the market.'))+'</span>';
+    },
+    bond:function(lab,r){
+      var coup=r('coup'),mkt=r('mkt'),yrs=r('yrs'),F=1000,C=F*coup/100,i=mkt/100,price;
+      price=(i===0)?(C*yrs+F):(C*(1-Math.pow(1+i,-yrs))/i+F*Math.pow(1+i,-yrs));
+      var d=price-F, rel=d>0.5?'a <span class="pos">premium</span>':(d<-0.5?'a <span class="neg">discount</span>':'par');
+      lab.out.innerHTML='<span class="big">Price '+money(price,2)+'</span> on a £1,000 bond — trading at '+rel+'.<br>'
+        +'<span class="muted">Coupon '+gb(coup,1)+'% vs yield '+gb(mkt,1)+'%: '
+        +(mkt>coup?'yield higher → price below par':(mkt<coup?'yield lower → price above par':'equal → price = par'))+'. Rates up, price down.</span>';
+    },
+    gordon:function(lab,r){
+      var d1=r('d1'),re=r('re'),g=r('g'),rr=re/100,gg=g/100;
+      if(gg>=rr){lab.out.innerHTML='<span class="big neg">Undefined</span> — growth (g) must stay below the required return (r). As g approaches r the value runs off to infinity.'; return;}
+      var p=d1/(rr-gg);
+      lab.out.innerHTML='Fair value = D₁ ÷ (r − g) = '+gb(d1,1)+'p ÷ ('+gb(re,1)+'% − '+gb(g,1)+'%) = <span class="big">'+gb(p,1)+'p</span> per share.<br>'
+        +'<span class="muted">The price hinges on the gap (r − g) — here just '+gb(re-g,2)+'% — so small growth tweaks move it a lot.</span>';
+    },
+    wacc:function(lab,r){
+      var e=r('e'),d=r('d'),re=r('re'),rd=r('rd'),tax=r('tax'),v=e+d;
+      if(v===0){lab.out.innerHTML='<span class="muted">Add some capital to begin.</span>'; return;}
+      var we=e/v,wd=d/v,after=rd*(1-tax/100),w=we*re+wd*after;
+      lab.out.innerHTML='Mix '+gb(we*100,0)+'% equity / '+gb(wd*100,0)+'% debt → <span class="big">WACC '+gb(w,2)+'%</span>.<br>'
+        +'<span class="muted">The tax shield cuts debt to '+gb(after,2)+'% after tax. This blended rate is the hurdle every new project must beat.</span>';
+    },
+    lev:function(lab,r){
+      var own=r('own'),bor=r('bor'),intr=r('intr'),ret=r('ret');
+      var total=own+bor, end=total*(1+ret/100), repay=bor*(1+intr/100), left=end-repay, profit=left-own, roe=own?profit/own*100:0;
+      lab.out.innerHTML='Invest £'+gb(total)+', repay '+money(repay,2)+' of debt → you keep '+money(left,2)+'.<br>'
+        +'<span class="big '+cls(profit)+'">Return on your £'+gb(own)+': '+gb(roe,1)+'%</span> <span class="muted">(unlevered it’s just '+gb(ret,1)+'%). Leverage cuts both ways.</span>';
+    }
+  };
+
+  function initLabs(){
+    document.querySelectorAll('.lab[data-lab]').forEach(function(lab){
+      var fn=LAB[lab.dataset.lab]; if(!fn) return;
+      lab.out=lab.querySelector('[data-out]');
+      var ranges=lab.querySelectorAll('input[type=range]');
+      function r(name){var el=lab.querySelector('[data-f="'+name+'"]'); return el?+el.value:0;}
+      function sync(){
+        ranges.forEach(function(x){
+          var o=lab.querySelector('output[data-for="'+x.dataset.f+'"]'); if(!o) return;
+          o.textContent=(x.dataset.pre||'')+gb(x.value,x.dataset.dec?+x.dataset.dec:0)+(x.dataset.suf||'');
+        });
+      }
+      function update(){sync(); fn(lab,r);}
+      ranges.forEach(function(x){x.addEventListener('input',update);});
+      var btns=lab.querySelectorAll('.lab-btn[data-set]');
+      btns.forEach(function(b){
+        b.addEventListener('click',function(){
+          btns.forEach(function(y){y.classList.remove('on'); y.setAttribute('aria-pressed','false');});
+          b.classList.add('on'); b.setAttribute('aria-pressed','true'); lab.dataset.choice=b.dataset.set; update();
+        });
+      });
+      update();
+    });
+  }
+  initLabs();
+
+  /* ---------- smooth scroll for anchor links ---------- */
+  document.querySelectorAll('a[href^="#"]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      var target = document.querySelector(this.getAttribute('href'));
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

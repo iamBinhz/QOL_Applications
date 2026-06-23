@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 565" font-family="Arial, sans-serif">
+  <!-- Background -->
+  <rect width="1000" height="565" fill="#FFFFFF"/>
+
+  <!-- Title -->
+  <text x="500" y="42" text-anchor="middle" font-size="20" font-weight="700" fill="#1A202C">
+    Figure 5. Combined Distribution of Real Stock Returns — China &amp; United Kingdom
+  </text>
+  <text x="500" y="66" text-anchor="middle" font-size="13" font-style="italic" fill="#4A5568">
+    Box plots of annual real log-returns: SHCOMP (1991–2024, n = 34) vs. FTSE 100 (1984–2024, n = 41)
+  </text>
+
+  <!-- Plot frame: x 150→750, y 110→500. Y range −120 to 100, 1 unit = 1.7727 px -->
+
+  <!-- Horizontal gridlines + Y axis labels -->
+  <g font-size="11" fill="#4A5568" text-anchor="end">
+    <line x1="150" y1="500"    x2="750" y2="500"    stroke="#2D3748" stroke-width="1"/>
+    <line x1="150" y1="464.55" x2="750" y2="464.55" stroke="#E2E8F0"/>
+    <line x1="150" y1="429.09" x2="750" y2="429.09" stroke="#E2E8F0"/>
+    <line x1="150" y1="393.64" x2="750" y2="393.64" stroke="#E2E8F0"/>
+    <line x1="150" y1="358.18" x2="750" y2="358.18" stroke="#E2E8F0"/>
+    <line x1="150" y1="322.73" x2="750" y2="322.73" stroke="#E2E8F0"/>
+    <line x1="150" y1="287.27" x2="750" y2="287.27" stroke="#1A202C" stroke-width="1"/>
+    <line x1="150" y1="251.82" x2="750" y2="251.82" stroke="#E2E8F0"/>
+    <line x1="150" y1="216.36" x2="750" y2="216.36" stroke="#E2E8F0"/>
+    <line x1="150" y1="180.91" x2="750" y2="180.91" stroke="#E2E8F0"/>
+    <line x1="150" y1="145.45" x2="750" y2="145.45" stroke="#E2E8F0"/>
+    <line x1="150" y1="110"    x2="750" y2="110"    stroke="#E2E8F0"/>
+
+    <text x="140" y="504">−120</text>
+    <text x="140" y="468.55">−100</text>
+    <text x="140" y="433.09">−80</text>
+    <text x="140" y="397.64">−60</text>
+    <text x="140" y="362.18">−40</text>
+    <text x="140" y="326.73">−20</text>
+    <text x="140" y="291.27">0</text>
+    <text x="140" y="255.82">20</text>
+    <text x="140" y="220.36">40</text>
+    <text x="140" y="184.91">60</text>
+    <text x="140" y="149.45">80</text>
+    <text x="140" y="114">100</text>
+  </g>
+
+  <!-- Y axis title -->
+  <text transform="translate(76,305) rotate(-90)" text-anchor="middle" font-size="13" font-weight="600" fill="#1A202C">
+    Real stock return (% per year)
+  </text>
+
+  <!-- ===== China box plot (crimson), centered at x=315, box width 120 ===== -->
+  <g>
+    <!-- Whisker line (Q3 top to upper whisker, Q1 bottom to lower whisker) -->
+    <line x1="315" y1="124.73" x2="315" y2="237.92" stroke="#742A2A" stroke-width="1.5"/>
+    <line x1="315" y1="320.13" x2="315" y2="374.95" stroke="#742A2A" stroke-width="1.5"/>
+    <!-- Whisker caps -->
+    <line x1="285" y1="124.73" x2="345" y2="124.73" stroke="#742A2A" stroke-width="1.5"/>
+    <line x1="285" y1="374.95" x2="345" y2="374.95" stroke="#742A2A" stroke-width="1.5"/>
+    <!-- Box -->
+    <rect x="255" y="237.92" width="120" height="82.21" fill="#9B2C2C" fill-opacity="0.85" stroke="#742A2A" stroke-width="1.25"/>
+    <!-- Median line -->
+    <line x1="255" y1="283.55" x2="375" y2="283.55" stroke="#1A202C" stroke-width="2"/>
+    <!-- Mean marker (×) -->
+    <line x1="307" y1="268.74" x2="323" y2="284.74" stroke="#FFFFFF" stroke-width="2.5"/>
+    <line x1="307" y1="284.74" x2="323" y2="268.74" stroke="#FFFFFF" stroke-width="2.5"/>
+    <!-- Outlier(s) -->
+    <circle cx="315" cy="485.81" r="4" fill="none" stroke="#742A2A" stroke-width="1.5"/>
+    <text x="325" y="489" font-size="10" fill="#4A5568">−112.04</text>
+  </g>
+
+  <!-- ===== UK box plot (navy), centered at x=585, box width 120 ===== -->
+  <g>
+    <line x1="585" y1="244.16" x2="585" y2="265.81" stroke="#1A365D" stroke-width="1.5"/>
+    <line x1="585" y1="298.30" x2="585" y2="339.84" stroke="#1A365D" stroke-width="1.5"/>
+    <line x1="555" y1="244.16" x2="615" y2="244.16" stroke="#1A365D" stroke-width="1.5"/>
+    <line x1="555" y1="339.84" x2="615" y2="339.84" stroke="#1A365D" stroke-width="1.5"/>
+    <rect x="525" y="265.81" width="120" height="32.49" fill="#2C5282" fill-opacity="0.85" stroke="#1A365D" stroke-width="1.25"/>
+    <line x1="525" y1="276.42" x2="645" y2="276.42" stroke="#1A202C" stroke-width="2"/>
+    <line x1="577" y1="275.66" x2="593" y2="291.66" stroke="#FFFFFF" stroke-width="2.5"/>
+    <line x1="577" y1="291.66" x2="593" y2="275.66" stroke="#FFFFFF" stroke-width="2.5"/>
+    <circle cx="585" cy="360.20" r="4" fill="none" stroke="#1A365D" stroke-width="1.5"/>
+    <text x="595" y="363" font-size="10" fill="#4A5568">−41.10</text>
+  </g>
+
+  <!-- Group labels (X axis) -->
+  <g font-size="13" fill="#1A202C" text-anchor="middle" font-weight="700">
+    <text x="315" y="525">China (r_CN)</text>
+    <text x="585" y="525">United Kingdom (r_GB)</text>
+  </g>
+
+  <!-- ===== Statistics inset (right side, comparison) ===== -->
+  <g>
+    <rect x="780" y="120" width="200" height="270" fill="#FFFFFF" stroke="#CBD5E0" stroke-width="1"/>
+    <text x="880" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#1A202C">Five-number summary</text>
+    <line x1="788" y1="146" x2="972" y2="146" stroke="#CBD5E0"/>
+    <!-- Header row -->
+    <text x="878" y="162" text-anchor="end" font-size="11" font-weight="700" fill="#9B2C2C">China</text>
+    <text x="962" y="162" text-anchor="end" font-size="11" font-weight="700" fill="#2C5282">UK</text>
+    <line x1="788" y1="168" x2="972" y2="168" stroke="#E2E8F0"/>
+    <g font-size="11" fill="#1A202C">
+      <text x="788" y="184">Min</text>      <text x="878" y="184" text-anchor="end">−112.04</text> <text x="962" y="184" text-anchor="end">−41.10</text>
+      <text x="788" y="202">Q1</text>       <text x="878" y="202" text-anchor="end">−18.55</text>  <text x="962" y="202" text-anchor="end">−6.22</text>
+      <text x="788" y="220">Median</text>   <text x="878" y="220" text-anchor="end">2.10</text>    <text x="962" y="220" text-anchor="end">6.12</text>
+      <text x="788" y="238">Mean</text>     <text x="878" y="238" text-anchor="end">5.94</text>    <text x="962" y="238" text-anchor="end">2.04</text>
+      <text x="788" y="256">Q3</text>       <text x="878" y="256" text-anchor="end">27.85</text>   <text x="962" y="256" text-anchor="end">12.12</text>
+      <text x="788" y="274">Max</text>      <text x="878" y="274" text-anchor="end">91.69</text>   <text x="962" y="274" text-anchor="end">24.33</text>
+      <text x="788" y="292">SD</text>       <text x="878" y="292" text-anchor="end">40.76</text>   <text x="962" y="292" text-anchor="end">14.18</text>
+      <text x="788" y="310">n</text>        <text x="878" y="310" text-anchor="end">34</text>      <text x="962" y="310" text-anchor="end">41</text>
+    </g>
+    <!-- Legend -->
+    <line x1="788" y1="328" x2="972" y2="328" stroke="#E2E8F0"/>
+    <text x="788" y="345" font-size="11" font-weight="700" fill="#1A202C">Box plot legend</text>
+    <line x1="792" y1="356" x2="808" y2="356" stroke="#1A202C" stroke-width="2"/>
+    <text x="814" y="360" font-size="10" fill="#4A5568">Median</text>
+    <g transform="translate(800,372)">
+      <line x1="-6" y1="-6" x2="6" y2="6" stroke="#1A202C" stroke-width="2"/>
+      <line x1="-6" y1="6" x2="6" y2="-6" stroke="#1A202C" stroke-width="2"/>
+    </g>
+    <text x="814" y="376" font-size="10" fill="#4A5568">Mean (×)</text>
+    <circle cx="800" cy="386" r="4" fill="none" stroke="#4A5568" stroke-width="1.5"/>
+    <text x="814" y="390" font-size="10" fill="#4A5568">Outlier (&gt;1.5×IQR)</text>
+  </g>
+</svg>

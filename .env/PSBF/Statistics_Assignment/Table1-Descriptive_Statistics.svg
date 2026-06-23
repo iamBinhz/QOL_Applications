@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 510" font-family="Arial, sans-serif">
+  <rect width="1000" height="510" fill="#FFFFFF"/>
+
+  <!-- Title block -->
+  <text x="500" y="42" text-anchor="middle" font-size="20" font-weight="700" fill="#1A202C">
+    Table 1. Summary of Descriptive Statistics — China &amp; United Kingdom
+  </text>
+  <text x="500" y="66" text-anchor="middle" font-size="13" font-style="italic" fill="#4A5568">
+    Real stock returns (r) and GDP per-capita growth (Dy); annual data, 1991–2024 (China) / 1984–2024 (UK)
+  </text>
+
+  <!-- Outer top border -->
+  <line x1="80" y1="100" x2="920" y2="100" stroke="#1A202C" stroke-width="1.5"/>
+
+  <!-- Group header row (y 100-128) -->
+  <rect x="300" y="100" width="310" height="28" fill="#FCEEEE"/>
+  <rect x="610" y="100" width="310" height="28" fill="#EAF0F7"/>
+  <text x="455" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#9B2C2C">China</text>
+  <text x="765" y="120" text-anchor="middle" font-size="13" font-weight="700" fill="#2C5282">United Kingdom</text>
+
+  <!-- Subheader row (y 128-156) -->
+  <text x="90"  y="148" font-size="12" font-weight="700" fill="#1A202C">Statistic</text>
+  <text x="440" y="148" text-anchor="end" font-size="12" font-weight="700" fill="#1A202C">r_CN</text>
+  <text x="595" y="148" text-anchor="end" font-size="12" font-weight="700" fill="#1A202C">Dy_CN</text>
+  <text x="750" y="148" text-anchor="end" font-size="12" font-weight="700" fill="#1A202C">r_GB</text>
+  <text x="905" y="148" text-anchor="end" font-size="12" font-weight="700" fill="#1A202C">Dy_GB</text>
+  <line x1="80" y1="156" x2="920" y2="156" stroke="#1A202C" stroke-width="1"/>
+
+  <!-- Data rows: 12 rows × 26 px = 312 px (y 156-468) -->
+  <!-- Subtle alternating row backgrounds -->
+  <rect x="80" y="156" width="840" height="26" fill="#FAFBFC"/>
+  <rect x="80" y="208" width="840" height="26" fill="#FAFBFC"/>
+  <rect x="80" y="260" width="840" height="26" fill="#FAFBFC"/>
+  <rect x="80" y="312" width="840" height="26" fill="#FAFBFC"/>
+  <rect x="80" y="364" width="840" height="26" fill="#FAFBFC"/>
+  <rect x="80" y="416" width="840" height="26" fill="#FAFBFC"/>
+
+  <g font-size="11" fill="#1A202C">
+    <!-- Mean -->
+    <text x="90"  y="174">Mean</text>
+    <text x="440" y="174" text-anchor="end">5.94</text>
+    <text x="595" y="174" text-anchor="end">7.83</text>
+    <text x="750" y="174" text-anchor="end">2.04</text>
+    <text x="905" y="174" text-anchor="end">1.65</text>
+    <!-- Median -->
+    <text x="90"  y="200">Median</text>
+    <text x="440" y="200" text-anchor="end">2.10</text>
+    <text x="595" y="200" text-anchor="end">7.72</text>
+    <text x="750" y="200" text-anchor="end">6.12</text>
+    <text x="905" y="200" text-anchor="end">2.00</text>
+    <!-- Standard Error -->
+    <text x="90"  y="226">Standard Error</text>
+    <text x="440" y="226" text-anchor="end">6.99</text>
+    <text x="595" y="226" text-anchor="end">0.42</text>
+    <text x="750" y="226" text-anchor="end">2.21</text>
+    <text x="905" y="226" text-anchor="end">0.45</text>
+    <!-- Standard Deviation -->
+    <text x="90"  y="252">Standard Deviation</text>
+    <text x="440" y="252" text-anchor="end">40.76</text>
+    <text x="595" y="252" text-anchor="end">2.42</text>
+    <text x="750" y="252" text-anchor="end">14.18</text>
+    <text x="905" y="252" text-anchor="end">2.91</text>
+    <!-- Sample Variance -->
+    <text x="90"  y="278">Sample Variance</text>
+    <text x="440" y="278" text-anchor="end">1,661.68</text>
+    <text x="595" y="278" text-anchor="end">5.86</text>
+    <text x="750" y="278" text-anchor="end">201.04</text>
+    <text x="905" y="278" text-anchor="end">8.47</text>
+    <!-- Skewness -->
+    <text x="90"  y="304">Skewness</text>
+    <text x="440" y="304" text-anchor="end">−0.06</text>
+    <text x="595" y="304" text-anchor="end">0.00</text>
+    <text x="750" y="304" text-anchor="end">−1.05</text>
+    <text x="905" y="304" text-anchor="end">−2.09</text>
+    <!-- Kurtosis -->
+    <text x="90"  y="330">Kurtosis</text>
+    <text x="440" y="330" text-anchor="end">1.33</text>
+    <text x="595" y="330" text-anchor="end">0.20</text>
+    <text x="750" y="330" text-anchor="end">0.99</text>
+    <text x="905" y="330" text-anchor="end">8.21</text>
+    <!-- Range -->
+    <text x="90"  y="356">Range</text>
+    <text x="440" y="356" text-anchor="end">203.73</text>
+    <text x="595" y="356" text-anchor="end">10.64</text>
+    <text x="750" y="356" text-anchor="end">65.44</text>
+    <text x="905" y="356" text-anchor="end">18.60</text>
+    <!-- Minimum -->
+    <text x="90"  y="382">Minimum</text>
+    <text x="440" y="382" text-anchor="end">−112.04</text>
+    <text x="595" y="382" text-anchor="end">2.08</text>
+    <text x="750" y="382" text-anchor="end">−41.10</text>
+    <text x="905" y="382" text-anchor="end">−10.76</text>
+    <!-- Maximum -->
+    <text x="90"  y="408">Maximum</text>
+    <text x="440" y="408" text-anchor="end">91.69</text>
+    <text x="595" y="408" text-anchor="end">12.71</text>
+    <text x="750" y="408" text-anchor="end">24.33</text>
+    <text x="905" y="408" text-anchor="end">7.84</text>
+    <!-- Sum -->
+    <text x="90"  y="434">Sum</text>
+    <text x="440" y="434" text-anchor="end">201.88</text>
+    <text x="595" y="434" text-anchor="end">266.06</text>
+    <text x="750" y="434" text-anchor="end">83.80</text>
+    <text x="905" y="434" text-anchor="end">67.58</text>
+    <!-- Observations -->
+    <text x="90"  y="460" font-weight="600">Observations (n)</text>
+    <text x="440" y="460" text-anchor="end" font-weight="600">34</text>
+    <text x="595" y="460" text-anchor="end" font-weight="600">34</text>
+    <text x="750" y="460" text-anchor="end" font-weight="600">41</text>
+    <text x="905" y="460" text-anchor="end" font-weight="600">41</text>
+  </g>
+
+  <!-- Bottom border -->
+  <line x1="80" y1="468" x2="920" y2="468" stroke="#1A202C" stroke-width="1.5"/>
+</svg>

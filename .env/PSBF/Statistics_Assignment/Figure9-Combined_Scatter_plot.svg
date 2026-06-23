@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 565" font-family="Arial, sans-serif">
+  <rect width="1000" height="565" fill="#FFFFFF"/>
+
+  <!-- ===== Overall title ===== -->
+  <text x="500" y="42" text-anchor="middle" font-size="20" font-weight="700" fill="#1A202C">
+    Figure 9. Scatter Plots of GDP Growth vs. Lagged Stock Returns — China &amp; United Kingdom
+  </text>
+  <text x="500" y="66" text-anchor="middle" font-size="13" font-style="italic" fill="#4A5568">
+    Annual paired observations and country-specific OLS trendlines (Dy_t on r_{t−1})
+  </text>
+
+  <!-- Panel separator -->
+  <line x1="500" y1="95" x2="500" y2="535" stroke="#E2E8F0" stroke-width="1"/>
+
+  <!-- ============================================================ -->
+  <!-- PANEL A: China  (plot x=80→470 wide=390, y=115→475 tall=360) -->
+  <!-- X data −120 to 100 (220 units → 1.7727 px/unit)               -->
+  <!-- Y data 0 to 14 (14 units → 25.714 px/unit)                    -->
+  <!-- ============================================================ -->
+
+  <text x="275" y="88" text-anchor="middle" font-size="14" font-weight="700" fill="#9B2C2C">
+    Panel A. China (1992–2024, n = 33)
+  </text>
+
+  <!-- Y gridlines + labels (0,2,4,…,14) -->
+  <g font-size="10" fill="#4A5568" text-anchor="end">
+    <line x1="80" y1="475"    x2="470" y2="475"    stroke="#2D3748" stroke-width="1"/>
+    <line x1="80" y1="423.57" x2="470" y2="423.57" stroke="#E2E8F0"/>
+    <line x1="80" y1="372.14" x2="470" y2="372.14" stroke="#E2E8F0"/>
+    <line x1="80" y1="320.71" x2="470" y2="320.71" stroke="#E2E8F0"/>
+    <line x1="80" y1="269.29" x2="470" y2="269.29" stroke="#E2E8F0"/>
+    <line x1="80" y1="217.86" x2="470" y2="217.86" stroke="#E2E8F0"/>
+    <line x1="80" y1="166.43" x2="470" y2="166.43" stroke="#E2E8F0"/>
+    <line x1="80" y1="115"    x2="470" y2="115"    stroke="#E2E8F0"/>
+
+    <text x="73" y="479">0</text>
+    <text x="73" y="427">2</text>
+    <text x="73" y="376">4</text>
+    <text x="73" y="324">6</text>
+    <text x="73" y="273">8</text>
+    <text x="73" y="221">10</text>
+    <text x="73" y="170">12</text>
+    <text x="73" y="119">14</text>
+  </g>
+
+  <text transform="translate(28,295) rotate(-90)" text-anchor="middle" font-size="12" font-weight="600" fill="#1A202C">
+    GDP per-capita growth Dy_t (% per year)
+  </text>
+
+  <!-- X axis ticks (every 40 from -120 to 100) -->
+  <g font-size="10" fill="#4A5568" text-anchor="middle">
+    <line x1="80"     y1="475" x2="80"     y2="480" stroke="#2D3748"/>
+    <line x1="150.91" y1="475" x2="150.91" y2="480" stroke="#2D3748"/>
+    <line x1="221.82" y1="475" x2="221.82" y2="480" stroke="#2D3748"/>
+    <line x1="292.72" y1="475" x2="292.72" y2="480" stroke="#2D3748"/>
+    <line x1="363.63" y1="475" x2="363.63" y2="480" stroke="#2D3748"/>
+    <line x1="434.54" y1="475" x2="434.54" y2="480" stroke="#2D3748"/>
+    <line x1="470"    y1="475" x2="470"    y2="480" stroke="#2D3748"/>
+
+    <text x="80"     y="494">−120</text>
+    <text x="150.91" y="494">−80</text>
+    <text x="221.82" y="494">−40</text>
+    <text x="292.72" y="494">0</text>
+    <text x="363.63" y="494">40</text>
+    <text x="434.54" y="494">80</text>
+  </g>
+
+  <text x="275" y="514" text-anchor="middle" font-size="12" font-weight="600" fill="#1A202C">
+    Previous-year real stock return r_{t−1} (% per year)
+  </text>
+
+  <!-- Vertical reference at r = 0 -->
+  <line x1="292.72" y1="115" x2="292.72" y2="475" stroke="#A0AEC0" stroke-width="1" stroke-dasharray="2,3"/>
+
+  <!-- Trendline: y = 7.74 + 0.0163·x -->
+  <line x1="80" y1="326.40" x2="470" y2="234.04" stroke="#DD6B20" stroke-width="2" stroke-dasharray="6,3"/>
+
+  <!-- China data points (33) -->
+  <g fill="#9B2C2C" fill-opacity="0.75" stroke="#742A2A" stroke-width="0.75">
+    <circle cx="433.62" cy="162.89" r="4"/>
+    <circle cx="455.26" cy="169.32" r="4"/>
+    <circle cx="278.56" cy="188.08" r="4"/>
+    <circle cx="205.00" cy="233.85" r="4"/>
+    <circle cx="235.62" cy="257.51" r="4"/>
+    <circle cx="366.91" cy="272.92" r="4"/>
+    <circle cx="334.59" cy="303.78" r="4"/>
+    <circle cx="286.91" cy="305.58" r="4"/>
+    <circle cx="326.30" cy="283.48" r="4"/>
+    <circle cx="366.01" cy="288.37" r="4"/>
+    <circle cx="250.51" cy="264.97" r="4"/>
+    <circle cx="259.88" cy="243.11" r="4"/>
+    <circle cx="308.07" cy="242.07" r="4"/>
+    <circle cx="256.30" cy="211.23" r="4"/>
+    <circle cx="274.18" cy="182.43" r="4"/>
+    <circle cx="437.78" cy="148.23" r="4"/>
+    <circle cx="404.06" cy="250.82" r="4"/>
+    <circle cx="94.11"  cy="256.74" r="4"/>
+    <circle cx="398.20" cy="256.74" r="4"/>
+    <circle cx="259.72" cy="228.46" r="4"/>
+    <circle cx="239.58" cy="256.74" r="4"/>
+    <circle cx="293.62" cy="298.13" r="4"/>
+    <circle cx="275.70" cy="299.68" r="4"/>
+    <circle cx="364.55" cy="306.11" r="4"/>
+    <circle cx="306.14" cy="316.65" r="4"/>
+    <circle cx="265.90" cy="321.28" r="4"/>
+    <circle cx="301.18" cy="319.22" r="4"/>
+    <circle cx="239.01" cy="332.59" r="4"/>
+    <circle cx="323.27" cy="421.58" r="4"/>
+    <circle cx="311.46" cy="265.97" r="4"/>
+    <circle cx="299.32" cy="395.32" r="4"/>
+    <circle cx="260.16" cy="336.71" r="4"/>
+    <circle cx="285.62" cy="347.00" r="4"/>
+  </g>
+
+  <!-- Regression inset (Panel A, top-right inside plot) -->
+  <g>
+    <rect x="345" y="120" width="120" height="100" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E0" stroke-width="1"/>
+    <text x="405" y="135" text-anchor="middle" font-size="10" font-weight="700" fill="#9B2C2C">Regression (Table 3)</text>
+    <line x1="350" y1="140" x2="460" y2="140" stroke="#E2E8F0"/>
+    <g font-size="10" fill="#1A202C">
+      <text x="350" y="155">α</text>      <text x="460" y="155" text-anchor="end">7.7386</text>
+      <text x="350" y="170">β</text>      <text x="460" y="170" text-anchor="end">0.0163</text>
+      <text x="350" y="185">t(β)</text>   <text x="460" y="185" text-anchor="end">1.591</text>
+      <text x="350" y="200">p(β)</text>   <text x="460" y="200" text-anchor="end">0.122</text>
+      <text x="350" y="215">R²</text>     <text x="460" y="215" text-anchor="end">0.0755</text>
+    </g>
+  </g>
+
+  <!-- ============================================================ -->
+  <!-- PANEL B: United Kingdom  (plot x=580→970 wide=390, y=115→475 tall=360) -->
+  <!-- X data −45 to 30 (75 units → 5.2 px/unit)                    -->
+  <!-- Y data −12 to 8 (20 units → 18 px/unit)                      -->
+  <!-- ============================================================ -->
+
+  <text x="775" y="88" text-anchor="middle" font-size="14" font-weight="700" fill="#2C5282">
+    Panel B. United Kingdom (1985–2024, n = 40)
+  </text>
+
+  <!-- Y gridlines + labels (-12,-8,-4,0,4,8) -->
+  <g font-size="10" fill="#4A5568" text-anchor="end">
+    <line x1="580" y1="475" x2="970" y2="475" stroke="#2D3748" stroke-width="1"/>
+    <line x1="580" y1="403" x2="970" y2="403" stroke="#E2E8F0"/>
+    <line x1="580" y1="331" x2="970" y2="331" stroke="#E2E8F0"/>
+    <line x1="580" y1="259" x2="970" y2="259" stroke="#1A202C" stroke-width="1"/>
+    <line x1="580" y1="187" x2="970" y2="187" stroke="#E2E8F0"/>
+    <line x1="580" y1="115" x2="970" y2="115" stroke="#E2E8F0"/>
+
+    <text x="573" y="479">−12</text>
+    <text x="573" y="407">−8</text>
+    <text x="573" y="335">−4</text>
+    <text x="573" y="263">0</text>
+    <text x="573" y="191">4</text>
+    <text x="573" y="119">8</text>
+  </g>
+
+  <text transform="translate(528,295) rotate(-90)" text-anchor="middle" font-size="12" font-weight="600" fill="#1A202C">
+    GDP per-capita growth Dy_t (% per year)
+  </text>
+
+  <!-- X axis ticks (every 10 from -40 to 30) -->
+  <g font-size="10" fill="#4A5568" text-anchor="middle">
+    <line x1="606" y1="475" x2="606" y2="480" stroke="#2D3748"/>
+    <line x1="658" y1="475" x2="658" y2="480" stroke="#2D3748"/>
+    <line x1="710" y1="475" x2="710" y2="480" stroke="#2D3748"/>
+    <line x1="762" y1="475" x2="762" y2="480" stroke="#2D3748"/>
+    <line x1="814" y1="475" x2="814" y2="480" stroke="#2D3748"/>
+    <line x1="866" y1="475" x2="866" y2="480" stroke="#2D3748"/>
+    <line x1="918" y1="475" x2="918" y2="480" stroke="#2D3748"/>
+    <line x1="970" y1="475" x2="970" y2="480" stroke="#2D3748"/>
+
+    <text x="606" y="494">−40</text>
+    <text x="658" y="494">−30</text>
+    <text x="710" y="494">−20</text>
+    <text x="762" y="494">−10</text>
+    <text x="814" y="494">0</text>
+    <text x="866" y="494">10</text>
+    <text x="918" y="494">20</text>
+    <text x="970" y="494">30</text>
+  </g>
+
+  <text x="775" y="514" text-anchor="middle" font-size="12" font-weight="600" fill="#1A202C">
+    Previous-year real stock return r_{t−1} (% per year)
+  </text>
+
+  <!-- Vertical reference at r = 0 -->
+  <line x1="814" y1="115" x2="814" y2="475" stroke="#A0AEC0" stroke-width="1" stroke-dasharray="2,3"/>
+
+  <!-- Trendline: y = 1.5343 + 0.0458·x -->
+  <line x1="580" y1="268.46" x2="970" y2="206.64" stroke="#DD6B20" stroke-width="2" stroke-dasharray="6,3"/>
+
+  <!-- UK data points (40) -->
+  <g fill="#2C5282" fill-opacity="0.75" stroke="#1A365D" stroke-width="0.75">
+    <circle cx="896.78" cy="199.41" r="4"/>
+    <circle cx="853.46" cy="192.38" r="4"/>
+    <circle cx="886.02" cy="182.49" r="4"/>
+    <circle cx="802.77" cy="174.57" r="4"/>
+    <circle cx="816.24" cy="222.98" r="4"/>
+    <circle cx="940.51" cy="250.34" r="4"/>
+    <circle cx="708.39" cy="287.97" r="4"/>
+    <circle cx="853.77" cy="240.62" r="4"/>
+    <circle cx="859.03" cy="201.57" r="4"/>
+    <circle cx="895.89" cy="176.54" r="4"/>
+    <circle cx="745.79" cy="201.21" r="4"/>
+    <circle cx="896.30" cy="217.05" r="4"/>
+    <circle cx="856.39" cy="177.81" r="4"/>
+    <circle cx="917.32" cy="206.78" r="4"/>
+    <circle cx="875.16" cy="212.73" r="4"/>
+    <circle cx="890.13" cy="185.73" r="4"/>
+    <circle cx="751.87" cy="223.34" r="4"/>
+    <circle cx="714.42" cy="236.13" r="4"/>
+    <circle cx="660.15" cy="210.38" r="4"/>
+    <circle cx="873.24" cy="227.85" r="4"/>
+    <circle cx="844.57" cy="221.73" r="4"/>
+    <circle cx="883.47" cy="233.25" r="4"/>
+    <circle cx="854.13" cy="221.01" r="4"/>
+    <circle cx="820.96" cy="274.10" r="4"/>
+    <circle cx="600.28" cy="357.09" r="4"/>
+    <circle cx="907.49" cy="232.89" r="4"/>
+    <circle cx="845.82" cy="257.73" r="4"/>
+    <circle cx="764.23" cy="244.58" r="4"/>
+    <circle cx="830.12" cy="240.45" r="4"/>
+    <circle cx="872.21" cy="216.50" r="4"/>
+    <circle cx="792.16" cy="233.82" r="4"/>
+    <circle cx="785.81" cy="234.01" r="4"/>
+    <circle cx="878.84" cy="215.25" r="4"/>
+    <circle cx="838.91" cy="240.09" r="4"/>
+    <circle cx="732.72" cy="245.85" r="4"/>
+    <circle cx="864.39" cy="452.67" r="4"/>
+    <circle cx="728.35" cy="117.86" r="4"/>
+    <circle cx="870.45" cy="221.18" r="4"/>
+    <circle cx="777.49" cy="277.53" r="4"/>
+    <circle cx="797.93" cy="258.09" r="4"/>
+  </g>
+
+  <!-- Regression inset (Panel B, top-right inside plot) -->
+  <g>
+    <rect x="845" y="120" width="120" height="100" fill="#FFFFFF" fill-opacity="0.92" stroke="#CBD5E0" stroke-width="1"/>
+    <text x="905" y="135" text-anchor="middle" font-size="10" font-weight="700" fill="#2C5282">Regression (Table 4)</text>
+    <line x1="850" y1="140" x2="960" y2="140" stroke="#E2E8F0"/>
+    <g font-size="10" fill="#1A202C">
+      <text x="850" y="155">α</text>      <text x="960" y="155" text-anchor="end">1.5343</text>
+      <text x="850" y="170">β</text>      <text x="960" y="170" text-anchor="end">0.0458</text>
+      <text x="850" y="185">t(β)</text>   <text x="960" y="185" text-anchor="end">1.411</text>
+      <text x="850" y="200">p(β)</text>   <text x="960" y="200" text-anchor="end">0.166</text>
+      <text x="850" y="215">R²</text>     <text x="960" y="215" text-anchor="end">0.0498</text>
+    </g>
+  </g>
+
+  <!-- Shared legend / footnote -->
+  <text x="500" y="548" text-anchor="middle" font-size="11" fill="#4A5568">
+    <tspan fill="#DD6B20" font-weight="700">— —</tspan> OLS trendline (estimated separately for each country)
+    &#160;&#160;|&#160;&#160;
+    <tspan fill="#9B2C2C" font-weight="700">●</tspan> China observation
+    &#160;&#160;|&#160;&#160;
+    <tspan fill="#2C5282" font-weight="700">●</tspan> UK observation
+  </text>
+</svg>

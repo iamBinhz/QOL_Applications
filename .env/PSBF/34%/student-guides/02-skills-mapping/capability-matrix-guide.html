@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capability Matrix Guide — Skills/Competence Map</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            padding: 40px;
+            color: #1a1a2e;
+        }
+
+        .page-header {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto 32px;
+        }
+        .page-header h1 {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .page-header p { color: #666; font-size: 14px; }
+        .badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .card h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 16px 0 10px;
+            color: #333;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #1565c0;
+            color: white;
+            border-radius: 50%;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .overview-item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            border-left: 4px solid #1565c0;
+        }
+        .overview-item strong {
+            display: block;
+            font-size: 13px;
+            color: #1565c0;
+            margin-bottom: 4px;
+        }
+        .overview-item span {
+            font-size: 14px;
+            color: #333;
+        }
+
+        .dimension-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .dimension-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 14px;
+            border-left: 4px solid;
+        }
+        .dimension-card.dim-a { border-color: #1565c0; }
+        .dimension-card.dim-a1 { border-color: #0277bd; }
+        .dimension-card.dim-b { border-color: #2e7d32; }
+        .dimension-card.dim-c { border-color: #ef6c00; }
+        .dimension-card.dim-d { border-color: #ad1457; }
+        .dimension-card.dim-e { border-color: #6a1b9a; }
+        .dimension-card.dim-f { border-color: #4e342e; }
+        .dimension-card .dim-code {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .dimension-card .dim-name {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .dimension-card .dim-examples {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .rating-scale {
+            display: flex;
+            gap: 0;
+            margin: 16px 0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .rating-item {
+            flex: 1;
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 12px;
+        }
+        .rating-item .rating-num {
+            font-size: 20px;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        .rating-item .rating-label {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .rating-0 { background: #f5f5f5; color: #999; }
+        .rating-1 { background: #fff3e0; color: #e65100; }
+        .rating-2 { background: #e3f2fd; color: #1565c0; }
+        .rating-3 { background: #e8f5e9; color: #2e7d32; }
+        .rating-4 { background: #f3e5f5; color: #6a1b9a; }
+
+        .example-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+        .example-table th {
+            background: #f0f2f5;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #666;
+        }
+        .example-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+        .example-table tr:last-child td { border-bottom: none; }
+
+        .good { color: #2e7d32; }
+        .bad { color: #c62828; }
+        .good-bg { background: #f1f8e9; }
+        .bad-bg { background: #fce4ec; }
+
+        .tip-box {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin: 14px 0;
+            font-size: 13px;
+        }
+        .tip-box strong {
+            color: #f57f17;
+        }
+
+        .warning-box {
+            background: #fce4ec;
+            border: 1px solid #ef9a9a;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin: 14px 0;
+            font-size: 13px;
+        }
+        .warning-box strong {
+            color: #c62828;
+        }
+
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            background: white;
+            border: 2px solid #1565c0;
+            border-radius: 8px;
+            padding: 12px 16px;
+            text-align: center;
+            min-width: 140px;
+        }
+        .flow-step .flow-num {
+            font-size: 11px;
+            font-weight: 700;
+            color: #1565c0;
+            margin-bottom: 2px;
+        }
+        .flow-step .flow-label {
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .flow-step .flow-sheet {
+            font-size: 11px;
+            color: #888;
+        }
+        .flow-arrow {
+            font-size: 20px;
+            color: #1565c0;
+            padding: 0 6px;
+        }
+
+        .completed-example {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+        .completed-example .ce-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .completed-example .ce-capability {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .completed-example .ce-rating {
+            background: #e3f2fd;
+            color: #1565c0;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+        .completed-example .ce-justification {
+            margin-top: 8px;
+            padding: 10px;
+            border-radius: 6px;
+            line-height: 1.5;
+        }
+
+        .gap-visual {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            margin: 16px 0;
+        }
+        .gap-column {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .gap-column h4 {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .gap-bar {
+            height: 12px;
+            border-radius: 6px;
+            margin: 4px 0;
+        }
+        .gap-label {
+            font-size: 11px;
+            color: #666;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2px;
+        }
+
+        .connection-arrows {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 12px;
+            align-items: center;
+            margin: 16px 0;
+        }
+        .connection-box {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 14px;
+            text-align: center;
+            font-size: 13px;
+        }
+        .connection-arrow {
+            font-size: 24px;
+            color: #1565c0;
+            text-align: center;
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 12px 0;
+        }
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 13px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .checklist li:last-child { border-bottom: none; }
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 16px; }
+            .overview-grid, .dimension-grid, .gap-visual { grid-template-columns: 1fr; }
+            .rating-scale { flex-direction: column; }
+            .flow-diagram { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+            .connection-arrows { grid-template-columns: 1fr; }
+            .connection-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <span class="badge">UMET9U-30-1 | PD4 Workshop</span>
+    <h1>Capability Matrix Walkthrough Guide</h1>
+    <p>How to complete the Skills/Competence Map Excel template for your Career Development Portfolio (25 marks)</p>
+</div>
+
+<div class="container">
+
+    <!-- OVERVIEW -->
+    <div class="card">
+        <h2>What Is the Capability Matrix?</h2>
+        <p style="margin-bottom: 16px; font-size: 14px; line-height: 1.6;">
+            The Capability Matrix is an Excel workbook with <strong>5 sheets</strong> that together build a complete picture of your professional capabilities. You assess yourself against <strong>39 specific capabilities</strong> across 7 dimensions, then compare your profile against a real job description and your programme modules. The result is a gap analysis that shows exactly where you need to develop.
+        </p>
+
+        <div class="overview-grid">
+            <div class="overview-item">
+                <strong>Worth</strong>
+                <span>25 marks (25% of portfolio)</span>
+            </div>
+            <div class="overview-item">
+                <strong>Format</strong>
+                <span>Excel template (provided in class)</span>
+            </div>
+            <div class="overview-item">
+                <strong>Key to High Marks</strong>
+                <span>Connection between skills, growth, and future pathways</span>
+            </div>
+            <div class="overview-item">
+                <strong>Source Framework</strong>
+                <span>Adapted from Canadian Management Consultants Competency Framework</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- WORKFLOW -->
+    <div class="card">
+        <h2>The 5-Sheet Workflow</h2>
+        <p style="margin-bottom: 16px; font-size: 14px;">Complete the sheets in this order. Each builds on the previous one.</p>
+
+        <div class="flow-diagram">
+            <div class="flow-step">
+                <div class="flow-num">SHEET 1</div>
+                <div class="flow-label">Initial Assessment</div>
+                <div class="flow-sheet">Quick self-check</div>
+            </div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-step">
+                <div class="flow-num">SHEET 2</div>
+                <div class="flow-label">Self-Assessment</div>
+                <div class="flow-sheet">39 capabilities + evidence</div>
+            </div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-step">
+                <div class="flow-num">SHEET 3</div>
+                <div class="flow-label">Job Description</div>
+                <div class="flow-sheet">Score a real job</div>
+            </div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-step">
+                <div class="flow-num">SHEET 4</div>
+                <div class="flow-label">Programme</div>
+                <div class="flow-sheet">Map your modules</div>
+            </div>
+            <div class="flow-arrow">&rarr;</div>
+            <div class="flow-step">
+                <div class="flow-num">SHEET 5</div>
+                <div class="flow-label">Results</div>
+                <div class="flow-sheet">Auto gap analysis</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RATING SCALE -->
+    <div class="card">
+        <h2>The Rating Scale (0-4)</h2>
+        <p style="margin-bottom: 12px; font-size: 14px;">Use this scale for both your self-assessment AND the job description scoring.</p>
+
+        <div class="rating-scale">
+            <div class="rating-item rating-0">
+                <div class="rating-num">0</div>
+                <div class="rating-label">Don't Know</div>
+                <div>Haven't encountered this yet</div>
+            </div>
+            <div class="rating-item rating-1">
+                <div class="rating-num">1</div>
+                <div class="rating-label">Foundational</div>
+                <div>Introduced to it in class</div>
+            </div>
+            <div class="rating-item rating-2">
+                <div class="rating-num">2</div>
+                <div class="rating-label">Developing</div>
+                <div>Practised with support</div>
+            </div>
+            <div class="rating-item rating-3">
+                <div class="rating-num">3</div>
+                <div class="rating-label">Proficient</div>
+                <div>Can do independently</div>
+            </div>
+            <div class="rating-item rating-4">
+                <div class="rating-num">4</div>
+                <div class="rating-label">Strong</div>
+                <div>Can teach others</div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <strong>Honesty scores higher than inflation.</strong> As a Level 4 student, most of your ratings should be 1-2. A few 3s with strong evidence are fine. Ratings of 4 across the board look dishonest and score poorly. Markers reward self-awareness, not self-promotion.
+        </div>
+    </div>
+
+    <!-- 7 DIMENSIONS -->
+    <div class="card">
+        <h2>The 7 Capability Dimensions</h2>
+        <p style="margin-bottom: 16px; font-size: 14px;">The 39 capabilities are grouped into these 7 dimensions. The <strong>Definitions</strong> sheet in your Excel explains each capability in detail.</p>
+
+        <div class="dimension-grid">
+            <div class="dimension-card dim-a">
+                <div class="dim-code" style="color: #1565c0;">Dimension A</div>
+                <div class="dim-name">Economics Thinking</div>
+                <div class="dim-examples">Critical thinking, problem solving, strategic analysis, systems thinking, creativity</div>
+            </div>
+            <div class="dimension-card dim-a1">
+                <div class="dim-code" style="color: #0277bd;">Dimension A1</div>
+                <div class="dim-name">Economics Skills</div>
+                <div class="dim-examples">Data analysis, quantitative methods, economic modelling, forecasting, policy analysis</div>
+            </div>
+            <div class="dimension-card dim-b">
+                <div class="dim-code" style="color: #2e7d32;">Dimension B</div>
+                <div class="dim-name">Research & Delivery</div>
+                <div class="dim-examples">Research methods, project management, quality assurance, report writing, presentations</div>
+            </div>
+            <div class="dimension-card dim-c">
+                <div class="dim-code" style="color: #ef6c00;">Dimension C</div>
+                <div class="dim-name">Stakeholder Awareness</div>
+                <div class="dim-examples">Client focus, market understanding, communication, negotiation, stakeholder management</div>
+            </div>
+            <div class="dimension-card dim-d">
+                <div class="dim-code" style="color: #ad1457;">Dimension D</div>
+                <div class="dim-name">Collaboration</div>
+                <div class="dim-examples">Teamwork, leadership, conflict resolution, mentoring, cross-cultural working</div>
+            </div>
+            <div class="dimension-card dim-e">
+                <div class="dim-code" style="color: #6a1b9a;">Dimension E</div>
+                <div class="dim-name">Feedback & Career Management</div>
+                <div class="dim-examples">Self-development, giving/receiving feedback, career planning, continuous learning</div>
+            </div>
+            <div class="dimension-card dim-f">
+                <div class="dim-code" style="color: #4e342e;">Dimension F</div>
+                <div class="dim-name">Professionalism</div>
+                <div class="dim-examples">Ethics, time management, adaptability, resilience, professional conduct</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHEET 1: INITIAL ASSESSMENT -->
+    <div class="card">
+        <h2><span class="step-number">1</span> Sheet 1: Initial Assessment</h2>
+        <p style="margin-bottom: 12px; font-size: 14px;">A quick first impression. Rate yourself on each of the 7 dimensions overall. Don't overthink this — it's your gut feeling before the detailed assessment.</p>
+
+        <h3>Example: How to Complete</h3>
+        <table class="example-table">
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Your Rating</th>
+                    <th>Why This Rating?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>A: Economics Thinking</strong></td>
+                    <td style="text-align: center;">2</td>
+                    <td>I can apply frameworks like PEST and SWOT but still need guidance on complex analysis</td>
+                </tr>
+                <tr>
+                    <td><strong>B: Research & Delivery</strong></td>
+                    <td style="text-align: center;">1</td>
+                    <td>I've written academic reports but haven't done independent research yet</td>
+                </tr>
+                <tr>
+                    <td><strong>D: Collaboration</strong></td>
+                    <td style="text-align: center;">3</td>
+                    <td>I led two group projects this semester and resolved a conflict between team members</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip-box">
+            <strong>Tip:</strong> Your initial assessment and detailed self-assessment don't need to match perfectly. If they're very different, that's interesting — it shows your detailed analysis revealed things your first impression missed.
+        </div>
+    </div>
+
+    <!-- SHEET 2: SELF-ASSESSMENT -->
+    <div class="card">
+        <h2><span class="step-number">2</span> Sheet 2: Self-Assessment (The Core Sheet)</h2>
+        <p style="margin-bottom: 12px; font-size: 14px;">This is where most of your work happens. Rate all 39 capabilities AND write a justification for each rating. The justification is what earns marks — not the number.</p>
+
+        <h3>Strong Self-Assessment Examples</h3>
+
+        <div class="completed-example">
+            <div class="ce-header">
+                <span class="ce-capability">A3: Strategic Analysis</span>
+                <span class="ce-rating">Rating: 2</span>
+            </div>
+            <div class="ce-justification good-bg">
+                <strong class="good">Strong justification:</strong> "Applied Porter's Five Forces and PEST analysis to evaluate Vietcombank's competitive position in the NEU6021MKT midterm. Identified 3 strategic gaps (digital banking, rural penetration, ESG compliance) and proposed recommendations. Still developing ability to connect multiple frameworks — my SWOT integration was surface-level."
+            </div>
+        </div>
+
+        <div class="completed-example">
+            <div class="ce-header">
+                <span class="ce-capability">D2: Leadership</span>
+                <span class="ce-rating">Rating: 2</span>
+            </div>
+            <div class="ce-justification good-bg">
+                <strong class="good">Strong justification:</strong> "Took the coordinator role in my Business Strategy group (5 members). Created a task allocation spreadsheet and scheduled weekly check-ins. Struggled when two members missed deadlines — I covered their work instead of addressing the issue, which I now recognise as a leadership gap."
+            </div>
+        </div>
+
+        <div class="completed-example">
+            <div class="ce-header">
+                <span class="ce-capability">B4: Presentation Skills</span>
+                <span class="ce-rating">Rating: 1</span>
+            </div>
+            <div class="ce-justification bad-bg">
+                <strong class="bad">Weak justification:</strong> "I am quite good at presentations. I have done many presentations in class."
+            </div>
+        </div>
+
+        <h3>What Makes a Good Justification?</h3>
+        <table class="example-table">
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Strong (Specific + Evidence)</th>
+                    <th style="width: 50%;">Weak (Vague + No Evidence)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="good">"Used Excel to build a DCF model for the Vinamilk case study in Financial Economics"</td>
+                    <td class="bad">"I know how to use Excel well"</td>
+                </tr>
+                <tr>
+                    <td class="good">"Received feedback that my essay lacked critical depth — revised using the evaluation framework from PD5"</td>
+                    <td class="bad">"I can handle feedback"</td>
+                </tr>
+                <tr>
+                    <td class="good">"Rating 0 — I haven't taken any modules covering econometric methods yet"</td>
+                    <td class="bad">"Rating 3" (with no justification for why it's high)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip-box">
+            <strong>Tip:</strong> A rating of 0 or 1 with honest justification scores HIGHER than a rating of 3 with no evidence. The rubric rewards "strong self-awareness" and "explicit connections" — not high numbers.
+        </div>
+    </div>
+
+    <!-- SHEET 3: JOB DESCRIPTION -->
+    <div class="card">
+        <h2><span class="step-number">3</span> Sheet 3: Job Description Assessment</h2>
+        <p style="margin-bottom: 12px; font-size: 14px;">Score the same 39 capabilities, but this time from the perspective of a <strong>real job</strong>. In class, we use the <strong>GES Assistant Economist Graduate Scheme 2026</strong>. Ask: "How important is this capability for THIS job?"</p>
+
+        <h3>The GES Assistant Economist Role Values:</h3>
+        <table class="example-table">
+            <thead>
+                <tr>
+                    <th>Key Competency Area</th>
+                    <th>Likely Rating</th>
+                    <th>Why</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Making Effective Decisions</strong></td>
+                    <td style="text-align: center;">4</td>
+                    <td>Core assessment criterion — must analyse data and brief policy-makers</td>
+                </tr>
+                <tr>
+                    <td><strong>Working Together</strong></td>
+                    <td style="text-align: center;">3</td>
+                    <td>Cross-departmental collaboration expected but not the primary focus</td>
+                </tr>
+                <tr>
+                    <td><strong>Delivering at Pace</strong></td>
+                    <td style="text-align: center;">4</td>
+                    <td>Tight turnaround on policy briefs and ministerial submissions</td>
+                </tr>
+                <tr>
+                    <td><strong>Quantitative Methods</strong></td>
+                    <td style="text-align: center;">4</td>
+                    <td>Economics degree at 2:1+ required; statistical analysis is daily work</td>
+                </tr>
+                <tr>
+                    <td><strong>Creative/Visual Design</strong></td>
+                    <td style="text-align: center;">1</td>
+                    <td>Not a primary requirement for this role</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip-box">
+            <strong>Tip:</strong> Read the full job description carefully. Don't guess — use the actual requirements, essential criteria, and desirable criteria to inform your ratings. Different jobs have very different profiles.
+        </div>
+    </div>
+
+    <!-- SHEET 4: PROGRAMME ASSESSMENT -->
+    <div class="card">
+        <h2><span class="step-number">4</span> Sheet 4: Assessment of Your Programme</h2>
+        <p style="margin-bottom: 12px; font-size: 14px;">For each of the 39 capabilities, identify which <strong>Level 4 modules</strong> are developing that capability and how. This shows you understand where your learning is happening.</p>
+
+        <h3>Example Entries</h3>
+        <table class="example-table">
+            <thead>
+                <tr>
+                    <th>Capability</th>
+                    <th>Module(s)</th>
+                    <th>How It's Developed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>A3: Strategic Analysis</strong></td>
+                    <td>NEU6021MKT</td>
+                    <td>Case study analysis using Porter's, PEST, SWOT in Responsible Business Strategy</td>
+                </tr>
+                <tr>
+                    <td><strong>A1-2: Data Analysis</strong></td>
+                    <td>NEU6021ECN</td>
+                    <td>Excel-based quantitative exercises in Quantitative Methods for Economics</td>
+                </tr>
+                <tr>
+                    <td><strong>D1: Teamwork</strong></td>
+                    <td>NEU6021MKT, UMET9U-30-1</td>
+                    <td>Group presentations in Business Strategy; paperclip market simulation in PD5</td>
+                </tr>
+                <tr>
+                    <td><strong>E1: Career Planning</strong></td>
+                    <td>UMET9U-30-1</td>
+                    <td>Odyssey Plans and capability matrix in Professional Skills PD workshops</td>
+                </tr>
+                <tr>
+                    <td><strong>A1-5: Econometric Methods</strong></td>
+                    <td style="color: #c62828;"><em>Not covered at Level 4</em></td>
+                    <td style="color: #c62828;"><em>Gap — will be covered at Level 5</em></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="tip-box">
+            <strong>Tip:</strong> Don't forget non-module sources: part-time work, student clubs, volunteering, self-study. If you're developing cross-cultural collaboration by studying in English as a Vietnamese student, that counts and it's a significant professional competence.
+        </div>
+    </div>
+
+    <!-- SHEET 5: RESULTS -->
+    <div class="card">
+        <h2><span class="step-number">5</span> Sheet 5: Results & Gap Analysis</h2>
+        <p style="margin-bottom: 12px; font-size: 14px;">This sheet auto-calculates from your previous entries. It reveals the <strong>three-way gap analysis</strong> — the most important part of your Skills Map for scoring 70%+.</p>
+
+        <h3>The Three-Way Comparison</h3>
+        <div class="gap-visual">
+            <div class="gap-column">
+                <h4>Self vs Job</h4>
+                <div style="text-align: left; font-size: 12px;">
+                    <div style="margin: 8px 0;">
+                        <div style="display: flex; justify-content: space-between;"><span>Data Analysis</span><span class="bad">Gap: -2</span></div>
+                        <div style="display: flex; gap: 2px;">
+                            <div class="gap-bar" style="width: 40%; background: #e3f2fd;">&nbsp;</div>
+                            <div class="gap-bar" style="width: 60%; background: #ffcdd2;">&nbsp;</div>
+                        </div>
+                        <div class="gap-label"><span>You: 2</span><span>Job: 4</span></div>
+                    </div>
+                    <div style="margin: 8px 0;">
+                        <div style="display: flex; justify-content: space-between;"><span>Teamwork</span><span class="good">Match</span></div>
+                        <div style="display: flex; gap: 2px;">
+                            <div class="gap-bar" style="width: 60%; background: #c8e6c9;">&nbsp;</div>
+                            <div class="gap-bar" style="width: 40%; background: #e8f5e9;">&nbsp;</div>
+                        </div>
+                        <div class="gap-label"><span>You: 3</span><span>Job: 3</span></div>
+                    </div>
+                </div>
+                <p style="font-size: 11px; color: #666; margin-top: 8px;">Shows where you fall short of employer expectations</p>
+            </div>
+            <div class="gap-column">
+                <h4>Self vs Programme</h4>
+                <div style="text-align: left; font-size: 12px;">
+                    <div style="margin: 8px 0;">
+                        <div style="display: flex; justify-content: space-between;"><span>Research Methods</span><span style="color: #ef6c00;">Underused</span></div>
+                        <div style="display: flex; gap: 2px;">
+                            <div class="gap-bar" style="width: 25%; background: #fff3e0;">&nbsp;</div>
+                            <div class="gap-bar" style="width: 75%; background: #ffe0b2;">&nbsp;</div>
+                        </div>
+                        <div class="gap-label"><span>You: 1</span><span>Programme: 3</span></div>
+                    </div>
+                </div>
+                <p style="font-size: 11px; color: #666; margin-top: 8px;">Skills your modules develop that you haven't recognised</p>
+            </div>
+            <div class="gap-column">
+                <h4>Job vs Programme</h4>
+                <div style="text-align: left; font-size: 12px;">
+                    <div style="margin: 8px 0;">
+                        <div style="display: flex; justify-content: space-between;"><span>Econometrics</span><span class="bad">Uncovered</span></div>
+                        <div style="display: flex; gap: 2px;">
+                            <div class="gap-bar" style="width: 80%; background: #ffcdd2;">&nbsp;</div>
+                            <div class="gap-bar" style="width: 20%; background: #f5f5f5;">&nbsp;</div>
+                        </div>
+                        <div class="gap-label"><span>Job: 4</span><span>Prog: 0</span></div>
+                    </div>
+                </div>
+                <p style="font-size: 11px; color: #666; margin-top: 8px;">Skills the job needs that your programme doesn't cover at L4</p>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <strong>This is what separates 70%+ from 50%.</strong> The rubric says "explicit connections between skills, growth, and future pathways" for Outstanding. Your gap analysis must connect to your Odyssey Plans: if the GES job needs data analysis at 4 and you're at 2, your Odyssey Plan should show WHEN and HOW you'll bridge that gap (e.g., "Year 2: Complete econometrics module + Excel VBA self-study").
+        </div>
+    </div>
+
+    <!-- CONNECTING TO ODYSSEY PLANS -->
+    <div class="card">
+        <h2>Connecting Your Matrix to Your Odyssey Plans</h2>
+        <p style="margin-bottom: 16px; font-size: 14px;">Your capability matrix and Odyssey Plans must tell a coherent story. The matrix identifies WHERE you are; the Odyssey Plan shows WHERE you're going and HOW you'll get there.</p>
+
+        <div class="connection-arrows">
+            <div class="connection-box">
+                <strong>Capability Matrix</strong><br>
+                "Data analysis: 2/4"<br>
+                "Econometrics: 0/4"<br>
+                "Stakeholder comms: 1/4"
+            </div>
+            <div class="connection-arrow">&rarr;</div>
+            <div class="connection-box">
+                <strong>Odyssey Plan Journey</strong><br>
+                "Year 1-2: Econometrics module"<br>
+                "Year 2: Summer internship (data)"<br>
+                "Year 3: Client-facing project"
+            </div>
+        </div>
+
+        <table class="example-table">
+            <thead>
+                <tr>
+                    <th>Gap Identified in Matrix</th>
+                    <th>How It Appears in Odyssey Plan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Data analysis: self = 2, job = 4</td>
+                    <td>Stage 1 milestone: "Complete Level 5 Quantitative Economics with distinction target"</td>
+                </tr>
+                <tr>
+                    <td>Econometrics: self = 0, job = 4, programme = 0 at L4</td>
+                    <td>Stage 2 milestone: "Select econometrics elective + DataCamp self-study"</td>
+                </tr>
+                <tr>
+                    <td>Stakeholder communication: self = 1, job = 3</td>
+                    <td>"How Might I?" question: "How might I get experience briefing non-economists before graduation?"</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- COMMON MISTAKES -->
+    <div class="card">
+        <h2>Common Mistakes to Avoid</h2>
+        <table class="example-table">
+            <thead>
+                <tr>
+                    <th style="width: 50%;"><span class="bad">Don't Do This</span></th>
+                    <th style="width: 50%;"><span class="good">Do This Instead</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="bad">Rate everything 3 or 4 with no justification</td>
+                    <td class="good">Be honest — mostly 1-2 at Level 4 with specific evidence for each</td>
+                </tr>
+                <tr>
+                    <td class="bad">Write "I am good at this" as justification</td>
+                    <td class="good">Give a concrete example: "Applied PEST to Vietcombank case in NEU6021MKT"</td>
+                </tr>
+                <tr>
+                    <td class="bad">Leave Sheet 4 (Programme) mostly empty</td>
+                    <td class="good">Think carefully about every module — most develop multiple capabilities</td>
+                </tr>
+                <tr>
+                    <td class="bad">Ignore gaps and only highlight strengths</td>
+                    <td class="good">Gaps are valuable — they show self-awareness and drive your development plan</td>
+                </tr>
+                <tr>
+                    <td class="bad">Complete the matrix without looking at your Odyssey Plans</td>
+                    <td class="good">Cross-reference: your gaps should appear as development milestones in your Plans</td>
+                </tr>
+                <tr>
+                    <td class="bad">Only include academic skills</td>
+                    <td class="good">Include part-time work, volunteering, clubs, bilingual ability, cross-cultural skills</td>
+                </tr>
+                <tr>
+                    <td class="bad">Copy someone else's justifications</td>
+                    <td class="good">Your evidence must be YOUR experiences — generic text will be flagged</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PRE-SUBMISSION CHECKLIST -->
+    <div class="card">
+        <h2>Pre-Submission Checklist</h2>
+        <p style="margin-bottom: 12px; font-size: 14px;">Before submitting your Skills/Competence Map, verify every item:</p>
+
+        <ul class="checklist">
+            <li><div class="check-icon"></div> <span>All 5 sheets completed (Initial Assessment, Self-Assessment, Job Description, Programme, Results)</span></li>
+            <li><div class="check-icon"></div> <span>All 39 capabilities have a rating AND a written justification</span></li>
+            <li><div class="check-icon"></div> <span>Ratings are honest and realistic (mostly 1-2, not all 3s and 4s)</span></li>
+            <li><div class="check-icon"></div> <span>Every justification includes a specific, concrete example from YOUR experience</span></li>
+            <li><div class="check-icon"></div> <span>Job Description sheet is scored against the GES Assistant Economist role (or another real job)</span></li>
+            <li><div class="check-icon"></div> <span>Programme sheet maps capabilities to specific Level 4 modules with explanations</span></li>
+            <li><div class="check-icon"></div> <span>Capabilities from extra-curricular activities are included (work, clubs, volunteering)</span></li>
+            <li><div class="check-icon"></div> <span>Gap analysis connects to your Odyssey Plan milestones</span></li>
+            <li><div class="check-icon"></div> <span>Results sheet shows meaningful comparisons (not all identical scores)</span></li>
+            <li><div class="check-icon"></div> <span>File saved as <code>Skills_Map_[YourName].xlsx</code></span></li>
+        </ul>
+    </div>
+
+    <!-- RUBRIC REMINDER -->
+    <div class="card" style="border-left: 4px solid #1565c0;">
+        <h2>What the Rubric Says (Skills/Competencies Recognition — 25 marks)</h2>
+        <table class="example-table">
+            <thead>
+                <tr>
+                    <th>Grade Band</th>
+                    <th>What Markers Look For</th>
+                    <th>What This Means for Your Matrix</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>80%+ Outstanding</strong></td>
+                    <td>Insightful and original recognition; strong self-awareness; explicit connections between skills, growth, and future pathways</td>
+                    <td>Detailed justifications that show genuine insight; gaps explicitly connected to Odyssey Plan milestones; programme assessment reveals hidden connections</td>
+                </tr>
+                <tr>
+                    <td><strong>70-79% Excellent</strong></td>
+                    <td>Balanced, detailed recognition; clear connections to learning and professional growth</td>
+                    <td>All 39 capabilities rated with evidence; clear three-way gap analysis; professional and academic sources combined</td>
+                </tr>
+                <tr>
+                    <td><strong>60-69% Good</strong></td>
+                    <td>Comprehensive recognition; some application to development</td>
+                    <td>Most capabilities rated with justification; gap analysis present but connections could be stronger</td>
+                </tr>
+                <tr>
+                    <td><strong>50-59% Satisfactory</strong></td>
+                    <td>Broader set recognised; some programme-specific links; uneven detail</td>
+                    <td>Ratings present but justifications are thin; some sheets incomplete; gaps identified but not connected to plans</td>
+                </tr>
+                <tr>
+                    <td><strong>40-49% Pass</strong></td>
+                    <td>Limited recognition; generic skills; incomplete coverage</td>
+                    <td>Many capabilities left blank; justifications are generic; no meaningful gap analysis</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

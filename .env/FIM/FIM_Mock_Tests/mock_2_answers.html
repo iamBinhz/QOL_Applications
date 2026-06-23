@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIM Mock 2 — Structured Answers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #1a1a1a;
+    --paper: #fafaf7;
+    --paper-dark: #f0ece0;
+    --accent-q1: #7a2e2e;
+    --accent-q2: #2e5d7a;
+    --accent-q3: #3d6e3d;
+    --accent-q1-soft: #faf0f0;
+    --accent-q2-soft: #eef4f8;
+    --accent-q3-soft: #eff6ef;
+    --gold: #b8922e;
+    --muted: #6b6b6b;
+    --line: rgba(0,0,0,0.08);
+    --shadow: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-hover: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'EB Garamond', serif;
+    background:
+        radial-gradient(circle at 10% 0%, #f5efd8 0%, transparent 40%),
+        radial-gradient(circle at 90% 100%, #e8ddd0 0%, transparent 40%),
+        var(--paper);
+    color: var(--ink);
+    line-height: 1.65;
+    min-height: 100vh;
+    padding: 48px 20px 80px;
+}
+
+.container {
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+/* Header */
+.masthead {
+    text-align: center;
+    padding: 40px 20px 60px;
+    border-bottom: 2px solid var(--line);
+    margin-bottom: 48px;
+    position: relative;
+}
+
+.masthead::before,
+.masthead::after {
+    content: "§";
+    position: absolute;
+    bottom: -18px;
+    color: var(--gold);
+    font-size: 28px;
+    background: var(--paper);
+    padding: 0 16px;
+}
+.masthead::before { left: 50%; transform: translateX(-50%); }
+.masthead::after { display: none; }
+
+.eyebrow {
+    font-style: italic;
+    color: var(--gold);
+    font-size: 16px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.masthead h1 {
+    font-size: 52px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 18px;
+}
+
+.masthead .subtitle {
+    font-size: 20px;
+    color: var(--muted);
+    font-style: italic;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.format-badge {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 10px 22px;
+    background: rgba(184,146,46,0.1);
+    border: 1px solid rgba(184,146,46,0.3);
+    border-radius: 999px;
+    font-size: 15px;
+    color: var(--ink);
+}
+
+.format-badge code {
+    font-family: 'EB Garamond', serif;
+    font-weight: 600;
+    color: var(--gold);
+}
+
+/* TOC */
+.toc {
+    background: rgba(255,255,255,0.6);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 24px 32px;
+    margin-bottom: 56px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.toc h2 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+    text-align: center;
+}
+
+.toc ol {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px 28px;
+    counter-reset: toc;
+}
+
+.toc li {
+    counter-increment: toc;
+}
+
+.toc a {
+    display: block;
+    padding: 8px 12px;
+    color: var(--ink);
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
+    font-size: 17px;
+}
+
+.toc a::before {
+    content: counter(toc, upper-roman) ". ";
+    color: var(--gold);
+    font-weight: 600;
+    margin-right: 6px;
+}
+
+.toc a:hover {
+    border-left-color: var(--gold);
+    background: rgba(184,146,46,0.08);
+    padding-left: 18px;
+}
+
+/* Question sections */
+.question {
+    margin-bottom: 64px;
+    scroll-margin-top: 24px;
+}
+
+.question-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 32px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+.question-number {
+    font-size: 64px;
+    font-weight: 700;
+    line-height: 1;
+    font-style: italic;
+    opacity: 0.85;
+}
+
+.question-title {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.q1 .question-number, .q1 .part-label { color: var(--accent-q1); }
+.q2 .question-number, .q2 .part-label { color: var(--accent-q2); }
+.q3 .question-number, .q3 .part-label { color: var(--accent-q3); }
+
+/* Part cards */
+.part {
+    background: #fff;
+    border-radius: 14px;
+    padding: 36px 40px;
+    margin-bottom: 28px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--line);
+    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.part:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+}
+
+.part::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+}
+
+.q1 .part::before { background: var(--accent-q1); }
+.q2 .part::before { background: var(--accent-q2); }
+.q3 .part::before { background: var(--accent-q3); }
+
+.q1 .part { background: linear-gradient(180deg, var(--accent-q1-soft) 0%, #fff 80%); }
+.q2 .part { background: linear-gradient(180deg, var(--accent-q2-soft) 0%, #fff 80%); }
+.q3 .part { background: linear-gradient(180deg, var(--accent-q3-soft) 0%, #fff 80%); }
+
+.part-label {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.part h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.3;
+    color: var(--ink);
+}
+
+.part p {
+    font-size: 18.5px;
+    line-height: 1.75;
+    color: var(--ink);
+    text-align: justify;
+    hyphens: auto;
+}
+
+.part p strong {
+    font-weight: 600;
+    background: linear-gradient(180deg, transparent 62%, rgba(184,146,46,0.25) 62%);
+    padding: 0 2px;
+}
+
+.q1 .part p strong { background: linear-gradient(180deg, transparent 62%, rgba(122,46,46,0.15) 62%); }
+.q2 .part p strong { background: linear-gradient(180deg, transparent 62%, rgba(46,93,122,0.15) 62%); }
+.q3 .part p strong { background: linear-gradient(180deg, transparent 62%, rgba(61,110,61,0.15) 62%); }
+
+/* Back to top */
+.back-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.2s ease;
+    box-shadow: var(--shadow);
+    z-index: 10;
+}
+
+.back-top.visible { opacity: 0.85; }
+.back-top:hover { opacity: 1; transform: translateY(-3px); }
+
+/* Footer */
+.colophon {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    font-style: italic;
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.colophon .ornament {
+    color: var(--gold);
+    font-size: 20px;
+    letter-spacing: 0.5em;
+    margin-bottom: 10px;
+    padding-left: 0.5em;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    body { padding: 24px 14px 60px; }
+    .masthead { padding: 20px 10px 40px; }
+    .masthead h1 { font-size: 36px; }
+    .masthead .subtitle { font-size: 17px; }
+    .question-number { font-size: 48px; }
+    .question-title { font-size: 22px; }
+    .part { padding: 24px 22px; }
+    .part h3 { font-size: 19px; }
+    .part p { font-size: 17px; }
+    .toc { padding: 18px 20px; }
+    .back-top { bottom: 16px; right: 16px; }
+}
+
+/* Print */
+@media print {
+    body { background: #fff; padding: 0; }
+    .toc, .back-top { display: none; }
+    .part { box-shadow: none; page-break-inside: avoid; break-inside: avoid; }
+    .question { page-break-after: always; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="masthead">
+    <div class="eyebrow">Financial Institutions and Markets</div>
+    <h1>Mock 2 — Structured Answers</h1>
+    <p class="subtitle">Lecture-grounded responses, each built as an independent four-sentence paragraph.</p>
+    <div class="format-badge">
+        Format: <code>&lt;Idea&gt;. &lt;Support&gt;. &lt;Link&gt;. &lt;Conclusion&gt;.</code>
+    </div>
+</header>
+
+<nav class="toc" aria-label="Table of contents">
+    <h2>Contents</h2>
+    <ol>
+        <li><a href="#q1a">Central Bank Functions (BoE)</a></li>
+        <li><a href="#q1b">Central Bank Independence</a></li>
+        <li><a href="#q2a">Floating Exchange Rates</a></li>
+        <li><a href="#q2b">Interest Rates &amp; Exchange Rates</a></li>
+        <li><a href="#q3a">How Interest Rates Are Set</a></li>
+        <li><a href="#q3b">Rates on Bond &amp; Equity Markets</a></li>
+    </ol>
+</nav>
+
+<!-- QUESTION 1 -->
+<section class="question q1">
+    <div class="question-header">
+        <div class="question-number">I</div>
+        <h2 class="question-title">Central Banking &amp; Independence</h2>
+    </div>
+
+    <article class="part" id="q1a">
+        <div class="part-label">Part A</div>
+        <h3>Main functions of the Central Bank (Bank of England example)</h3>
+        <p>The Bank of England carries out several core functions as the United Kingdom's central monetary authority. Its primary role is to <strong>run monetary policy</strong>, with the Monetary Policy Committee setting the Bank Rate to meet the inflation target, while the Financial Policy Committee <strong>preserves financial stability</strong> by stress-testing banks and supporting the <strong>lender-of-last-resort</strong> facility. Alongside these, the Bank <strong>supervises banks and insurers</strong>, holds the <strong>sole right to issue banknotes</strong> in England and Wales, acts as <strong>banker to commercial banks and the government</strong>, and <strong>manages the UK's foreign-currency reserves</strong>. Taken together, these functions make the Bank of England the backbone of monetary control, financial stability and payment infrastructure in the UK economy.</p>
+    </article>
+
+    <article class="part" id="q1b">
+        <div class="part-label">Part B</div>
+        <h3>Critical assessment of Central Bank Independence</h3>
+        <p><strong>Central bank independence is widely argued to produce better macroeconomic outcomes</strong> than direct political control of monetary policy. Evidence shows that independent central banks deliver lower and more stable inflation without harming growth, because they are shielded from the political cycle in which governments push rates down before elections and cannot be forced to finance government debt by printing money. <strong>Critics, however, argue that independence is undemocratic</strong>, since unelected experts control a key economic tool, and some studies suggest that low-inflation outcomes may reflect a country's culture rather than institutional design. On balance, independence remains valuable provided it is paired with clear accountability and transparent reporting, especially in today's environment of high inflation and elevated public debt.</p>
+    </article>
+</section>
+
+<!-- QUESTION 2 -->
+<section class="question q2">
+    <div class="question-header">
+        <div class="question-number">II</div>
+        <h2 class="question-title">Exchange Rates &amp; Interest Rates</h2>
+    </div>
+
+    <article class="part" id="q2a">
+        <div class="part-label">Part A</div>
+        <h3>How exchange rates are decided under a floating system</h3>
+        <p>Under a floating exchange-rate system, the rate is <strong>the price of one currency in terms of another, determined by supply and demand</strong>. Market participants include exporters, importers, banks, dealers, governments, speculators, tourists, and central banks smoothing short-term volatility, whose combined trades continuously reprice each currency pair. In the long run, <strong>Purchasing Power Parity (PPP)</strong> anchors the rate to the relative cost of goods between countries, while <strong>arbitrage</strong> keeps quotes consistent across financial centres by eliminating persistent price gaps. Consequently, although speculation dominates day-to-day movements, underlying goods prices and arbitrage ultimately shape the equilibrium exchange rate.</p>
+    </article>
+
+    <article class="part" id="q2b">
+        <div class="part-label">Part B</div>
+        <h3>Relationship between interest rates and exchange rates</h3>
+        <p><strong>Interest rates and exchange rates are tightly linked through Interest Rate Parity (IRP)</strong>. IRP states that the gap between spot and forward exchange rates must equal the interest-rate differential between two countries, so that investing domestically or abroad produces the same return once the forward rate is locked in. In the short run, a rate rise attracts foreign capital and <strong>pushes the domestic currency up</strong>, while the <strong>Fisher Effect</strong> ties this to inflation, since high-inflation countries tend to carry high nominal rates but depreciating currencies over time. Therefore, interest-rate policy is one of the most powerful drivers of currency values, operating through both capital flows and inflation expectations.</p>
+    </article>
+</section>
+
+<!-- QUESTION 3 -->
+<section class="question q3">
+    <div class="question-header">
+        <div class="question-number">III</div>
+        <h2 class="question-title">Interest Rates, Bonds &amp; Equities</h2>
+    </div>
+
+    <article class="part" id="q3a">
+        <div class="part-label">Part A</div>
+        <h3>How interest rates are set in financial markets</h3>
+        <p>Interest rates in financial markets are <strong>set by the interaction of supply and demand for loanable funds</strong>. The <strong>Loanable Funds Model</strong> determines the general rate where the supply from savings, government surpluses and central-bank action meets the demand from consumer credit, business investment and government deficits, while the <strong>Fisher Effect</strong> clarifies that it is the real rate, stripped of inflation, that signals whether to borrow or save. <strong>Rates on individual loans</strong> then diverge according to creditworthiness, maturity, liquidity and whether the loan is secured, producing the <strong>yield curve</strong>, which normally slopes upward but can invert when markets expect lower future rates. In this way, the market blends a single baseline rate with risk-adjusted premia to generate the full spectrum of borrowing costs observed across the economy.</p>
+    </article>
+
+    <article class="part" id="q3b">
+        <div class="part-label">Part B</div>
+        <h3>Impact of interest-rate changes on bond and share markets</h3>
+        <p>Interest-rate changes exert <strong>opposing but equally powerful effects on bond and share markets</strong>. <strong>Bond prices move inversely with rates</strong> because coupons are fixed, so rising rates push prices down and falling rates lift them up, while <strong>shares fall when rates rise</strong> because future cash flows are discounted more heavily, higher borrowing costs compress corporate profits, and investors rotate out of equities into safer bonds. Prolonged periods of <strong>low rates can also inflate asset bubbles</strong>, explained by Keynes's "biggest fool" theory and Minsky's boom-and-bust cycle, which burst once rates eventually rise. The resulting crash triggers a <strong>wealth effect</strong> that suppresses consumption, credit and tax revenues, completing the transmission from monetary policy to the real economy.</p>
+    </article>
+</section>
+
+<footer class="colophon">
+    <div class="ornament">&sect; &sect; &sect;</div>
+    <div>FIM Mock Examination 2 &mdash; Structured Study Notes</div>
+</footer>
+
+</div>
+
+<button class="back-top" aria-label="Back to top" id="backTop">&uarr;</button>
+
+<script>
+const btn = document.getElementById('backTop');
+window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+});
+btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+</script>
+
+</body>
+</html>

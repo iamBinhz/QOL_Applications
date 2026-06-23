@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Odyssey Plan Example — High Grade (70%+)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@700&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            padding: 40px;
+            color: #1a1a2e;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 32px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .page-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: #1a1a2e;
+            margin-bottom: 8px;
+        }
+        .page-header p {
+            color: #666;
+            font-size: 14px;
+        }
+        .page-header .badge {
+            display: inline-block;
+            background: #22c55e;
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+
+        /* ===== ANNOTATIONS ===== */
+        .annotations {
+            max-width: 1400px;
+            margin: 0 auto 32px;
+            background: #fffbeb;
+            border: 2px dashed #f59e0b;
+            border-radius: 12px;
+            padding: 24px 32px;
+        }
+        .annotations.bad {
+            border-color: #dc2626;
+            background: #fef2f2;
+        }
+        .annotations h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #92400e;
+            margin-bottom: 12px;
+        }
+        .annotations.bad h3 { color: #991b1b; }
+        .annotation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .annotation-item {
+            display: flex;
+            gap: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+            color: #78350f;
+        }
+        .annotations.bad .annotation-item { color: #991b1b; }
+        .annotation-item .mark {
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .check { color: #22c55e; }
+        .cross { color: #dc2626; }
+
+        /* ===== ODYSSEY PLAN (A3-style) ===== */
+        .odyssey-plan {
+            max-width: 1400px;
+            margin: 0 auto 48px;
+            background: white;
+            border: 3px solid #1e3a5f;
+            position: relative;
+            /* A3 landscape aspect ratio: ~1.414 */
+            aspect-ratio: 1.414 / 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: auto 1fr auto;
+        }
+        .odyssey-plan.plan-b {
+            border-color: #7c3aed;
+        }
+        .odyssey-plan.bad-plan {
+            border-color: #dc2626;
+            aspect-ratio: auto;
+        }
+
+        /* Plan title bar */
+        .plan-header {
+            grid-column: 1 / -1;
+            background: #1e3a5f;
+            color: white;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .plan-b .plan-header {
+            background: #7c3aed;
+        }
+        .plan-header .six-word-banner {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 6px;
+            padding: 4px 14px;
+            font-size: 13px;
+            font-style: italic;
+            font-weight: 400;
+            letter-spacing: 0.3px;
+        }
+        .plan-header .six-word-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            font-weight: 600;
+            font-style: normal;
+            margin-bottom: 2px;
+        }
+
+        /* Column headers */
+        .col-header {
+            background: #f1f5f9;
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e3a5f;
+            border-bottom: 2px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+        }
+        .col-header:last-of-type {
+            border-right: none;
+        }
+        .plan-b .col-header { color: #7c3aed; }
+
+        /* Column content areas */
+        .col-content {
+            padding: 16px;
+            border-right: 1px solid #e2e8f0;
+            font-size: 12px;
+            line-height: 1.7;
+            color: #334155;
+            overflow: hidden;
+        }
+        .col-content:last-of-type {
+            border-right: none;
+        }
+        .col-content h4 {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1e3a5f;
+            margin-bottom: 8px;
+            padding-bottom: 4px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .plan-b .col-content h4 { color: #7c3aed; }
+
+        .item {
+            margin-bottom: 6px;
+            display: flex;
+            gap: 6px;
+            align-items: flex-start;
+        }
+        .item .bullet {
+            flex-shrink: 0;
+            font-size: 11px;
+            margin-top: 1px;
+        }
+        .item .text { flex: 1; }
+        .gap-item {
+            color: #dc2626;
+            font-style: italic;
+        }
+
+        /* Font size indicators (matching UWE template) */
+        .font-indicator {
+            display: inline-block;
+            background: #1e3a5f;
+            color: white;
+            border-radius: 8px;
+            padding: 4px 10px;
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .font-big {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1e3a5f;
+            margin-bottom: 4px;
+        }
+        .font-medium {
+            font-size: 13px;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        /* Bottom section: dashboard + title + questions */
+        .plan-footer {
+            grid-column: 1 / -1;
+            border-top: 2px solid #e2e8f0;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            min-height: 160px;
+        }
+
+        .footer-embedded {
+            padding: 12px 16px;
+            border-right: 1px solid #e2e8f0;
+            font-size: 11px;
+        }
+        .footer-embedded h4 {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .embedded-doc {
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            border-radius: 6px;
+            padding: 8px 10px;
+            margin-bottom: 6px;
+            font-size: 10px;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .embedded-doc .icon {
+            font-size: 14px;
+        }
+
+        .footer-dashboard {
+            padding: 12px 16px;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .gauge-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 6px 8px;
+        }
+        .gauge-box .gauge-label {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+        .gauge-boxes {
+            display: flex;
+            gap: 2px;
+        }
+        .gauge-cell {
+            width: 14px;
+            height: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 2px;
+            font-size: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        .gauge-cell.filled {
+            background: #1e3a5f;
+            color: white;
+            border-color: #1e3a5f;
+        }
+        .plan-b .gauge-cell.filled {
+            background: #7c3aed;
+            border-color: #7c3aed;
+        }
+        .gauge-box .gauge-note {
+            font-size: 8px;
+            color: #94a3b8;
+            margin-top: 3px;
+            font-style: italic;
+        }
+        .gauge-instruction {
+            font-size: 8px;
+            color: #94a3b8;
+            text-align: center;
+            margin-top: 4px;
+        }
+
+        .footer-title-questions {
+            padding: 12px 16px;
+        }
+        .six-word-box {
+            background: #1e3a5f;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        .plan-b .six-word-box { background: #7c3aed; }
+        .six-word-box .label {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 4px;
+        }
+        .six-word-box .title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .questions-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px 10px;
+        }
+        .questions-box .label {
+            font-size: 9px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #94a3b8;
+            margin-bottom: 6px;
+        }
+        .question {
+            font-size: 10px;
+            color: #334155;
+            margin-bottom: 4px;
+            padding-left: 12px;
+            text-indent: -12px;
+        }
+
+        /* Student info */
+        .student-info {
+            text-align: center;
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 8px;
+            margin-bottom: 40px;
+        }
+
+        /* ===== BAD EXAMPLE ===== */
+        .bad-plan-container {
+            max-width: 1000px;
+            margin: 0 auto 48px;
+            background: white;
+            border: 2px solid #fecaca;
+            border-radius: 8px;
+            padding: 32px;
+        }
+        .bad-plan-content {
+            font-size: 14px;
+            line-height: 2;
+            color: #64748b;
+        }
+        .bad-plan-content p { margin-bottom: 12px; }
+        .bad-plan-content strong { color: #475569; }
+
+        .problem-callouts {
+            margin-top: 24px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .problem-callout {
+            background: #fef2f2;
+            border-radius: 6px;
+            padding: 10px 14px;
+            font-size: 12px;
+            color: #991b1b;
+            display: flex;
+            gap: 8px;
+            align-items: flex-start;
+        }
+
+        /* Summary */
+        .summary-container {
+            max-width: 1400px;
+            margin: 0 auto 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .summary-box {
+            border-radius: 12px;
+            padding: 24px;
+        }
+        .summary-box.good {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+        .summary-box.bad-summary {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+        }
+        .summary-box h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .summary-box.good h3 { color: #166534; }
+        .summary-box.bad-summary h3 { color: #991b1b; }
+        .summary-box .line {
+            font-size: 13px;
+            line-height: 2;
+        }
+        .summary-box.good .line { color: #166534; }
+        .summary-box.bad-summary .line { color: #991b1b; }
+
+        .section-title {
+            max-width: 1400px;
+            margin: 48px auto 24px;
+            text-align: center;
+        }
+        .section-title h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+        }
+
+        @media print {
+            body { padding: 0; background: white; }
+            .page-header, .annotations, .section-title, .summary-container { display: none; }
+            .odyssey-plan {
+                page-break-after: always;
+                border-width: 2px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-header">
+        <h1>Odyssey Plan Examples: High Grade vs Low Grade</h1>
+        <p>UMET9U-30-1 Professional Skills for Banking and Finance — Career Development Portfolio</p>
+        <div class="badge">Teaching Reference — Not for Submission</div>
+    </div>
+
+    <!-- ===== WHY THIS SCORES HIGH ===== -->
+    <div class="annotations">
+        <h3>Why This Example Scores 70%+ (Excellent/Outstanding)</h3>
+        <div class="annotation-grid">
+            <div class="annotation-item"><span class="mark check">&#10003;</span> <strong>Matches the UWE template layout</strong> — 4 columns, dashboard in footer, 6-word title, "How Might I?" questions</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> <strong>Visual with embedded evidence</strong> — icons embedded in PowerPoint, not just text paragraphs</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> <strong>Concrete actions with timeframes</strong> — "Complete CFA Level 1 by Year 2" not "study finance"</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> <strong>Passes the 10-Second Test</strong> — you can grasp the plan at a glance</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> <strong>Honest dashboard scores</strong> — mix of high and low with notes explaining why</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> <strong>Embedded documents</strong> — evidence (workbook, psychometric, CV) linked inside the plan</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> <strong>Plan B is genuinely different</strong> — FinTech startup vs corporate banking (not just different employers)</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> <strong>Sophisticated design thinking</strong> — flexibility, iteration, prototyping mindset throughout</div>
+        </div>
+    </div>
+
+    <!-- ===== PLAN A: HIGH GRADE ===== -->
+    <div class="odyssey-plan">
+        <!-- Header -->
+        <div class="plan-header">
+            <span>Odyssey Plan A: your current/default path</span>
+            <div class="six-word-banner">
+                <div class="six-word-label">6-Word Title</div>
+                "Building Vietnam's Future Through Global Finance"
+            </div>
+        </div>
+
+        <!-- Column Headers -->
+        <div class="col-header">My Assessment of Where I am Now</div>
+        <div class="col-header">Stage 1: What Do I Need to Do Next?</div>
+        <div class="col-header">Stage 2: Where Do I Need to Be at Graduation?</div>
+        <div class="col-header">Stage 3: What is My 5-Year Destination?</div>
+
+        <!-- Column 1: Where I Am Now -->
+        <div class="col-content">
+            <div class="font-big">Year 1 Student</div>
+            <div class="font-medium">BSc Banking & Finance, NEU-UWE</div>
+
+            <h4>Current Capabilities</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">PEST/SWOT/Porter's analysis (Practice level)</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Excel basics: formulas, charts, pivot tables</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Academic writing in English (Harvard referencing)</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Bilingual: Vietnamese (native) + English (IELTS 7.0)</span></div>
+
+            <h4>Interests & Values</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Top values: Family, Contribution, Stability</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Workview: work = contributing to Vietnam's development</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Part-time: family business accounting assistant</span></div>
+
+            <h4>Gaps to Address</h4>
+            <div class="item gap-item"><span class="bullet">&#9651;</span> <span class="text">No internship experience yet</span></div>
+            <div class="item gap-item"><span class="bullet">&#9651;</span> <span class="text">No professional network in banking</span></div>
+            <div class="item gap-item"><span class="bullet">&#9651;</span> <span class="text">Limited financial modelling skills</span></div>
+        </div>
+
+        <!-- Column 2: What Do I Need to Do Next? -->
+        <div class="col-content">
+            <div class="font-big">Build Foundations</div>
+            <div class="font-medium">Year 2 actions (2026-2027)</div>
+
+            <h4>Concrete Actions</h4>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Apply for summer internship at Vietnamese commercial bank (Vietcombank, BIDV, or Techcombank) — deadline: Feb 2027</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Begin CFA Level 1 preparation (self-study, Kaplan materials)</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Complete online financial modelling course (CFI or Wall Street Prep)</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Join NEU Finance Club; attend 3+ industry networking events</span></div>
+
+            <h4>Skill Development</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Excel: move from Practice to Competence (financial modelling)</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Bloomberg Terminal basics (university access)</span></div>
+
+            <h4>Feedback Loop</h4>
+            <div class="item"><span class="bullet">&#8634;</span> <span class="text">Monthly: review internship applications progress</span></div>
+            <div class="item"><span class="bullet">&#8634;</span> <span class="text">Semester end: check CFA study plan on track</span></div>
+        </div>
+
+        <!-- Column 3: Where Do I Need to Be at Graduation? -->
+        <div class="col-content">
+            <div class="font-big">Graduate Ready</div>
+            <div class="font-medium">Graduation (2028-2029)</div>
+
+            <h4>Target Position at Graduation</h4>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Graduate with 2:1 or above</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">CFA Level 1 passed</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">1-2 internships completed (commercial banking exposure)</span></div>
+
+            <h4>Applications & Transition</h4>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Apply to graduate programmes: HSBC Vietnam, Standard Chartered, Citibank Vietnam</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Alternatively: entry-level analyst role in corporate banking or credit analysis</span></div>
+
+            <h4>Network Built</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">5+ professional contacts in Vietnamese banking sector</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Active LinkedIn presence with industry engagement</span></div>
+
+            <h4>Feedback Loop</h4>
+            <div class="item"><span class="bullet">&#8634;</span> <span class="text">Informational interviews with 3 professionals in target roles</span></div>
+        </div>
+
+        <!-- Column 4: 5-Year Destination -->
+        <div class="col-content">
+            <div class="font-big">Corporate Banking Associate</div>
+            <div class="font-medium">5-year destination (2031)</div>
+
+            <h4>Role Description</h4>
+            <div class="item"><span class="bullet">&#11088;</span> <span class="text">Associate-level position at an international bank operating in Vietnam</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Specialising in corporate lending for Vietnamese SMEs</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Contributing to Vietnam's economic development through SME financing</span></div>
+
+            <h4>Professional Standing</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">CFA Level 2 passed; working toward Level 3</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">3+ years of corporate banking experience</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Recognised as a bilingual professional who bridges international banking standards with Vietnamese market knowledge</span></div>
+
+            <h4>Life Alignment</h4>
+            <div class="item"><span class="bullet">&#9878;</span> <span class="text">Stable hours allowing time for family (top value)</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Salary supports parents and future family</span></div>
+        </div>
+
+        <!-- Footer: Embedded Evidence + Dashboard + Title/Questions -->
+        <div class="plan-footer">
+            <!-- Embedded Evidence -->
+            <div class="footer-embedded">
+                <h4>Embedded Evidence (double-click to open)</h4>
+                <div class="embedded-doc"><span class="icon">&#128196;</span> Work-Life Balance Assessment (3-word summary: Family-Driven Stability)</div>
+                <div class="embedded-doc"><span class="icon">&#128196;</span> Core Values Ranking: Family > Contribution > Stability > Growth > Learning</div>
+                <div class="embedded-doc"><span class="icon">&#128196;</span> Psychometric Profile (Careers Toolkit output PDF)</div>
+                <div class="embedded-doc"><span class="icon">&#128196;</span> Empathy Map — career development self-assessment</div>
+            </div>
+
+            <!-- Dashboard -->
+            <div class="footer-dashboard">
+                <div class="dashboard-grid">
+                    <div class="gauge-box">
+                        <div class="gauge-label">Resources needed for plan</div>
+                        <div class="gauge-boxes">
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                        </div>
+                        <div class="gauge-note">Need to fund CFA; no network yet</div>
+                    </div>
+                    <div class="gauge-box">
+                        <div class="gauge-label">Confidence (in plan)</div>
+                        <div class="gauge-boxes">
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                        </div>
+                        <div class="gauge-note">Competitive field; grades need to improve</div>
+                    </div>
+                    <div class="gauge-box">
+                        <div class="gauge-label">Do you like the plan?</div>
+                        <div class="gauge-boxes">
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                        </div>
+                        <div class="gauge-note">Genuinely excited about impact</div>
+                    </div>
+                    <div class="gauge-box">
+                        <div class="gauge-label">Coherence (of plan)</div>
+                        <div class="gauge-boxes">
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell"></div>
+                        </div>
+                        <div class="gauge-note">Aligns with family, contribution, stability values</div>
+                    </div>
+                </div>
+                <div class="gauge-instruction">put an "x" in box on all scales</div>
+            </div>
+
+            <!-- Title + Questions -->
+            <div class="footer-title-questions">
+                <div class="six-word-box">
+                    <div class="label">6 Word Title for Plan</div>
+                    <div class="title">"Building Vietnam's Future Through Global Finance"</div>
+                </div>
+                <div class="questions-box">
+                    <div class="label">Questions/issues that this plan addresses:</div>
+                    <div class="question">1. How might I gain corporate banking experience while still a student?</div>
+                    <div class="question">2. How might I build a professional network with no family connections in banking?</div>
+                    <div class="question">3. How might I test whether I enjoy client-facing work before committing?</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="student-info">Nguyen Minh Anh | 22045891 | UMET9U-30-1 | Plan A</div>
+
+
+    <!-- ===== PLAN B: HIGH GRADE ===== -->
+    <div class="annotations">
+        <h3>Plan B Must Be Genuinely Different — Not Just a Variation</h3>
+        <div class="annotation-grid">
+            <div class="annotation-item"><span class="mark check">&#10003;</span> Same starting point (Column 1) as Plan A — your reality doesn't change</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> Completely different destination — FinTech startup vs corporate banking</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> Different dashboard scores — shows you've thought critically about each path</div>
+            <div class="annotation-item"><span class="mark check">&#10003;</span> Different "How Might I?" questions — different uncertainties to resolve</div>
+        </div>
+    </div>
+
+    <div class="odyssey-plan plan-b">
+        <div class="plan-header">
+            <span>Odyssey Plan B: what you do if A is no longer viable</span>
+            <div class="six-word-banner">
+                <div class="six-word-label">6-Word Title</div>
+                "Creating Technology Solutions for Vietnamese Banking"
+            </div>
+        </div>
+
+        <div class="col-header">My Assessment of Where I am Now</div>
+        <div class="col-header">Stage 1: What Do I Need to Do Next?</div>
+        <div class="col-header">Stage 2: Where Do I Need to Be at Graduation?</div>
+        <div class="col-header">Stage 3: What is My 5-Year Destination?</div>
+
+        <!-- Column 1: Same starting point -->
+        <div class="col-content">
+            <div class="font-big">Year 1 Student</div>
+            <div class="font-medium">BSc Banking & Finance, NEU-UWE</div>
+
+            <h4>Current Capabilities</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Business analysis frameworks (PEST, SWOT, Porter's)</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Basic Python from FinTech module</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Understanding of digital banking concepts</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Bilingual: Vietnamese + English</span></div>
+
+            <h4>Interests & Values</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Top values: Family, Contribution, Stability</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Curious about technology + finance intersection</span></div>
+
+            <h4>Gaps to Address</h4>
+            <div class="item gap-item"><span class="bullet">&#9651;</span> <span class="text">No coding portfolio</span></div>
+            <div class="item gap-item"><span class="bullet">&#9651;</span> <span class="text">No startup experience</span></div>
+            <div class="item gap-item"><span class="bullet">&#9651;</span> <span class="text">Limited understanding of product development</span></div>
+        </div>
+
+        <!-- Column 2 -->
+        <div class="col-content">
+            <div class="font-big">Tech + Finance Fusion</div>
+            <div class="font-medium">Year 2 actions (2026-2027)</div>
+
+            <h4>Concrete Actions</h4>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Complete online courses: Python for Finance, SQL, data analysis (Coursera/DataCamp)</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Apply for internship at Vietnamese FinTech (MoMo, VNPay, or Timo)</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Build 2-3 personal projects combining finance + technology</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Join Vietnam FinTech Club; attend startup meetups in Hanoi</span></div>
+
+            <h4>Skill Development</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Python: Exposure to Practice (finance applications)</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">UX design basics for financial products</span></div>
+
+            <h4>Feedback Loop</h4>
+            <div class="item"><span class="bullet">&#8634;</span> <span class="text">Monthly: review coding progress and project completion</span></div>
+        </div>
+
+        <!-- Column 3 -->
+        <div class="col-content">
+            <div class="font-big">FinTech Professional</div>
+            <div class="font-medium">Graduation (2028-2029)</div>
+
+            <h4>Target Position at Graduation</h4>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Graduate with 2:1 or above</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Portfolio of 4-5 finance-tech projects on GitHub</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">1 FinTech internship completed</span></div>
+
+            <h4>Applications & Transition</h4>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Product analyst or business analyst role at FinTech company</span></div>
+            <div class="item"><span class="bullet">&#10003;</span> <span class="text">Understand Vietnamese digital banking regulations</span></div>
+
+            <h4>Startup Preparation</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Identified specific market gap in Vietnamese SME lending</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Building potential co-founder network</span></div>
+        </div>
+
+        <!-- Column 4 -->
+        <div class="col-content">
+            <div class="font-big">FinTech Co-Founder</div>
+            <div class="font-medium">5-year destination (2031)</div>
+
+            <h4>Role Description</h4>
+            <div class="item"><span class="bullet">&#11088;</span> <span class="text">Co-found a FinTech startup focused on SME lending technology</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Bridging traditional banks and underserved Vietnamese SMEs</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Combining banking knowledge with technology for impact</span></div>
+
+            <h4>Professional Standing</h4>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">3+ years FinTech industry experience</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Prototype tested with real SME users</span></div>
+            <div class="item"><span class="bullet">&#9679;</span> <span class="text">Seeking Series A funding or self-sustaining revenue</span></div>
+
+            <h4>Life Alignment</h4>
+            <div class="item"><span class="bullet">&#9878;</span> <span class="text">Higher risk but higher autonomy and impact</span></div>
+            <div class="item gap-item"><span class="bullet">&#9651;</span> <span class="text">Tension: family stability value vs startup uncertainty</span></div>
+        </div>
+
+        <!-- Footer -->
+        <div class="plan-footer">
+            <div class="footer-embedded">
+                <h4>Embedded Evidence (double-click to open)</h4>
+                <div class="embedded-doc"><span class="icon">&#128196;</span> Work-Life Balance Assessment (3-word summary: Ambition-Family Tension)</div>
+                <div class="embedded-doc"><span class="icon">&#128196;</span> Core Values Ranking (same as Plan A — you are the same person)</div>
+                <div class="embedded-doc"><span class="icon">&#128196;</span> Vietnam FinTech Market Research (brief notes)</div>
+                <div class="embedded-doc"><span class="icon">&#128196;</span> Empathy Map — career development self-assessment</div>
+            </div>
+
+            <div class="footer-dashboard">
+                <div class="dashboard-grid">
+                    <div class="gauge-box">
+                        <div class="gauge-label">Resources needed for plan</div>
+                        <div class="gauge-boxes">
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                        </div>
+                        <div class="gauge-note">Need coding skills, savings, co-founder</div>
+                    </div>
+                    <div class="gauge-box">
+                        <div class="gauge-label">Confidence (in plan)</div>
+                        <div class="gauge-boxes">
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                        </div>
+                        <div class="gauge-note">Startups are uncertain; many unknowns</div>
+                    </div>
+                    <div class="gauge-box">
+                        <div class="gauge-label">Do you like the plan?</div>
+                        <div class="gauge-boxes">
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell"></div>
+                        </div>
+                        <div class="gauge-note">Autonomy and impact are exciting</div>
+                    </div>
+                    <div class="gauge-box">
+                        <div class="gauge-label">Coherence (of plan)</div>
+                        <div class="gauge-boxes">
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell filled">x</div>
+                            <div class="gauge-cell"></div>
+                            <div class="gauge-cell"></div>
+                        </div>
+                        <div class="gauge-note">Aligns with contribution but tension with stability</div>
+                    </div>
+                </div>
+                <div class="gauge-instruction">put an "x" in box on all scales</div>
+            </div>
+
+            <div class="footer-title-questions">
+                <div class="six-word-box">
+                    <div class="label">6 Word Title for Plan</div>
+                    <div class="title">"Creating Technology Solutions for Vietnamese Banking"</div>
+                </div>
+                <div class="questions-box">
+                    <div class="label">Questions/issues that this plan addresses:</div>
+                    <div class="question">1. How might I learn enough coding alongside my finance degree to be credible in FinTech?</div>
+                    <div class="question">2. How might I validate a FinTech product idea before investing significant time and money?</div>
+                    <div class="question">3. How might I balance startup risk with my family's expectation of a stable career?</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="student-info">Nguyen Minh Anh | 22045891 | UMET9U-30-1 | Plan B</div>
+
+
+    <!-- ===== BAD EXAMPLE ===== -->
+    <div class="section-title">
+        <h2 style="color: #dc2626;">What a Low-Scoring Plan Looks Like (40-49%)</h2>
+    </div>
+
+    <div class="annotations bad">
+        <h3>Why This Example Scores Below 50%</h3>
+        <div class="annotation-grid">
+            <div class="annotation-item"><span class="mark cross">&#10007;</span> <strong>Text paragraphs, not a graphic</strong> — fails the "10-Second Test" completely</div>
+            <div class="annotation-item"><span class="mark cross">&#10007;</span> <strong>No 6-word title</strong> — missing a required element</div>
+            <div class="annotation-item"><span class="mark cross">&#10007;</span> <strong>No dashboard scores</strong> — no self-evaluation at all</div>
+            <div class="annotation-item"><span class="mark cross">&#10007;</span> <strong>No "How Might I?" questions</strong> — no design thinking evidence</div>
+            <div class="annotation-item"><span class="mark cross">&#10007;</span> <strong>Vague goals</strong> — "get a good job" could apply to anyone</div>
+            <div class="annotation-item"><span class="mark cross">&#10007;</span> <strong>No embedded evidence</strong> — no link to workbook exercises</div>
+            <div class="annotation-item"><span class="mark cross">&#10007;</span> <strong>Plan B = slight variation</strong> — "smaller bank" is not genuinely different</div>
+            <div class="annotation-item"><span class="mark cross">&#10007;</span> <strong>No connection to values</strong> — could have been written without doing PD2</div>
+        </div>
+    </div>
+
+    <div class="bad-plan-container">
+        <div style="text-align: center; margin-bottom: 24px;">
+            <span style="background: #fef2f2; color: #dc2626; padding: 6px 20px; border-radius: 20px; font-size: 13px; font-weight: 600;">PLAN A</span>
+            <p style="margin-top: 8px; color: #94a3b8; font-style: italic;">(No 6-word title provided)</p>
+        </div>
+
+        <div class="bad-plan-content">
+            <p><strong>My Career Plan</strong></p>
+            <p>After I graduate from university I want to get a good job in banking or finance. I think banking is a good career because it pays well and has good career progression. I want to work at a big bank like Vietcombank or HSBC.</p>
+            <p><strong>In 1 year:</strong> I will study hard and try to get good grades. I will also try to find an internship somewhere.</p>
+            <p><strong>In 2-3 years:</strong> I will graduate and start working. I hope to get a job at a bank. I will work hard to get promoted.</p>
+            <p><strong>In 5 years:</strong> I want to be a manager or senior person at a bank. I want to earn a good salary and have a good life.</p>
+            <p><strong>Plan B:</strong> If I can't work at a big bank, I will work at a smaller bank instead. Or maybe I will work in a finance company.</p>
+        </div>
+
+        <div class="problem-callouts">
+            <div class="problem-callout"><span class="mark cross">&#10007;</span> "Get a good job" — what job? What type of banking? What role?</div>
+            <div class="problem-callout"><span class="mark cross">&#10007;</span> "Try to find an internship somewhere" — where? How? When?</div>
+            <div class="problem-callout"><span class="mark cross">&#10007;</span> "Work hard to get promoted" — this is not a plan with concrete actions</div>
+            <div class="problem-callout"><span class="mark cross">&#10007;</span> Plan B = "smaller bank" — NOT a genuinely different direction</div>
+            <div class="problem-callout"><span class="mark cross">&#10007;</span> No visual elements — just text paragraphs on a page</div>
+            <div class="problem-callout"><span class="mark cross">&#10007;</span> No dashboard, no questions, no milestones, no self-awareness</div>
+            <div class="problem-callout"><span class="mark cross">&#10007;</span> No connection to values — why banking? What about this person?</div>
+            <div class="problem-callout"><span class="mark cross">&#10007;</span> Could have been written by AI — nothing authentic or specific</div>
+        </div>
+    </div>
+
+
+    <!-- ===== SUMMARY ===== -->
+    <div class="section-title">
+        <h2>Summary: What Makes the Difference</h2>
+    </div>
+
+    <div class="summary-container">
+        <div class="summary-box good">
+            <h3>70%+ (Excellent / Outstanding)</h3>
+            <div class="line">&#10003; Uses the UWE template layout (4 columns + footer)</div>
+            <div class="line">&#10003; Visual graphic — passes the 10-Second Test</div>
+            <div class="line">&#10003; 6-word title that captures the plan's essence</div>
+            <div class="line">&#10003; Concrete actions with timeframes and skill targets</div>
+            <div class="line">&#10003; Honest dashboard with notes explaining scores</div>
+            <div class="line">&#10003; "How Might I?" questions that show real curiosity</div>
+            <div class="line">&#10003; Embedded evidence documents (workbook, psychometric, etc.)</div>
+            <div class="line">&#10003; Plan B is genuinely different from Plan A</div>
+            <div class="line">&#10003; Connected to values from PD2 exercises</div>
+            <div class="line">&#10003; Feedback loops built into the plan</div>
+        </div>
+        <div class="summary-box bad-summary">
+            <h3>Below 50% (Inadequate / Adequate)</h3>
+            <div class="line">&#10007; Text-heavy — reads like an essay, not a graphic</div>
+            <div class="line">&#10007; Fails the 10-Second Test</div>
+            <div class="line">&#10007; No 6-word title</div>
+            <div class="line">&#10007; Vague goals: "get a good job," "be successful"</div>
+            <div class="line">&#10007; No dashboard or all scores at maximum</div>
+            <div class="line">&#10007; No "How Might I?" questions</div>
+            <div class="line">&#10007; No embedded evidence</div>
+            <div class="line">&#10007; Plan B = slight variation of Plan A</div>
+            <div class="line">&#10007; No connection to personal values or evidence</div>
+            <div class="line">&#10007; Generic — could be written by anyone</div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Ledger — Financial Institutions and Markets Revision</title>
+<meta name="description" content="A revision companion for the Financial Institutions and Markets module: 22 lectures across two semesters, explained plainly with stories, facts and memory aids." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   THE LEDGER — design system
+   Aesthetic: engraved securities / bank certificate / ledger
+   Type: EB Garamond throughout (per global font rule)
+   ============================================================ */
+:root{
+  --paper:#ECEADE;
+  --paper-card:#F4F2EA;
+  --paper-sink:#E3E0D1;
+  --treasury:#134E3A;
+  --treasury-deep:#0E3B2C;
+  --ink:#20251F;
+  --ink-soft:#54584D;
+  --brass:#9C7C3A;
+  --brass-bright:#B8924A;
+  --seal:#7A2E25;
+  --engrave:#CFCBB8;
+  --engrave-soft:#DBD8C8;
+
+  --maxw:760px;
+  --side:300px;
+  --r:3px;
+  --shadow:0 1px 0 var(--engrave), 0 18px 40px -32px rgba(20,40,30,.5);
+  --serif:'EB Garamond', Georgia, 'Times New Roman', serif;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:19px;
+  line-height:1.68;
+  font-feature-settings:"onum" 1, "kern" 1, "liga" 1;
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+}
+
+/* --- reading progress --- */
+.progress{
+  position:fixed; top:0; left:0; height:3px; width:0%;
+  background:linear-gradient(90deg,var(--brass),var(--brass-bright));
+  z-index:60; transition:width .12s linear;
+}
+
+/* --- skip link --- */
+.skip{
+  position:fixed; left:-999px; top:8px; z-index:100;
+  background:var(--treasury); color:var(--paper); padding:.5em 1em; border-radius:var(--r);
+}
+.skip:focus{left:8px}
+
+/* --- shell --- */
+.shell{display:flex; align-items:flex-start}
+
+/* ===================== SIDEBAR ===================== */
+.sidebar{
+  width:var(--side); flex:0 0 var(--side);
+  position:sticky; top:0; align-self:flex-start;
+  height:100vh; overflow-y:auto;
+  background:linear-gradient(180deg,var(--treasury-deep),var(--treasury));
+  color:#E9E6D6;
+  border-right:1px solid rgba(0,0,0,.25);
+  padding:26px 22px 60px;
+  z-index:50;
+}
+.brand{display:flex; flex-direction:column; gap:2px; margin-bottom:6px}
+.brand-mark{font-size:.72rem; letter-spacing:.34em; text-transform:uppercase; color:var(--brass-bright); font-weight:600}
+.brand-name{font-size:1.7rem; font-weight:800; line-height:1; color:#F3EFE0}
+.brand-sub{font-size:.86rem; color:#B9C4B3; font-style:italic; margin-top:4px}
+.brand-rule{height:1px; background:linear-gradient(90deg,var(--brass),transparent); margin:18px 0 12px}
+
+.nav-group{margin-bottom:6px}
+.nav-head{
+  width:100%; text-align:left; cursor:pointer;
+  background:none; border:0; color:#EDE9D9; font-family:var(--serif);
+  font-size:.78rem; letter-spacing:.2em; text-transform:uppercase; font-weight:600;
+  padding:10px 4px 8px; display:flex; align-items:center; justify-content:space-between;
+}
+.nav-head .chev{transition:transform .25s ease; color:var(--brass-bright)}
+.nav-group.collapsed .chev{transform:rotate(-90deg)}
+.nav-list{list-style:none; margin:0 0 6px; padding:0; overflow:hidden}
+.nav-group.collapsed .nav-list{display:none}
+.nav-list a{
+  display:flex; gap:10px; align-items:baseline;
+  text-decoration:none; color:#CBD3C5;
+  padding:6px 8px; border-radius:var(--r); border-left:2px solid transparent;
+  font-size:.97rem; line-height:1.3;
+}
+.nav-list a .wk{color:var(--brass-bright); font-weight:600; font-variant-numeric:tabular-nums; min-width:1.5em}
+.nav-list a:hover{background:rgba(255,255,255,.06); color:#fff}
+.nav-list a.active{
+  background:rgba(184,146,74,.16); color:#fff; border-left-color:var(--brass-bright);
+}
+
+/* ===================== MAIN ===================== */
+.main{flex:1 1 auto; min-width:0}
+
+/* --- hero --- */
+.hero{
+  position:relative; overflow:hidden;
+  padding:clamp(48px,9vw,110px) 24px clamp(40px,6vw,70px);
+  text-align:center;
+  border-bottom:1px solid var(--engrave);
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(19,78,58,.07), transparent 60%),
+    var(--paper);
+}
+.hero-orn{
+  margin:0 auto 26px; width:min(220px,46vw); aspect-ratio:1/1;
+  display:block;
+}
+.hero-orn svg{width:100%; height:100%; display:block}
+.guilloche path{fill:none; stroke:var(--treasury); stroke-width:.5; opacity:.62}
+.guilloche .ring2{stroke:var(--brass); opacity:.5}
+.hero-eyebrow{font-size:.82rem; letter-spacing:.34em; text-transform:uppercase; color:var(--brass); font-weight:600}
+.hero-title{
+  font-size:clamp(2.3rem,6vw,4rem); font-weight:800; color:var(--treasury-deep);
+  line-height:1.02; margin:.18em 0 .1em; letter-spacing:-.01em;
+}
+.hero-sub{font-size:clamp(1.05rem,2.2vw,1.3rem); color:var(--ink-soft); font-style:italic; max-width:30ch; margin:0 auto}
+.flow{
+  display:flex; flex-wrap:wrap; gap:10px 14px; justify-content:center; align-items:center;
+  margin:30px auto 0; font-size:clamp(.92rem,2vw,1.08rem); color:var(--treasury);
+}
+.flow .node{border:1px solid var(--engrave); background:var(--paper-card); padding:7px 16px; border-radius:999px; box-shadow:var(--shadow)}
+.flow .node.center{background:var(--treasury); color:var(--paper); border-color:var(--treasury); font-weight:600}
+.flow .arrow{color:var(--brass); font-weight:700}
+.hero-meta{margin-top:26px; font-size:.84rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft)}
+.hero-meta span{color:var(--brass)}
+
+/* --- intro / legend --- */
+.intro{max-width:var(--maxw); margin:0 auto; padding:44px 24px 8px}
+.intro p{color:var(--ink-soft)}
+.legend{
+  display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin:22px 0 6px;
+}
+.legend-item{display:flex; gap:11px; align-items:flex-start; padding:12px 14px; border:1px solid var(--engrave); border-radius:var(--r); background:var(--paper-card)}
+.legend-item .ic{font-size:1.15rem; line-height:1.4}
+.legend-item b{display:block; font-size:.95rem; color:var(--treasury)}
+.legend-item small{color:var(--ink-soft); font-size:.86rem}
+
+/* --- semester divider --- */
+.sem-divider{
+  max-width:var(--maxw); margin:64px auto 8px; padding:0 24px; text-align:center;
+}
+.sem-divider .sem-k{font-size:.82rem; letter-spacing:.34em; text-transform:uppercase; color:var(--brass); font-weight:600}
+.sem-divider .sem-t{font-size:clamp(1.6rem,4vw,2.2rem); color:var(--treasury-deep); font-weight:700; margin:.1em 0 0}
+.sem-divider .sem-d{color:var(--ink-soft); font-style:italic; margin:.3em 0 0}
+.sem-line{height:1px; max-width:140px; margin:18px auto 0; background:linear-gradient(90deg,transparent,var(--brass),transparent)}
+
+/* ===================== WEEK SECTIONS ===================== */
+.week{
+  position:relative; max-width:var(--maxw); margin:0 auto;
+  padding:54px 24px; border-bottom:1px solid var(--engrave-soft);
+  scroll-margin-top:14px;
+}
+.week-head{position:relative; margin-bottom:18px}
+.week-num{
+  position:absolute; right:-6px; top:-30px; width:120px; height:120px;
+  opacity:.5; pointer-events:none; z-index:0;
+}
+.week-num svg{width:100%;height:100%}
+.week-num .lbl{
+  position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+  font-size:2.1rem; font-weight:800; color:var(--engrave); font-variant-numeric:tabular-nums;
+}
+.eyebrow{font-size:.78rem; letter-spacing:.22em; text-transform:uppercase; color:var(--brass); font-weight:600; position:relative; z-index:1}
+.week-title{font-size:clamp(1.7rem,3.6vw,2.5rem); color:var(--treasury); font-weight:700; line-height:1.08; margin:.14em 0 0; position:relative; z-index:1}
+
+.big-idea{
+  position:relative; margin:22px 0 8px; padding:4px 0 4px 20px;
+  border-left:3px solid var(--brass);
+  font-size:1.12rem; font-style:italic; color:var(--treasury-deep);
+}
+.big-idea b{display:block; font-style:normal; font-size:.72rem; letter-spacing:.2em; text-transform:uppercase; color:var(--brass); margin-bottom:3px}
+
+.week h3{
+  font-size:1.3rem; color:var(--treasury); font-weight:600; margin:34px 0 6px;
+  padding-bottom:6px; border-bottom:1px solid var(--engrave);
+}
+.week h4{font-size:1.06rem; color:var(--treasury-deep); font-weight:600; margin:20px 0 2px}
+.week p{margin:.5em 0}
+.week ul,.week ol{margin:.5em 0; padding-left:1.3em}
+.week li{margin:.28em 0}
+.week li::marker{color:var(--brass)}
+.term{color:var(--treasury-deep); font-weight:600}
+.lead{font-size:1.06rem}
+
+/* cross-reference chip */
+.xref{
+  color:var(--treasury); text-decoration:none; border-bottom:1px solid var(--brass);
+  font-style:italic; white-space:nowrap;
+}
+.xref:hover{background:rgba(156,124,58,.12)}
+.xref::after{content:" \2197"; color:var(--brass); font-style:normal}
+
+/* --- formula block --- */
+.formula{
+  margin:18px 0; padding:16px 18px; text-align:center;
+  background:var(--paper-card);
+  border-top:1px solid var(--brass); border-bottom:1px solid var(--brass);
+}
+.formula .eq{font-size:1.2rem; color:var(--treasury-deep)}
+.formula .eq i{color:var(--seal)}
+.formula small{display:block; margin-top:8px; color:var(--ink-soft); font-size:.85rem; font-style:italic}
+
+/* --- balance sheet / ledger motif --- */
+.ledger{
+  margin:20px 0; border:1px solid var(--engrave); border-radius:var(--r); overflow:hidden;
+  background:var(--paper-card); box-shadow:var(--shadow);
+}
+.ledger-cap{padding:8px 14px; background:var(--treasury); color:var(--paper); font-size:.82rem; letter-spacing:.14em; text-transform:uppercase; text-align:center}
+.ledger-grid{display:grid; grid-template-columns:1fr 1fr}
+.ledger-col{padding:12px 16px}
+.ledger-col:first-child{border-right:1px solid var(--engrave)}
+.ledger-col h5{margin:0 0 8px; font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; color:var(--brass); font-weight:700}
+.ledger-col .row{display:flex; justify-content:space-between; gap:10px; padding:3px 0; font-size:.97rem; border-bottom:1px dotted var(--engrave)}
+.ledger-col .row span:last-child{font-variant-numeric:tabular-nums; color:var(--treasury-deep)}
+.ledger-col .row.tot{border-bottom:0; border-top:1px solid var(--brass); font-weight:700; margin-top:4px; padding-top:5px}
+
+/* --- enrichment callouts --- */
+.note{
+  margin:20px 0; padding:14px 16px 14px 18px; border-radius:var(--r);
+  border:1px solid var(--engrave); border-left-width:4px;
+  background:var(--paper-card); position:relative;
+}
+.note .note-k{display:flex; align-items:center; gap:8px; font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; font-weight:700; margin-bottom:5px}
+.note p{margin:.35em 0}
+.note p:first-of-type{margin-top:0}
+.note--story{border-left-color:var(--seal)}
+.note--story .note-k{color:var(--seal)}
+.note--fact{border-left-color:var(--brass)}
+.note--fact .note-k{color:var(--brass)}
+.note--life{border-left-color:var(--treasury)}
+.note--life .note-k{color:var(--treasury)}
+.note--key{border-left-color:var(--ink); background:#EFEDE2}
+.note--key .note-k{color:var(--ink)}
+.note--key .mnem{font-weight:700; color:var(--treasury-deep); font-style:italic}
+
+/* --- interactive "Reckoner" instrument --- */
+.lab{
+  margin:24px 0; border:1px solid var(--brass); border-radius:var(--r);
+  background:linear-gradient(180deg,var(--paper-card),var(--paper-sink));
+  box-shadow:var(--shadow); overflow:hidden;
+}
+.lab-k{
+  display:flex; align-items:center; gap:8px; padding:9px 16px;
+  background:var(--treasury); color:var(--paper);
+  font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; font-weight:600;
+}
+.lab-k .lab-mark{color:var(--brass-bright); font-size:1rem; letter-spacing:0}
+.lab-body{padding:16px 18px}
+.lab-controls{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px 24px}
+.lab-ctl{display:flex; flex-direction:column}
+.lab-lbl{display:flex; justify-content:space-between; align-items:baseline; gap:10px; font-size:.92rem; color:var(--treasury-deep)}
+.lab-lbl output{font-weight:700; font-variant-numeric:tabular-nums; color:var(--seal)}
+.lab-toggle{display:flex; flex-wrap:wrap; gap:6px; margin:2px 0 4px}
+.lab-btn{
+  font-family:var(--serif); font-size:.86rem; cursor:pointer;
+  padding:4px 13px; border-radius:999px; border:1px solid var(--engrave);
+  background:var(--paper); color:var(--treasury);
+}
+.lab-btn.on{background:var(--treasury); color:var(--paper); border-color:var(--treasury)}
+.lab-out{
+  margin-top:15px; padding-top:13px; border-top:1px solid var(--engrave);
+  font-size:1.01rem; line-height:1.55;
+}
+.lab-out .big{font-size:1.16rem; font-weight:700; font-variant-numeric:tabular-nums}
+.lab-out .pos{color:var(--treasury)}
+.lab-out .neg{color:var(--seal)}
+.lab-out .muted{color:var(--ink-soft)}
+.lab-bars{margin:6px 0 10px}
+.lab-bar-k{font-size:.74rem; color:var(--ink-soft); letter-spacing:.1em; text-transform:uppercase; margin-top:7px}
+.lab-bar{display:flex; height:26px; border-radius:3px; overflow:hidden; border:1px solid var(--engrave); margin:4px 0}
+.lab-bar i{display:flex; align-items:center; justify-content:center; color:#fff; font-style:normal; font-variant-numeric:tabular-nums; min-width:0; white-space:nowrap; overflow:hidden; transition:width .25s ease}
+.lab-bar .seg-a{background:var(--treasury)}
+.lab-bar .seg-b{background:var(--brass)}
+.lab-svg{width:100%; height:130px; display:block; margin-top:4px}
+.lab-svg .curve{fill:none; stroke:var(--treasury); stroke-width:2.5; transition:d .3s ease}
+.lab-svg .axis{stroke:var(--engrave); stroke-width:1}
+.lab input[type=range]{
+  -webkit-appearance:none; appearance:none; width:100%; height:4px; margin:8px 0 2px;
+  border-radius:2px; background:var(--engrave); outline:none;
+}
+.lab input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%;
+  background:var(--brass); border:2px solid var(--paper-card); cursor:pointer; box-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.lab input[type=range]::-moz-range-thumb{
+  width:18px; height:18px; border-radius:50%; background:var(--brass);
+  border:2px solid var(--paper-card); cursor:pointer;
+}
+.lab input[type=range]:focus-visible{outline:2px solid var(--brass); outline-offset:4px}
+@media (prefers-reduced-motion: reduce){
+  .lab-bar i{transition:none}
+  .lab-svg .curve{transition:none}
+}
+
+/* --- footer --- */
+.foot{max-width:var(--maxw); margin:0 auto; padding:48px 24px 90px; color:var(--ink-soft); font-size:.9rem; text-align:center}
+.foot .foot-orn{width:60px; height:60px; margin:0 auto 14px; opacity:.55}
+.to-top{
+  display:inline-block; margin-top:10px; color:var(--treasury); text-decoration:none;
+  border-bottom:1px solid var(--brass);
+}
+
+/* --- mobile chrome --- */
+.hamburger{
+  position:fixed; top:12px; left:12px; z-index:70;
+  display:none; width:46px; height:46px; border-radius:var(--r);
+  background:var(--treasury); color:var(--paper); border:1px solid rgba(0,0,0,.25);
+  cursor:pointer; font-size:1.3rem; line-height:1; align-items:center; justify-content:center;
+  box-shadow:var(--shadow);
+}
+.backdrop{
+  position:fixed; inset:0; background:rgba(14,40,30,.5); z-index:45;
+  opacity:0; visibility:hidden; transition:opacity .25s;
+}
+.backdrop.show{opacity:1; visibility:visible}
+
+/* --- reveal on scroll (progressive enhancement) --- */
+html.js .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+html.js .reveal.in{opacity:1; transform:none}
+@media (prefers-reduced-motion: reduce){
+  html.js .reveal{opacity:1; transform:none; transition:none}
+}
+
+/* --- focus --- */
+a:focus-visible, button:focus-visible{outline:2px solid var(--brass); outline-offset:2px; border-radius:2px}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width:920px){
+  body{font-size:18px}
+  .hamburger{display:flex}
+  .sidebar{
+    position:fixed; left:0; top:0; height:100dvh; transform:translateX(-100%);
+    transition:transform .28s ease; box-shadow:0 0 60px rgba(0,0,0,.4);
+  }
+  .sidebar.open{transform:none}
+  .main{width:100%}
+  .hero{padding-top:80px}
+  .legend{grid-template-columns:1fr}
+  .ledger-grid{grid-template-columns:1fr}
+  .ledger-col:first-child{border-right:0; border-bottom:1px solid var(--engrave)}
+  .week-num{width:90px;height:90px;top:-18px}
+  .week-num .lbl{font-size:1.5rem}
+  .hero-meta{font-size:.72rem; letter-spacing:.08em}
+  .flow{gap:8px 10px; font-size:.92rem}
+}
+@media (max-width:480px){
+  .hero-meta{letter-spacing:.04em}
+  .flow .arrow{display:none}
+  .flow .node{flex:0 0 auto}
+}
+@media (prefers-reduced-motion: reduce){
+  .guilloche path{stroke-dasharray:none !important; stroke-dashoffset:0 !important}
+}
+
+/* ===================== PRINT ===================== */
+@media print{
+  :root{--paper:#fff}
+  body{background:#fff; color:#000; font-size:11.5pt}
+  .sidebar,.progress,.hamburger,.backdrop,.hero-orn,.flow,.to-top,.lab{display:none !important}
+  .shell{display:block}
+  .hero{padding:0 0 12pt; border-bottom:1px solid #999; text-align:left}
+  .hero-title{color:#000; font-size:24pt}
+  .week{max-width:none; padding:14pt 0; page-break-inside:avoid; border-bottom:1px solid #ccc}
+  .week-title,.week h3,.big-idea,.eyebrow,.hero-eyebrow{color:#000}
+  .note,.ledger,.formula{border:1px solid #999 !important; background:#fff !important; box-shadow:none}
+  .week-num{display:none}
+  a{color:#000; text-decoration:none}
+  .ref-table,.ref-table th,.ref-table td{background:#fff !important; color:#000 !important; border:1px solid #999 !important}
+}
+
+/* --- S2 quick-reference appendix (merged from the Semester-2 study guide) --- */
+.ref-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(255px,1fr)); gap:14px; margin:18px 0}
+.ref-grid .formula{margin:0; text-align:left}
+.ref-grid .formula .eq{font-size:1.05rem}
+.ref-table{width:100%; border-collapse:collapse; margin:16px 0 22px; font-size:.95rem; background:var(--paper-card); border:1px solid var(--engrave); box-shadow:var(--shadow)}
+.ref-table caption{caption-side:top; text-align:left; font-size:.74rem; letter-spacing:.16em; text-transform:uppercase; color:var(--brass); font-weight:700; padding:0 0 7px}
+.ref-table th{background:var(--treasury); color:var(--paper); text-align:left; font-weight:600; font-size:.8rem; letter-spacing:.03em; padding:8px 12px}
+.ref-table td{padding:7px 12px; border-top:1px solid var(--engrave); vertical-align:top}
+.ref-table tbody tr:nth-child(even) td{background:rgba(19,78,58,.04)}
+.ref-table td strong, .ref-table td b{color:var(--treasury-deep)}
+@media (max-width:560px){.ref-table{font-size:.86rem}.ref-table th,.ref-table td{padding:6px 8px}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<a class="skip" href="#main">Skip to content</a>
+<button class="hamburger" id="hamburger" aria-label="Open lecture menu" aria-controls="sidebar" aria-expanded="false">☰</button>
+<div class="backdrop" id="backdrop"></div>
+
+<div class="shell">
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar" aria-label="Lecture navigation">
+    <div class="brand">
+      <span class="brand-mark">Revision Companion</span>
+      <span class="brand-name">The Ledger</span>
+      <span class="brand-sub">Financial Institutions and Markets</span>
+    </div>
+    <div class="brand-rule"></div>
+
+    <nav class="nav-group" id="grp-s1" aria-label="Semester 1">
+      <button class="nav-head" data-toggle="grp-s1" aria-expanded="true">Semester 1 · Institutions <span class="chev">▾</span></button>
+      <ul class="nav-list">
+        <li><a href="#s1w1"><span class="wk">01</span> The Financial System</a></li>
+        <li><a href="#s1w2"><span class="wk">02</span> Why Institutions Exist</a></li>
+        <li><a href="#s1w3"><span class="wk">03</span> Banks &amp; Money Creation</a></li>
+        <li><a href="#s1w4"><span class="wk">04</span> The UK Banking Sector</a></li>
+        <li><a href="#s1w5"><span class="wk">05</span> Banking: USA &amp; China</a></li>
+        <li><a href="#s1w6"><span class="wk">06</span> Investment Banks</a></li>
+        <li><a href="#s1w7"><span class="wk">07</span> Islamic Banking</a></li>
+        <li><a href="#s1w8"><span class="wk">08</span> Crises I: Securitization</a></li>
+        <li><a href="#s1w9"><span class="wk">09</span> Crises II: The Great Depression</a></li>
+        <li><a href="#s1w10"><span class="wk">10</span> Pension Funds</a></li>
+        <li><a href="#s1w11"><span class="wk">11</span> Insurance Companies</a></li>
+        <li><a href="#s1w12"><span class="wk">12</span> Investment Funds</a></li>
+      </ul>
+    </nav>
+
+    <nav class="nav-group" id="grp-s2" aria-label="Semester 2">
+      <button class="nav-head" data-toggle="grp-s2" aria-expanded="true">Semester 2 · Markets <span class="chev">▾</span></button>
+      <ul class="nav-list">
+        <li><a href="#s2w1"><span class="wk">01</span> Alternative Funds</a></li>
+        <li><a href="#s2w2"><span class="wk">02</span> Interest Rates</a></li>
+        <li><a href="#s2w3"><span class="wk">03</span> Central Banks</a></li>
+        <li><a href="#s2w4"><span class="wk">04</span> Risk Management</a></li>
+        <li><a href="#s2w5"><span class="wk">05</span> Money Markets</a></li>
+        <li><a href="#s2w6"><span class="wk">06</span> The Bond Market</a></li>
+        <li><a href="#s2w7"><span class="wk">07</span> Forex Markets I</a></li>
+        <li><a href="#s2w8"><span class="wk">08</span> Forex Markets II</a></li>
+        <li><a href="#s2w9"><span class="wk">09</span> Equity Markets I</a></li>
+        <li><a href="#s2w10"><span class="wk">10</span> Equity Markets II</a></li>
+      </ul>
+    </nav>
+
+    <nav class="nav-group" id="grp-ref" aria-label="Exam reference">
+      <button class="nav-head" data-toggle="grp-ref" aria-expanded="true">Exam Reference <span class="chev">▾</span></button>
+      <ul class="nav-list">
+        <li><a href="#s2ref"><span class="wk">§</span> S2 Quick Reference</a></li>
+        <li><a href="#exam"><span class="wk">✦</span> Traps, Dates &amp; Essays</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <main class="main" id="main">
+    <header class="hero">
+      <div class="hero-orn" id="heroOrn" aria-hidden="true"></div>
+      <div class="hero-eyebrow">A Revision Companion</div>
+      <h1 class="hero-title">The Ledger</h1>
+      <p class="hero-sub">Everything the Financial Institutions and Markets module taught — explained to actually stick.</p>
+      <div class="flow" aria-label="The thesis of the whole module: the financial system channels funds from savers to spenders">
+        <span class="node">Lender-Savers</span>
+        <span class="arrow">→</span>
+        <span class="node center">The Financial System</span>
+        <span class="arrow">→</span>
+        <span class="node">Borrower-Spenders</span>
+      </div>
+      <div class="hero-meta"><span>22</span> lectures &nbsp;·&nbsp; <span>2</span> semesters &nbsp;·&nbsp; institutions &amp; markets</div>
+    </header>
+
+    <section class="intro reveal" aria-label="How to use this guide">
+      <p class="lead">This guide walks every lecture in order. Each week opens with the one idea that holds it together, then explains the moving parts in plain English with worked examples. Watch for four kinds of margin notes:</p>
+      <div class="legend">
+        <div class="legend-item"><span class="ic">🏛</span><span><b>Real Story</b><small>A case from the real world of finance.</small></span></div>
+        <div class="legend-item"><span class="ic">💡</span><span><b>Did You Know?</b><small>A number or fact that sticks.</small></span></div>
+        <div class="legend-item"><span class="ic">🌍</span><span><b>In Plain Life</b><small>The idea, in everyday terms.</small></span></div>
+        <div class="legend-item"><span class="ic">🔑</span><span><b>Lock It In</b><small>A trick to remember it in the exam.</small></span></div>
+      </div>
+    </section>
+
+    <!-- ===================== SEMESTER 1 ===================== -->
+    <div class="sem-divider reveal">
+      <div class="sem-k">Semester One</div>
+      <h2 class="sem-t">Financial Institutions</h2>
+      <p class="sem-d">Who moves money through the economy — and why they exist at all.</p>
+      <div class="sem-line"></div>
+    </div>
+    <section class="week reveal" id="s1w1">
+      <div class="week-head">
+        <div class="week-num" data-n="1"><span class="lbl">01</span></div>
+        <div class="eyebrow">Week 01 · Semester 1</div>
+        <h2 class="week-title">The Financial System</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A financial system exists to move money from people who have it but no use for it, to people who have a use but no money.</div>
+
+      <p class="lead">Imagine you saved £10,000 over the summer, while someone across town wants to start a food-truck business but has nothing. Without a financial system, your cash sits "under the mattress" earning nothing, and their good idea never happens. The financial system connects the two — and takes a small cut for doing it.</p>
+
+      <h3>Savers lend, spenders borrow</h3>
+      <p>Funds flow from <span class="term">lender-savers</span> to <span class="term">borrower-spenders</span>. The same four groups appear on both sides — households, firms, government and foreigners — because anyone can be in surplus or deficit at different times.</p>
+
+      <h3>Two routes for the money</h3>
+      <ul>
+        <li><span class="term">Direct finance</span> — borrowers raise funds straight from lenders in markets (issuing shares or bonds).</li>
+        <li><span class="term">Indirect finance</span> — a financial intermediary (a bank) sits in the middle. In every major economy this is <em>far</em> bigger than direct finance.</li>
+      </ul>
+
+      <h3>How markets are sliced</h3>
+      <ul>
+        <li><span class="term">Debt vs equity</span> — debt pays interest (bonds, loans); equity pays dividends and means ownership (shares).</li>
+        <li><span class="term">Primary vs secondary</span> — primary = brand-new securities sold to first buyers (often via an investment bank); secondary = reselling them afterwards (e.g. the London Stock Exchange).</li>
+        <li><span class="term">Money vs capital</span> — money market = short-term (&lt; 1 year); capital market = long-term (&gt; 1 year) plus equities (no maturity).</li>
+      </ul>
+
+      <h3>The cast of intermediaries</h3>
+      <p><span class="term">Depository institutions (banks)</span> take deposits and make loans — commercial banks and building societies. <span class="term">Non-depository institutions</span> split into <em>contractual savings</em> (insurance companies, pension funds) and <em>investment companies</em> (mutual funds / unit trusts, hedge funds, investment banks). You'll meet each of them in the weeks ahead.</p>
+
+      <div class="ledger">
+        <div class="ledger-cap">A bank's balance sheet — uses vs sources of funds</div>
+        <div class="ledger-grid">
+          <div class="ledger-col"><h5>Assets · uses of funds</h5>
+            <div class="row"><span>Reserves &amp; cash</span><span>16%</span></div>
+            <div class="row"><span>Securities</span><span>20%</span></div>
+            <div class="row"><span>Loans</span><span>55%</span></div>
+            <div class="row"><span>Other (buildings…)</span><span>9%</span></div>
+            <div class="row tot"><span>Total</span><span>100%</span></div>
+          </div>
+          <div class="ledger-col"><h5>Liabilities · sources of funds</h5>
+            <div class="row"><span>Current accounts</span><span>10%</span></div>
+            <div class="row"><span>Savings accounts</span><span>60%</span></div>
+            <div class="row"><span>Borrowings</span><span>19%</span></div>
+            <div class="row"><span>Bank capital (equity)</span><span>11%</span></div>
+            <div class="row tot"><span>Total</span><span>100%</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>A bank is a matchmaker for money. On its own a single £100 saver can't afford to research safe investments, and a single borrower can't find them. The bank pools thousands of savers, lends in bulk, and pays you interest for the privilege — better than the mattress.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">"Debt = interest, Equity = ownership."</span> And for the market splits, remember the three knives: <em>what it is</em> (debt/equity), <em>when it's sold</em> (primary/secondary), <em>how long it lasts</em> (money/capital).</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>This module is a tale of two halves. <strong>Semester 1</strong> follows the <em>intermediaries</em> (the banks and funds). <strong>Semester 2</strong> follows the <em>markets</em> they trade in — rates, bonds, currencies and shares. Keep the map in mind and everything connects.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w2">
+      <div class="week-head">
+        <div class="week-num" data-n="2"><span class="lbl">02</span></div>
+        <div class="eyebrow">Week 02 · Semester 1</div>
+        <h2 class="week-title">Why Financial Institutions Exist</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Markets struggle when one side knows more than the other. Financial institutions exist mainly to close that information gap.</div>
+
+      <p class="lead">If markets were perfect, firms would just sell shares and bonds directly and banks would be pointless. Yet across the US, Germany, Japan and Canada the same pattern holds: businesses are financed mostly by <span class="term">indirect finance</span> through banks — not by issuing stocks. Why? Because of two market frictions.</p>
+
+      <h3>1 · Transaction costs</h3>
+      <p>Researching the "best, safest" stock isn't worth it if you only have £100 to invest. Intermediaries slash these costs through <span class="term">expertise</span> and <span class="term">economies of scale</span>, and provide <span class="term">liquidity services</span> (an account that lets you pay bills <em>and</em> earn interest).</p>
+
+      <h3>2 · Asymmetric information</h3>
+      <p>One party knows more than the other. It bites in two ways:</p>
+      <ul>
+        <li><span class="term">Adverse selection</span> — happens <em>before</em> the deal. The people most eager for a loan are often the riskiest.</li>
+        <li><span class="term">Moral hazard</span> — happens <em>after</em> the deal. Once they have your money, borrowers may take risks they wouldn't with their own.</li>
+      </ul>
+
+      <h4>The Lemons Problem</h4>
+      <p>If buyers can't tell good used cars from "lemons", they only offer the <em>average</em> price — so owners of good cars won't sell, and the market fills with junk. The same logic means good firms won't issue undervalued securities, which is exactly why stock issuance is <em>not</em> the main funding source (and why well-known firms, with less hidden information, find it easier). Fixes: government disclosure rules, intermediaries (the "trusted used-car dealer"), collateral and net worth.</p>
+
+      <h4>The Principal–Agent Problem</h4>
+      <p>When owners (principals) are separate from managers (agents), managers may serve themselves. Debt contracts, monitoring and covenants help — which is part of why <em>debt is used more than equity</em>.</p>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>You put up £9,000 (90%) to open an ice-cream shop; Steve puts £1,000 and runs it. If it earns £50,000 you get £45,000 — but Steve, who keeps only £5,000, spends afternoons at the beach and buys "office art" with the profits. That's moral hazard in an equity contract: how do you make Steve work hard for money that's mostly yours?</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Adverse selection = hidden <em>type</em>, before. Moral hazard = hidden <em>action</em>, after.</span> "Select the wrong type before you sign; they behave badly after."</p>
+      </div>
+      <p>These two gremlins return again and again — they're the engine behind <a class="xref" href="#s1w9">financial crises</a> and the whole business model of <a class="xref" href="#s1w11">insurance</a>.</p>
+    </section>
+
+    <section class="week reveal" id="s1w3">
+      <div class="week-head">
+        <div class="week-num" data-n="3"><span class="lbl">03</span></div>
+        <div class="eyebrow">Week 03 · Semester 1</div>
+        <h2 class="week-title">Commercial Banks &amp; Money Creation</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Banks don't simply lend out the deposits savers bring them — they <em>create</em> brand-new money every time they make a loan.</div>
+
+      <p class="lead">This is the week that breaks most people's intuition. We meet the Bank of England, the different kinds of "money", and the surprising mechanics of how money is born.</p>
+
+      <h3>Forms of money</h3>
+      <ul>
+        <li><span class="term">Cash</span> (notes &amp; coins) — issued by the Bank of England, but only ~3% of the money supply.</li>
+        <li><span class="term">Electronic money</span> — central-bank <em>reserves</em> held by banks at the BoE, and the deposits banks create for customers when they lend.</li>
+      </ul>
+
+      <h3>Measuring the money supply by liquidity</h3>
+      <p><span class="term">Narrow money (M0)</span> = cash in circulation + reserves at the BoE. <span class="term">Broad money</span> climbs from there: <span class="term">M1</span> = cash + current accounts; <span class="term">M2</span> adds savings; <span class="term">M4</span> adds other deposits at UK banks and building societies. The deeper you go, the less liquid the assets.</p>
+
+      <h3>The money multiplier</h3>
+      <p>A bank keeps a fraction of a deposit and lends the rest. That loan gets spent and re-deposited at another bank, which keeps a fraction and lends again… and the money supply balloons. If Bank A lends £9m, it lands at Bank B as a £9m deposit, which lends £8.1m to the next borrower, and so on.</p>
+
+      <div class="lab" data-lab="mult">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Money Multiplier</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Initial deposit <output data-for="dep">£10,000</output></span>
+              <input type="range" data-f="dep" data-pre="£" min="1000" max="100000" step="1000" value="10000" aria-label="Initial deposit"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Reserve ratio <output data-for="rr">10%</output></span>
+              <input type="range" data-f="rr" data-suf="%" min="1" max="50" step="1" value="10" aria-label="Reserve ratio"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">"Loans create deposits."</span> The textbook multiplier is a simplified picture — note the UK has <em>no</em> reserve-requirement ratio, so banks aren't mechanically constrained by reserves.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Roughly <strong>97% of the money</strong> in the economy isn't cash at all — it's electronic deposits created by commercial banks when they lend. The notes in your wallet are the tiny tip of the iceberg.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>Two myths to bust: (1) banks are <em>not</em> just middlemen handing over savers' cash — they conjure new deposits; (2) the central bank doesn't fix the <em>quantity</em> of money so much as the <em>price</em> of it — the <a class="xref" href="#s2w2">interest rate</a>.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w4">
+      <div class="week-head">
+        <div class="week-num" data-n="4"><span class="lbl">04</span></div>
+        <div class="eyebrow">Week 04 · Semester 1</div>
+        <h2 class="week-title">The UK Banking Sector</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> UK retail banking is dominated by a handful of giants — and structural forces make that concentration stubbornly hard to break.</div>
+
+      <p class="lead">Retail banking here is ruled by the "Big Five": HSBC, Barclays, Lloyds, NatWest and Santander. To understand why, we measure concentration and then ask what keeps the small players small.</p>
+
+      <h3>Building societies</h3>
+      <p>Born in Birmingham in 1775 as <span class="term">mutual organisations</span> owned by their members (like credit unions). After 1980s "demutualisation" many became shareholder banks; the largest survivor, <span class="term">Nationwide</span>, still holds 80%+ of building-society assets and remains a mutual.</p>
+
+      <h3>Measuring concentration: the HHI</h3>
+      <div class="formula">
+        <div class="eq">HHI = Σ (market share of each firm)²</div>
+        <small>&lt; 1,000 un-concentrated · 1,000–2,000 moderate · &gt; 2,000 highly concentrated · 10,000 = pure monopoly</small>
+      </div>
+
+      <div class="lab" data-lab="hhi">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Market Concentration (HHI)</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Bank 1 share <output data-for="h1">40%</output></span>
+              <input type="range" data-f="h1" data-suf="%" min="0" max="60" step="1" value="40" aria-label="Bank 1 market share"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Bank 2 share <output data-for="h2">25%</output></span>
+              <input type="range" data-f="h2" data-suf="%" min="0" max="60" step="1" value="25" aria-label="Bank 2 market share"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Bank 3 share <output data-for="h3">15%</output></span>
+              <input type="range" data-f="h3" data-suf="%" min="0" max="60" step="1" value="15" aria-label="Bank 3 market share"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Bank 4 share <output data-for="h4">10%</output></span>
+              <input type="range" data-f="h4" data-suf="%" min="0" max="60" step="1" value="10" aria-label="Bank 4 market share"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <h3>Why concentration persists</h3>
+      <ul>
+        <li><span class="term">Scale &amp; incumbency</span> — big banks spread fixed costs (IT, HR) thinner, hold more diverse, lower-risk portfolios, and enjoy customer trust.</li>
+        <li><span class="term">Regulation favours the big</span> — large banks meet capital requirements more easily; accreditation is slow and resource-heavy.</li>
+        <li><span class="term">Customer disengagement</span> — inertia is huge. People rarely switch banks even for better rates, and bundled, complex products make comparison hard.</li>
+      </ul>
+      <p><span class="term">Challenger banks</span> (Starling, Monzo, Atom, Metro) and <span class="term">Open Banking</span> — sharing your data with third-party apps, with consent — are the policy attempts to inject competition.</p>
+
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>Why have you probably never switched banks? Switching feels like effort for a tiny gain — that's <span class="term">customer inertia</span>. Energy bills got price-comparison sites; banking mostly didn't, so the giants keep their grip.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Square every firm's market share and add them up: an <strong>HHI of 10,000</strong> means one firm owns 100% of the market — a perfect monopoly. Regulators reach for the HHI whenever a merger might lessen competition.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w5">
+      <div class="week-head">
+        <div class="week-num" data-n="5"><span class="lbl">05</span></div>
+        <div class="eyebrow">Week 05 · Semester 1</div>
+        <h2 class="week-title">Banking Systems: USA &amp; China</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Countries organise banking very differently — keep commercial and investment banking apart, fuse them into one "universal" bank, or run the whole thing through the state.</div>
+
+      <h3>Two classic models</h3>
+      <ul>
+        <li><span class="term">Universal banking (German model)</span> — one bank does everything and even holds big stakes in industrial firms (Deutsche Bank once part-owned Daimler-Benz, Siemens). One-stop shopping, but complex risk and conflicts of interest.</li>
+        <li><span class="term">Market-based (US model)</span> — historically a clear wall between commercial banks (Citibank) and investment banks (Morgan Stanley). Cleaner risk separation, but higher transaction costs.</li>
+      </ul>
+
+      <h3>The US wall, and its fall</h3>
+      <p>The <span class="term">Glass-Steagall Act (1933)</span> separated commercial and investment banking after the Great Depression. By the 1990s big banks were dodging it; it was <span class="term">repealed in 1999</span>, fuelling the rise of huge "bank holding companies". The <span class="term">Riegle-Neal Act (1994)</span> had already allowed full interstate branching, driving decades of mergers.</p>
+
+      <h3>Safety nets differ</h3>
+      <p>The US created the first national <span class="term">deposit insurance</span> (the FDIC, 1933) — today covering deposits up to <span class="term">$250,000</span>. The UK's scheme came after the 1980s and covers up to <span class="term">£85,000</span>. Reserve requirements? The US ratio is 0% (since March 2020); the UK has none, relying on capital requirements instead.</p>
+
+      <h3>The Chinese system</h3>
+      <p>State-led from 1949. The "Big Four" are state-owned and hold ~50% of the market. Bank loans reached about <span class="term">128% of GDP</span> (vs ~48% for the US), funnelled toward state enterprises and infrastructure — fuelling growth, but leaving small firms reliant on <span class="term">shadow banking</span> and saddling big banks with non-performing loans.</p>
+
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Universal = "everything under one roof" (Germany). Market-based = "walls between rooms" (US).</span> Glass-Steagall built the wall in 1933 and knocked it down in 1999.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>Deposit insurance is a comfort blanket — but it can breed <span class="term">moral hazard</span>: if your savings are guaranteed, you won't care whether your bank makes reckless loans. Protection quietly removes the incentive to be careful.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>By 2016, China's banking assets were larger than <strong>the entire euro area's banking systems put together</strong>. A system that barely existed in 1949 became the world's biggest in a single lifetime.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w6">
+      <div class="week-head">
+        <div class="week-num" data-n="6"><span class="lbl">06</span></div>
+        <div class="eyebrow">Week 06 · Semester 1</div>
+        <h2 class="week-title">Investment Banks</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Investment banks take no deposits. They help companies raise capital and broker deals — and get paid handsomely in fees.</div>
+
+      <p class="lead">Originally "merchant banks" in the UK, these non-depository institutions are the dealmakers of finance. JP Morgan (founded 1871) once organised a syndicate to rescue the US Treasury's gold and helped halt the Panic of 1907. Goldman Sachs (1869) ran one of the first IPOs (Sears, 1906) and stayed a partnership until 1999.</p>
+
+      <h3>What they actually do</h3>
+      <ul>
+        <li><span class="term">Underwriting</span> stocks and bonds for companies going public or issuing debt.</li>
+        <li><span class="term">Market making</span> — quoting buy/sell prices to keep a security liquid.</li>
+        <li><span class="term">Equity research</span> and brokerage for institutional clients.</li>
+        <li><span class="term">Mergers &amp; acquisitions</span> advice (including hostile takeovers).</li>
+      </ul>
+
+      <h3>Three ways to underwrite</h3>
+      <ul>
+        <li><span class="term">Firm commitment</span> — the bank buys the whole issue at a fixed price and resells it (it carries the risk; often shares it via a syndicate).</li>
+        <li><span class="term">Best efforts</span> — the bank just tries its best to sell; doesn't buy the issue.</li>
+        <li><span class="term">Private placement</span> — sold to a small select group; lighter regulation (common for bonds).</li>
+      </ul>
+
+      <p>The industry is tiered into <span class="term">bulge bracket</span> (Goldman, JPMorgan, Morgan Stanley…), <span class="term">middle market</span>, and <span class="term">boutiques</span>. Typical fees: M&amp;A ~1–2% of deal value; IPO underwriting ~4–7%. The career ladder runs Analyst → Associate → VP → Director → Managing Director.</p>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>In 1995 a single Singapore-based trader, <span class="term">Nick Leeson</span>, lost <strong>£827 million</strong> on futures speculation and brought down <span class="term">Barings</span> — Britain's oldest merchant bank. After that, American and European banks came to dominate UK investment banking.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Goldman Sachs is nicknamed "Government Sachs": alumni Robert Rubin, Henry Paulson and Steven Mnuchin all went on to become US <strong>Secretary of the Treasury</strong>.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Underwriting = "Firm buys, Best tries, Private hides."</span> Firm commitment buys the lot; best efforts only tries; private placement hides it with a select few.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w7">
+      <div class="week-head">
+        <div class="week-num" data-n="7"><span class="lbl">07</span></div>
+        <div class="eyebrow">Week 07 · Semester 1</div>
+        <h2 class="week-title">Islamic Banking &amp; Finance</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A financial system built on sharing real risk in real assets — not on charging interest.</div>
+
+      <p class="lead">Islamic finance provides services in line with <span class="term">Shari'ah</span> law. Rather than lending money to earn interest, it ties returns to genuine economic activity and shared risk.</p>
+
+      <h3>Three core prohibitions</h3>
+      <ul>
+        <li><span class="term">Riba (interest)</span> — earning a guaranteed return on money alone, without effort or risk, is forbidden as unjust gain.</li>
+        <li><span class="term">Gharar (excessive uncertainty)</span> — contracts with unclear terms or outcomes are out (you can't sell "a fish still in the sea").</li>
+        <li><span class="term">Maisir (gambling)</span> — pure games of chance where one wins only because others lose.</li>
+      </ul>
+      <p>Instead, finance must use <span class="term">profit-and-loss sharing</span>, be <span class="term">asset-backed</span>, and stay ethical (no alcohol, tobacco, gambling, weapons, conventional banking).</p>
+
+      <h3>The key products</h3>
+      <ul>
+        <li><span class="term">Murabaha</span> — cost-plus: the bank buys an asset and resells it to you at an agreed markup (no interest, just transparent profit).</li>
+        <li><span class="term">Ijara</span> — leasing: the bank owns the asset and rents it to you.</li>
+        <li><span class="term">Musharaka</span> — partnership: both put in capital and share profits <em>and</em> losses.</li>
+        <li><span class="term">Sukuk</span> — "Islamic bonds": certificates of partial ownership in a real asset, paying returns from its performance rather than interest.</li>
+      </ul>
+      <p><span class="term">Islamic social finance</span> adds Zakat (compulsory alms), Sadaqat (voluntary charity), Waqf (endowment) and Qard Hassan (a benevolent, interest-free loan).</p>
+
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">The three "no"s: Riba (no interest), Gharar (no fog), Maisir (no gambling).</span> Replace them with sharing real risk in real assets.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>Islamic financial assets exploded from <strong>$386 billion in 2006 to about $4.5 trillion in 2023</strong>, serving ~150 million customers. The UK is the main Western hub — and over 191 conventional banks (HSBC, Citi, UBS…) now run Islamic "windows".</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w8">
+      <div class="week-head">
+        <div class="week-num" data-n="8"><span class="lbl">08</span></div>
+        <div class="eyebrow">Week 08 · Semester 1</div>
+        <h2 class="week-title">Financial Crises I — Securitization &amp; 2008</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Repackaging illiquid loans into tradable securities let banks pass on their risk — and quietly wired the whole system to a single point of failure: US house prices.</div>
+
+      <h3>From "hold" to "distribute"</h3>
+      <p>Traditional banking was <span class="term">originate-and-hold</span>: a bank made a 25-year mortgage and kept it. That creates a <span class="term">maturity mismatch</span> — long, illiquid assets funded by short, liquid deposits. <span class="term">Securitization</span> flipped this to <span class="term">originate-to-distribute</span>: convert loans into securities and sell the risk on.</p>
+
+      <h3>The chain</h3>
+      <ol>
+        <li>An <span class="term">originator</span> bank makes the loans.</li>
+        <li>They're sold to a <span class="term">Special Purpose Vehicle (SPV)</span>, separate from the bank.</li>
+        <li>The SPV issues new securities backed by them — <span class="term">MBS</span> (mortgages) or <span class="term">ABS</span> (other loans) — sliced into <span class="term">tranches</span> by risk.</li>
+        <li>A <span class="term">credit rating agency</span> rates them; an <span class="term">investment bank</span> underwrites and sells them. Investors even re-pooled tranches into <span class="term">CDOs</span>, and bought <span class="term">credit default swaps (CDS)</span> as insurance.</li>
+      </ol>
+
+      <h3>How it broke</h3>
+      <p>Banks lent to <span class="term">sub-prime</span> borrowers (average credit score 624 vs 742 for prime) using low "teaser" rates. When US rates rose and teasers expired, defaults surged, house prices fell, and the MBS/CDOs underneath turned out to be nearly worthless. Banks stopped lending to each other — the <span class="term">credit crunch</span>.</p>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>Goldman Sachs marketed risky CDOs to clients <em>while simultaneously betting against them</em> using credit default swaps. When the market collapsed, Goldman made millions from those bets — profiting by wagering against its own products and customers. Citigroup, Merrill Lynch and JP Morgan later paid hundreds of millions to settle misleading-investor charges.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>By 2007 the pool of "triple-A" (supposedly safest) securities held more than <strong>$3 trillion of sub-prime loans</strong>. After the crisis they were downgraded to "junk" — exposing a deep conflict of interest: rating agencies are paid by the very issuers they grade.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>Securitization is pass-the-parcel. Each player takes a fee and hands the risky package on, assuming someone else will be holding it when the music stops. In 2008 the music stopped for everyone at once.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w9">
+      <div class="week-head">
+        <div class="week-num" data-n="9"><span class="lbl">09</span></div>
+        <div class="eyebrow">Week 09 · Semester 1</div>
+        <h2 class="week-title">Financial Crises II — Stages &amp; the Great Depression</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A financial crisis is what happens when information flows break down so badly that even <em>healthy</em> borrowers can't get funded — and the economy seizes up.</div>
+
+      <p class="lead">Remember <a class="xref" href="#s1w2">adverse selection and moral hazard</a>? A crisis is those problems on steroids. Banks are experts at telling good borrowers from bad and monitoring them; when that machinery jams, lending freezes for everyone.</p>
+
+      <h3>Three stages of a crisis</h3>
+      <ol>
+        <li><span class="term">Initial phase</span> — a <em>credit boom and bust</em> (lending standards slip, then losses force deleveraging) and/or an <em>asset-price bubble</em> that bursts. A spike in <span class="term">uncertainty</span> — often a big firm failing — knocks over the first domino.</li>
+        <li><span class="term">Banking crisis</span> — frightened depositors stage <em>bank runs</em>; banks dump assets at fire-sale prices, get sicker, and stop lending.</li>
+        <li><span class="term">Debt deflation</span> — prices fall but debts stay fixed, so the <em>real</em> burden of debt rises (a £180k mortgage on a house now worth £150k), deepening and prolonging the slump.</li>
+      </ol>
+
+      <h3>Case study: the Great Depression</h3>
+      <p>Stocks doubled in 1928–29; the Fed tightened to curb speculation; forced selling triggered the 1929 <span class="term">crash</span>. Then a 1930 drought hit farm incomes and banks. Between 1930 and 1933 <span class="term">one-third of US banks failed</span> while the Fed "sat idly" for over two years. Credit spreads — the extra interest nervous lenders demand — jumped from 2% to nearly 8%.</p>
+
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The Depression saw prices fall ~25% and unemployment hit ~25%. The misery spread worldwide and the resulting discontent helped fuel the rise of fascism and the road to WWII. A financial crisis reshaped the 20th century.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>A bank run is self-fulfilling: if you <em>suspect</em> some banks are sick but don't know which, the safe move is to pull your money from <em>all</em> of them — which then sinks even the healthy ones. Fear becomes the fact.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Boom → Run → Deflation.</span> Stage 1 sets up the dominoes (boom &amp; bust + uncertainty), Stage 2 is the bank run, Stage 3 is debt deflation grinding it out.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w10">
+      <div class="week-head">
+        <div class="week-num" data-n="10"><span class="lbl">10</span></div>
+        <div class="eyebrow">Week 10 · Semester 1</div>
+        <h2 class="week-title">Pension Funds</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A pension just shifts money from your working years to your retired years. The real question is: <em>who carries the investment risk?</em></div>
+
+      <p class="lead">A pension plan is an asset pool that builds up while you work and pays out when you stop. The biggest distinction is how the benefit is defined.</p>
+
+      <h3>DB vs DC — who bears the risk</h3>
+      <ul>
+        <li><span class="term">Defined Benefit (DB)</span> — a guaranteed income based on salary and years of service. The <em>employer</em> bears the investment risk (and any shortfall).</li>
+        <li><span class="term">Defined Contribution (DC)</span> — a set amount is paid in; your payout depends on how the investments perform. The <em>employee</em> bears the risk.</li>
+      </ul>
+      <div class="formula">
+        <div class="eq">DB annual pension = 2% &times; (avg of final 3 years' salary) &times; years of service</div>
+        <small>A typical defined-benefit formula — predictable for the worker, expensive and risky for the employer.</small>
+      </div>
+
+      <h3>Funding &amp; the UK's three pillars</h3>
+      <p>Schemes are either <span class="term">funded</span> (you build your own pot) or <span class="term">PAYG / unfunded</span> (today's workers pay today's pensioners). UK retirement rests on three pillars: the <span class="term">State Pension</span> (PAYG, max ~£203.85/week, needs 35 years of NI contributions), the <span class="term">workplace pension</span> (you + employer + tax relief), and an <span class="term">individual pension</span>. The self-employed use SIPPs, Stakeholder or SSAS plans.</p>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p><span class="term">Carillion's</span> 2018 collapse left 27,000 members of its 13 DB schemes facing a <strong>£2.6 billion deficit</strong>. With people living longer and interest rates low, many DB funds fell into deficit — which is exactly why employers have rushed to close them and switch staff to DC plans (DC funds can't fall into deficit because nothing is promised).</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">DB = Boss's Burden. DC = Counts on you.</span> In DB the employer carries the risk; in DC the employee does.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The full UK State Pension is about <strong>£10,610 a year</strong>. The US equivalent (Social Security) can reach roughly £34,800. Ask yourself the lecture's blunt question: is that enough to live on?</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w11">
+      <div class="week-head">
+        <div class="week-num" data-n="11"><span class="lbl">11</span></div>
+        <div class="eyebrow">Week 11 · Semester 1</div>
+        <h2 class="week-title">Insurance Companies</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Insurance swaps the terror of a big, uncertain loss for a small, certain premium — by pooling thousands of risks together.</div>
+
+      <p class="lead">Insurers are non-depository, contractual-savings institutions (like pension funds). You pay a <span class="term">premium</span>; they pool it with everyone else's and pay out the few who suffer a loss. Because they insure millions, the <span class="term">law of large numbers</span> makes their predictions accurate enough to price for profit.</p>
+
+      <h3>The same two gremlins</h3>
+      <p>Insurance is riddled with <a class="xref" href="#s1w2">asymmetric information</a>:</p>
+      <ul>
+        <li><span class="term">Adverse selection</span> — the people most likely to claim are most likely to buy. (Fix: medical screening, excluding pre-existing conditions.)</li>
+        <li><span class="term">Moral hazard</span> — once covered, people take less care. (Fix: the tools below.)</li>
+      </ul>
+
+      <h3>The toolkit against moral hazard</h3>
+      <ul>
+        <li><span class="term">Risk-based premiums</span> — young drivers pay more.</li>
+        <li><span class="term">Restrictive provisions</span> — e.g. life cover excludes suicide.</li>
+        <li><span class="term">Deductibles</span> — you cover the first slice (a £250 deductible on a £1,000 claim → they pay £750).</li>
+        <li><span class="term">Coinsurance</span> — you share a % (medical plan pays 80%, you pay 20%).</li>
+        <li><span class="term">Limits &amp; cancellation</span> — caps on payout, and the threat to cancel risky policyholders.</li>
+      </ul>
+      <div class="lab" data-lab="ins">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Deductible &amp; Coinsurance</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Claim amount <output data-for="claim">£1,000</output></span>
+              <input type="range" data-f="claim" data-pre="£" min="0" max="5000" step="50" value="1000" aria-label="Claim amount"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Deductible <output data-for="ded">£250</output></span>
+              <input type="range" data-f="ded" data-pre="£" min="0" max="1000" step="50" value="250" aria-label="Deductible"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Insurer covers <output data-for="coins">80%</output></span>
+              <input type="range" data-f="coins" data-suf="%" min="50" max="100" step="5" value="80" aria-label="Coinsurance percentage"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <p>Life insurance comes as <span class="term">term</span> (pure cover, no cash value), <span class="term">whole</span> (cover + a savings value you can borrow against) and <span class="term">annuities</span> (insurance against living <em>too long</em>).</p>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>AIG thought selling <a class="xref" href="#s1w8">credit default swaps</a> was just more insurance. Its London unit insured over <strong>$400 billion</strong> of CDS — but unlike banks, AIG only ever <em>sold</em> protection, never hedged by buying it. When mortgage bonds defaulted, AIG had to pay out with nobody paying it. The Fed organised a bailout and took a huge stake. The CDS market had ballooned to about <strong>$62 trillion</strong> by 2008.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Deductible = a fixed first slice you pay. Coinsurance = a percentage you share.</span> Both make you act like it's partly your own money — which it is.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s1w12">
+      <div class="week-head">
+        <div class="week-num" data-n="12"><span class="lbl">12</span></div>
+        <div class="eyebrow">Week 12 · Semester 1</div>
+        <h2 class="week-title">Investment Funds</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Pool your money with thousands of strangers and you instantly get diversification and professional management you could never afford alone.</div>
+
+      <p class="lead">You can invest <span class="term">directly</span> (buy Tesco shares yourself) or <span class="term">indirectly</span> (buy a stake in a fund that holds many assets). Funds pool everyone's money toward a shared objective, which spreads commission costs and unlocks markets a small investor couldn't reach.</p>
+
+      <h3>Active vs passive</h3>
+      <ul>
+        <li><span class="term">Active management</span> — managers pick winners and dump losers, hoping to beat the market. More expensive (you pay their fees and bonuses).</li>
+        <li><span class="term">Passive / index trackers</span> — simply mirror an index like the FTSE-100 (if Vodafone is 5% of the index, the fund holds 5% Vodafone). Cheaper, because they buy-and-hold rather than trade.</li>
+      </ul>
+
+      <h3>Open-ended vs closed-ended</h3>
+      <div class="ledger">
+        <div class="ledger-cap">Two fund structures at a glance</div>
+        <div class="ledger-grid">
+          <div class="ledger-col"><h5>Open-ended (unit trust)</h5>
+            <div class="row"><span>Shares/units</span><span>Variable</span></div>
+            <div class="row"><span>Buy/sell</span><span>With the fund</span></div>
+            <div class="row"><span>Priced at</span><span>NAV</span></div>
+            <div class="row"><span>Liquidity</span><span>High</span></div>
+          </div>
+          <div class="ledger-col"><h5>Closed-ended (investment trust)</h5>
+            <div class="row"><span>Shares/units</span><span>Fixed</span></div>
+            <div class="row"><span>Buy/sell</span><span>On the exchange</span></div>
+            <div class="row"><span>Priced at</span><span>Market (≠ NAV)</span></div>
+            <div class="row"><span>Liquidity</span><span>Market-dependent</span></div>
+          </div>
+        </div>
+      </div>
+      <p>Funds go by region: <span class="term">UCITS</span> (Europe, often Luxembourg), <span class="term">unit/investment trusts</span> (UK), <span class="term">mutual funds</span> (US). Fees come as front-load, deferred-load or no-load. <span class="term">ETFs</span> are index funds that trade on an exchange in real time, unlike index mutual funds priced once a day at NAV.</p>
+
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>With £3,000, buying 30 different shares directly means tiny £100 holdings eaten alive by 30 lots of commission. Put the £3,000 in a fund holding 80 companies and the pooled commission is a rounding error — instant diversification for the price of one trade.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Open-ended grows and shrinks (priced at NAV); closed-ended is fixed and trades like a share (price ≠ NAV).</span> ETF = a tracker you can trade all day long.</p>
+      </div>
+    </section>
+
+    <!-- ===================== SEMESTER 2 ===================== -->
+    <div class="sem-divider reveal">
+      <div class="sem-k">Semester Two</div>
+      <h2 class="sem-t">Financial Markets</h2>
+      <p class="sem-d">The places where money is priced: rates, bonds, currencies and shares.</p>
+      <div class="sem-line"></div>
+    </div>
+    <section class="week reveal" id="s2w1">
+      <div class="week-head">
+        <div class="week-num" data-n="1"><span class="lbl">01</span></div>
+        <div class="eyebrow">Week 01 · Semester 2</div>
+        <h2 class="week-title">Alternative Investment Funds</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> For the wealthy and the bold: funds that use leverage, short-selling and private deals to chase outsized returns — and charge handsomely for trying.</div>
+
+      <h3>Hedge funds vs ordinary funds</h3>
+      <p>A hedge fund is an <a class="xref" href="#s1w12">investment fund</a> with the brakes off: high minimums (around $1 million), lock-up periods, aggressive use of leverage and derivatives, light regulation, and the famous <span class="term">"2 and 20"</span> fee — ~2% of assets each year <em>plus</em> 20% of profits.</p>
+
+      <h3>The magic (and danger) of leverage</h3>
+      <p>Leverage means investing with borrowed money to multiply returns:</p>
+      <div class="formula">
+        <div class="eq">£100 of yours + £900 borrowed @ 8% → invest £1,000, earn 10% = £1,100</div>
+        <small>Repay £900 + £72 interest → keep £128. Return on <i>your</i> £100 = 28%. (But losses multiply just as fast.)</small>
+      </div>
+      <div class="lab" data-lab="lev">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Leverage Magnifier</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Your capital <output data-for="own">£100</output></span>
+              <input type="range" data-f="own" data-pre="£" min="50" max="1000" step="10" value="100" aria-label="Your own capital"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Borrowed <output data-for="bor">£900</output></span>
+              <input type="range" data-f="bor" data-pre="£" min="0" max="9000" step="100" value="900" aria-label="Borrowed amount"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Interest on loan <output data-for="intr">8%</output></span>
+              <input type="range" data-f="intr" data-suf="%" data-dec="1" min="0" max="15" step="0.5" value="8" aria-label="Interest on the loan"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Investment return <output data-for="ret">10%</output></span>
+              <input type="range" data-f="ret" data-suf="%" data-dec="1" min="-20" max="30" step="0.5" value="10" aria-label="Investment return"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <p>Common <span class="term">strategies</span>: equity long-short, market-neutral, short-selling, arbitrage (convertible, fixed-income), global macro, and event-driven.</p>
+
+      <h3>Private equity</h3>
+      <p>Investing in companies <em>off</em> the public market. Two main types: <span class="term">venture capital</span> (funding start-ups) and <span class="term">leveraged buyouts</span> (taking a public company private). VCs tame <a class="xref" href="#s1w2">asymmetric information</a> by taking board seats, releasing funds in stages, and diversifying across many bets. The deal life-cycle: fundraise → invest (seed → early → late stage) → exit via IPO or sale.</p>
+
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The top hedge-fund manager of 2023, <strong>Chris Hohn (TCI), earned $2.9 billion</strong> — in a single year. The top ten together pocketed well over $15 billion. "2 and 20" adds up.</p>
+      </div>
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>Apple, Microsoft, Starbucks, Facebook, WhatsApp and Snapchat were all <span class="term">venture-backed</span>. VC is one of the very few risky bets pension funds are allowed to make — and when it works, it builds the companies that reshape daily life.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">"2 and 20" = 2% to show up, 20% to perform.</span> And leverage is a magnifying glass — it enlarges gains <em>and</em> losses on your own capital.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w2">
+      <div class="week-head">
+        <div class="week-num" data-n="2"><span class="lbl">02</span></div>
+        <div class="eyebrow">Week 02 · Semester 2</div>
+        <h2 class="week-title">Interest Rates</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> An interest rate is simply the price of money across time — and almost every other price in finance bends to it.</div>
+
+      <p class="lead">An interest rate is the "rental price for money": a penalty for spending before you've earned, and a reward for postponing consumption. Like any price, it allocates resources.</p>
+
+      <h3>Present value — why a pound today beats a pound tomorrow</h3>
+      <p>A pound today can be invested to grow, so future money is worth less now. We <span class="term">discount</span> it back:</p>
+      <div class="formula">
+        <div class="eq">PV = CF &divide; (1 + <i>i</i>)<sup>n</sup></div>
+        <small>PV = present value · CF = future cash flow · <i>i</i> = interest rate · n = years</small>
+      </div>
+
+      <div class="lab" data-lab="pv">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Present Value</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Future cash flow <output data-for="cf">£1,000</output></span>
+              <input type="range" data-f="cf" data-pre="£" min="100" max="100000" step="100" value="1000" aria-label="Future cash flow"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Interest rate <output data-for="rate">10%</output></span>
+              <input type="range" data-f="rate" data-suf="%" data-dec="1" min="0" max="20" step="0.5" value="10" aria-label="Interest rate"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Years away <output data-for="yrs">1</output></span>
+              <input type="range" data-f="yrs" min="0" max="30" step="1" value="1" aria-label="Years away"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <h3>Why rates exist, and the Fisher Effect</h3>
+      <p>Lenders aren't altruistic: they charge for time preference, for expected <span class="term">inflation</span>, and for <span class="term">risk</span>. Expected inflation is baked into the nominal rate:</p>
+      <div class="formula">
+        <div class="eq"><i>i</i> = r + π<sup>e</sup></div>
+        <small>nominal rate = real rate + expected inflation. The <i>real</i> rate is the true signal for borrowing and lending.</small>
+      </div>
+
+      <h3>What sets the general rate?</h3>
+      <p>The <span class="term">loanable funds model</span>: the rate moves to equate the <em>supply</em> of funds (savings, surpluses, central-bank action) with the <em>demand</em> (consumer credit, business investment, government deficits). Specific rates then vary by creditworthiness, duration, security and lenders' costs. Plotting rate against maturity gives the <span class="term">yield curve</span> — usually upward-sloping, but it can be inverted, humped or flat depending on what lenders expect.</p>
+
+      <div class="lab" data-lab="yieldc" data-choice="up">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Yield-Curve Shapes</div>
+        <div class="lab-body">
+          <div class="lab-toggle" role="group" aria-label="Yield curve shape">
+            <button type="button" class="lab-btn on" data-set="up" aria-pressed="true">Upward</button>
+            <button type="button" class="lab-btn" data-set="inv" aria-pressed="false">Inverted</button>
+            <button type="button" class="lab-btn" data-set="hump" aria-pressed="false">Humped</button>
+            <button type="button" class="lab-btn" data-set="flat" aria-pressed="false">Flat</button>
+          </div>
+          <svg class="lab-svg" viewBox="0 0 320 130" role="img" aria-label="Yield curve shape diagram">
+            <line class="axis" x1="14" y1="10" x2="14" y2="118"></line>
+            <line class="axis" x1="14" y1="118" x2="306" y2="118"></line>
+            <path class="curve" d="M14,108 C90,98 150,60 306,22"></path>
+          </svg>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Fisher: nominal = real + expected inflation.</span> If you want the real rate, strip the inflation out of the headline rate.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>An <strong>inverted yield curve</strong> — where short-term rates exceed long-term ones — has preceded almost every modern US recession. The curve is the market quietly betting that rates (and growth) will fall.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>Would you rather have £100 now or £100 next year? Now — because you could bank it and have £110. That gut feeling <em>is</em> present value; the interest rate just puts a number on your impatience.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w3">
+      <div class="week-head">
+        <div class="week-num" data-n="3"><span class="lbl">03</span></div>
+        <div class="eyebrow">Week 03 · Semester 2</div>
+        <h2 class="week-title">Central Banks</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> The bankers' bank and the government's bank — and history shows it works best when politicians can't tell it what to do.</div>
+
+      <p class="lead">Central banking is old: the Swedish Riksbank (1668), the Bank of England (1694), the US Federal Reserve (1913). Their job grew into guarding monetary stability, financing the state, and acting as <span class="term">lender of last resort</span> to banks in trouble.</p>
+
+      <h3>What the Bank of England does</h3>
+      <p>Sets monetary policy, safeguards financial stability, issues banknotes, regulates the financial sector, serves as banker to government and to commercial banks, and manages the FX reserves. Three committees run the show: the <span class="term">MPC</span> (sets Bank Rate monthly to hit the inflation target — if it misses, the Governor must write to the Chancellor), the <span class="term">FPC</span> (system-wide stability and stress tests), and the <span class="term">PRC</span> (supervising individual firms). The US parallels are the 12 Reserve Banks, the Board of Governors and the <span class="term">FOMC</span>; the eurozone's is the <span class="term">ECB</span> (1999) with its Governing Council.</p>
+
+      <h3>Independence: instrument vs goal</h3>
+      <ul>
+        <li><span class="term">Instrument independence</span> — freedom to choose <em>how</em> (which tools) to hit the target.</li>
+        <li><span class="term">Goal independence</span> — freedom to choose <em>what</em> the targets are.</li>
+      </ul>
+      <p>Why independence matters: governments face the <span class="term">political business cycle</span> temptation — juice the economy with low rates before an election, pay for it with inflation afterwards. An independent central bank has no such incentive, and the evidence links independence to lower inflation without hurting growth.</p>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>The debate is as old as central banking. Of the freshly created Bank of France in 1806, Napoleon mused that he wanted it <em>"sufficiently in the hands of the government, but not too much."</em> Two centuries on, with euro-area inflation hitting ~10%, that balance is once again a front-line policy fight.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>An independent central bank is the referee, not a player. If the referee answered to one team's manager, you'd never trust the score. Keep rate-setting away from the people facing re-election and the currency stays credible.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Instrument = the "how", Goal = the "what".</span> Most modern central banks get instrument independence but are handed their inflation goal by government.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w4">
+      <div class="week-head">
+        <div class="week-num" data-n="4"><span class="lbl">04</span></div>
+        <div class="eyebrow">Week 04 · Semester 2</div>
+        <h2 class="week-title">Risk Management</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A bank is a juggling act between five kinds of risk — and the deadliest trick is balancing profit against safety.</div>
+
+      <p class="lead">Banks are vital and fragile, so identifying and managing risk is everything. There are five headline types.</p>
+
+      <h3>The five risks</h3>
+      <ol>
+        <li><span class="term">Credit risk</span> — borrowers don't repay. Managed by screening, long-term relationships, restrictive covenants, collateral and credit rationing.</li>
+        <li><span class="term">Solvency risk</span> — liabilities exceed assets; capital is the cushion that absorbs losses.</li>
+        <li><span class="term">Liquidity risk</span> — not enough cash to meet withdrawals, forcing fire-sales.</li>
+        <li><span class="term">Interest-rate risk</span> — profits swing when rates move.</li>
+        <li><span class="term">Operational &amp; reputation risk</span> — losses from failed processes, people, systems, fraud or scandal.</li>
+      </ol>
+
+      <h3>Solvency — capital as a shock absorber</h3>
+      <p>Two banks each lose £5m on a bad loan. Watch what capital does:</p>
+      <div class="ledger">
+        <div class="ledger-cap">Same £5m loss · capital is the difference between survival and failure</div>
+        <div class="ledger-grid">
+          <div class="ledger-col"><h5>Well-capitalised bank</h5>
+            <div class="row"><span>Capital before</span><span>£10m</span></div>
+            <div class="row"><span>Loss</span><span>−£5m</span></div>
+            <div class="row tot"><span>Capital after</span><span>£5m ✓</span></div>
+          </div>
+          <div class="ledger-col"><h5>Thinly-capitalised bank</h5>
+            <div class="row"><span>Capital before</span><span>£4m</span></div>
+            <div class="row"><span>Loss</span><span>−£5m</span></div>
+            <div class="row tot"><span>Capital after</span><span>−£1m ✗</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lab" data-lab="solv">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Solvency Cushion</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Capital buffer <output data-for="cap">£10.0m</output></span>
+              <input type="range" data-f="cap" data-pre="£" data-suf="m" data-dec="1" min="0" max="20" step="0.5" value="10" aria-label="Capital buffer"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Loan loss <output data-for="loss">£5.0m</output></span>
+              <input type="range" data-f="loss" data-pre="£" data-suf="m" data-dec="1" min="0" max="20" step="0.5" value="5" aria-label="Loan loss"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <h3>Interest-rate risk: basic gap analysis</h3>
+      <div class="formula">
+        <div class="eq">Δ profit = (rate-sensitive assets − rate-sensitive liabilities) &times; Δ<i>i</i></div>
+        <small>If more of your liabilities reprice than your assets, rising rates squeeze profit.</small>
+      </div>
+
+      <div class="lab" data-lab="gap">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Interest-Rate Gap</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Rate-sensitive assets <output data-for="rsa">£20m</output></span>
+              <input type="range" data-f="rsa" data-pre="£" data-suf="m" min="0" max="100" step="5" value="20" aria-label="Rate-sensitive assets"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Rate-sensitive liabilities <output data-for="rsl">£50m</output></span>
+              <input type="range" data-f="rsl" data-pre="£" data-suf="m" min="0" max="100" step="5" value="50" aria-label="Rate-sensitive liabilities"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Rate change <output data-for="di">5.0%</output></span>
+              <input type="range" data-f="di" data-suf="%" data-dec="1" min="-5" max="5" step="0.5" value="5" aria-label="Interest rate change"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>From 2011 to 2016, major banks lost nearly <strong>$210 billion</strong> to operational risk alone — fines for mis-selling, LIBOR-fixing, FX misconduct and more. As long as people, systems and processes are imperfect, it can never be fully eliminated.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Five risks: "Can Smart Lenders Ignore Operations?" — Credit, Solvency, Liquidity, Interest-rate, Operational.</span> And the eternal trilemma: shareholders want profit, depositors and regulators want safety.</p>
+      </div>
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>Bank capital is the airbag. The riskier the road (the assets), the bigger the airbag you need. But a giant airbag is costly — hold too much capital and your return on equity falls. That trade-off is the heart of bank regulation.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w5">
+      <div class="week-head">
+        <div class="week-num" data-n="5"><span class="lbl">05</span></div>
+        <div class="eyebrow">Week 05 · Semester 2</div>
+        <h2 class="week-title">Money Markets</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Where corporate giants park spare cash for a few days — huge, ultra-safe, short-term, and the hidden plumbing of the whole system.</div>
+
+      <p class="lead">At the end of 2021 Apple reported $64 billion in short-term securities and cash equivalents. It doesn't keep that in a local bank account — so where? The money market: a market for <span class="term">liquidity</span> itself.</p>
+
+      <h3>What makes it the money market</h3>
+      <p>Instruments are issued in <span class="term">large denominations</span> ($1m+), with <span class="term">short maturities</span> (a day to a year, often &lt; 3 months), <span class="term">low default risk</span> and <span class="term">high liquidity</span>. Central banks use it for open-market operations, so it's also a barometer of conditions.</p>
+
+      <h3>The instruments</h3>
+      <ul>
+        <li><span class="term">Treasury bills</span> — government IOUs sold at a discount, lowest risk.</li>
+        <li><span class="term">Commercial paper</span> — short-term, unsecured promissory notes from the most creditworthy firms (GE, Citi); avg ~40 days; under 270 days so no SEC registration.</li>
+        <li><span class="term">Repos</span> — sell a security for cash now with a promise to buy it back slightly dearer in 1–14 days; a workhorse of bank funding and central-bank policy.</li>
+        <li><span class="term">Certificates of deposit (CDs)</span> — time deposits, negotiable ones trade in a secondary market.</li>
+        <li><span class="term">Interbank market</span> — banks lend each other money overnight; its rate, <span class="term">LIBOR</span>, long anchored loans worldwide (the US version is the Fed Funds market).</li>
+      </ul>
+
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>A repo is a pawnshop for institutions. You hand over a bond as security, take cash for a few days, then buy the bond back for a touch more — the "touch more" is really just short-term interest. Banks do this constantly to bridge cash gaps.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>When banks refused to lend long-term during the 2008 credit crunch, companies stampeded into <strong>commercial paper</strong> for short-term cash — and issuance spiked. The same happened at the start of the pandemic. The money market is where stress shows up first.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Money-market menu: T-bills, Commercial Paper, Repos, CDs, Interbank.</span> All share the DNA: big, brief, safe, liquid.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w6">
+      <div class="week-head">
+        <div class="week-num" data-n="6"><span class="lbl">06</span></div>
+        <div class="eyebrow">Week 06 · Semester 2</div>
+        <h2 class="week-title">The Bond Market</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> A bond is a loan you can trade. Master one golden rule and you've got it: <em>price and yield move in opposite directions.</em></div>
+
+      <p class="lead">Bonds finance both governments and companies, and government yields act as the reference point that keeps borrowing honest. <span class="term">Gilts</span> (UK) and <span class="term">Treasuries</span> (US) carry virtually no default risk — the issuer can print money — so they're treated as the "risk-free rate" (inflation risk aside). Corporate bonds range from low-risk <span class="term">AAA</span> down to <span class="term">BBB</span>; anything below is "sub-investment grade" (junk).</p>
+
+      <h3>The vocabulary</h3>
+      <ul>
+        <li><span class="term">Coupon rate</span> — annual interest as a % of face value.</li>
+        <li><span class="term">Face / par value</span> — what you're repaid at maturity.</li>
+        <li><span class="term">Current yield</span> — coupon ÷ current price.</li>
+        <li><span class="term">Yield to maturity (YTM)</span> — total return if held to the end, including any capital gain or loss.</li>
+      </ul>
+      <div class="formula">
+        <div class="eq">current yield <i>i</i><sub>c</sub> = C &divide; P</div>
+        <small>e.g. a £15 coupon on a bond priced at £921 → 15 ÷ 921 = 1.63%</small>
+      </div>
+
+      <h3>Why price and yield are opposites</h3>
+      <p>Say you hold a 10% bond. If new bonds pay 12%, nobody wants your stingy 10% one — so to sell it, you must <em>drop the price</em> until its effective return matches the market. Rates up → old bond prices down. Rates down → prices up. The three forces that drive yields: the borrower's <span class="term">creditworthiness</span>, <span class="term">inflation</span>, and short-term <span class="term">interest rates</span>.</p>
+
+      <div class="lab" data-lab="bond">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Bond Price ↔ Yield See-Saw</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Coupon rate <output data-for="coup">10.0%</output></span>
+              <input type="range" data-f="coup" data-suf="%" data-dec="1" min="0" max="15" step="0.5" value="10" aria-label="Coupon rate"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Market interest rate <output data-for="mkt">10.0%</output></span>
+              <input type="range" data-f="mkt" data-suf="%" data-dec="1" min="1" max="20" step="0.5" value="10" aria-label="Market interest rate"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Years to maturity <output data-for="yrs">5</output></span>
+              <input type="range" data-f="yrs" min="1" max="30" step="1" value="5" aria-label="Years to maturity"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Price ↑ ⇒ Yield ↓ (and vice-versa) — a see-saw.</span> Fixed coupon, moving price: the only way the yield can change is through the price.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The world bond market is worth around <strong>$130 trillion</strong> — bigger than global stock markets — and it's grown chiefly on government deficits. The US Treasury bond is considered the safest, most liquid security on earth.</p>
+      </div>
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>Why "gilts"? The original certificates issued by the British government literally had <span class="term">gilded (gold) edges</span> — a mark of their gold-standard safety. The nickname stuck for centuries.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w7">
+      <div class="week-head">
+        <div class="week-num" data-n="7"><span class="lbl">07</span></div>
+        <div class="eyebrow">Week 07 · Semester 2</div>
+        <h2 class="week-title">Forex Markets I</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> An exchange rate is just the price of one currency in another — set by supply and demand, and tugged over time toward purchasing power parity.</div>
+
+      <p class="lead">Without a foreign-exchange market, cross-border trade would need a single universal money and there'd be no easy way to invest abroad. Forex is where currency prices are set.</p>
+
+      <h3>Three market types</h3>
+      <ul>
+        <li><span class="term">Spot</span> — immediate price, immediate delivery (our focus).</li>
+        <li><span class="term">Futures</span> — standardised contracts, fixed dates and amounts.</li>
+        <li><span class="term">Forwards</span> — custom contracts tailored as needed.</li>
+      </ul>
+
+      <h3>Purchasing Power Parity (PPP)</h3>
+      <p>The same basket of goods should cost the same everywhere once converted. If a basket is $357 in the US and £229 in the UK, the exchange rate "should" be about $1.56 = £1. If it isn't, <span class="term">arbitrage</span> nudges it back. PPP is a long-run anchor — it ignores transport costs, trade barriers and the fact that inflation is only one of many forces.</p>
+
+      <div class="lab" data-lab="ppp">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Purchasing Power Parity</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">US basket <output data-for="us">$357</output></span>
+              <input type="range" data-f="us" data-pre="$" min="100" max="1000" step="1" value="357" aria-label="US basket price"></label>
+            <label class="lab-ctl"><span class="lab-lbl">UK basket <output data-for="uk">£229</output></span>
+              <input type="range" data-f="uk" data-pre="£" min="100" max="1000" step="1" value="229" aria-label="UK basket price"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Market rate ($/£) <output data-for="act">$1.40</output></span>
+              <input type="range" data-f="act" data-pre="$" data-dec="2" min="1" max="2" step="0.01" value="1.40" aria-label="Market exchange rate"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <h3>Arbitrage in action</h3>
+      <p>If £1 = €2.00 in London but £1 = €1.90 in Singapore, buy euros cheaply in London and sell them dearer in Singapore: €2,000 costs £1,000 in London and fetches ~£1,052 in Singapore — a 5.26% riskless profit. The buying and selling pushes both rates together until the gap closes.</p>
+
+      <div class="lab" data-lab="arb">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Arbitrage Profit</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">London rate (€/£) <output data-for="lon">2.00</output></span>
+              <input type="range" data-f="lon" data-dec="2" min="1.50" max="2.50" step="0.01" value="2.00" aria-label="London rate, euros per pound"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Singapore rate (€/£) <output data-for="sgp">1.90</output></span>
+              <input type="range" data-f="sgp" data-dec="2" min="1.50" max="2.50" step="0.01" value="1.90" aria-label="Singapore rate, euros per pound"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Amount <output data-for="amt">£1,000</output></span>
+              <input type="range" data-f="amt" data-pre="£" min="100" max="10000" step="100" value="1000" aria-label="Amount in pounds"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <p>Where rates move freely they're <span class="term">floating</span>; central banks sometimes intervene to <span class="term">fix</span> a rate by buying or selling their own currency.</p>
+
+      <div class="note note--life">
+        <div class="note-k">🌍 In Plain Life</div>
+        <p>PPP is the "Big Mac" idea: if a burger costs $5 in New York and £4 in London, the implied rate is $1.25 = £1. When the real rate drifts far from that, something — eventually — has to give.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Spot = now, Futures = standardised, Forwards = bespoke.</span> Arbitrage is the market's self-correction: buy cheap here, sell dear there, until "here" and "there" agree.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w8">
+      <div class="week-head">
+        <div class="week-num" data-n="8"><span class="lbl">08</span></div>
+        <div class="eyebrow">Week 08 · Semester 2</div>
+        <h2 class="week-title">Forex Markets II — Volatility &amp; Hedging</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Floating currencies are volatile, volatility hurts real businesses, and most of it comes from speculation — so the hunt is on for ways to tame it.</div>
+
+      <p class="lead">Picture exporting a Vietnamese drink to the US: your costs are in VND, your sales contracts in USD, locked years ahead. A swing in the USD:VND rate could wipe out your profit — or scare you off the venture entirely.</p>
+
+      <h3>Three exposures to forex risk</h3>
+      <ul>
+        <li><span class="term">Transaction risk</span> — a signed foreign-currency deal loses value between agreement and settlement.</li>
+        <li><span class="term">Translation risk</span> — foreign assets shrink in home-currency terms (an accounting effect).</li>
+        <li><span class="term">Economic risk</span> — the whole operating environment shifts as rates move.</li>
+      </ul>
+
+      <h3>Taming it</h3>
+      <p>History tried fixed systems: <span class="term">Bretton Woods</span> (1944–72) pegged currencies to the dollar and the dollar to gold; the European <span class="term">ERM</span> kept currencies in a narrow band. Firms hedge with <span class="term">forwards</span> (lock in a future rate) and <span class="term">options</span> — a <em>call</em> is the right (not obligation) to <em>buy</em> at a strike price, a <em>put</em> the right to <em>sell</em>, for a fee called the premium. <span class="term">Interest-rate parity</span> links spot and forward rates to the interest-rate gap between two countries.</p>
+
+      <p>James Tobin's proposed <span class="term">Tobin tax</span> — a tiny 0.1–0.2% levy on spot forex — would deter rapid speculators (a daily trader would face ~50% a year) without hurting genuine trade. Critics doubt it could be set high enough to stop speculation without also harming real business.</p>
+
+      <div class="lab" data-lab="tobin" data-choice="day">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Tobin Tax Bite</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Tax per trade <output data-for="rate">0.20%</output></span>
+              <input type="range" data-f="rate" data-suf="%" data-dec="2" min="0.05" max="0.50" step="0.01" value="0.20" aria-label="Tax rate per trade"></label>
+          </div>
+          <div class="lab-toggle" role="group" aria-label="Trading frequency">
+            <button type="button" class="lab-btn on" data-set="day" aria-pressed="true">Daily</button>
+            <button type="button" class="lab-btn" data-set="week" aria-pressed="false">Weekly</button>
+            <button type="button" class="lab-btn" data-set="month" aria-pressed="false">Monthly</button>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>In 1992 the ERM broke down — famously when George Soros bet over $10 billion against the pound and "broke the Bank of England", forcing the UK out of the mechanism in a single day (Black Wednesday). Fixed systems fail when markets decide the peg is wrong.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>By 2002 daily forex turnover hit <strong>$1.8 trillion</strong> — yet daily world trade was just ~$90 billion. Only about <strong>5% of currency trading relates to trade</strong>; the other 95% is speculation, and 80% of it is reversed within days.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Three exposures: Transaction (a deal), Translation (the books), Economic (the whole business).</span> And options: <em>Call up to buy, Put down to sell.</em></p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w9">
+      <div class="week-head">
+        <div class="week-num" data-n="9"><span class="lbl">09</span></div>
+        <div class="eyebrow">Week 09 · Semester 2</div>
+        <h2 class="week-title">Equity Markets I — Why Bubbles Happen</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Shares are ownership of a company — but their prices swing between cold calculation and pure crowd psychology.</div>
+
+      <p class="lead">Equities are the most visible securities in finance; by 2018 the world's stocks were worth over $91.8 trillion. Companies issue them to raise capital; people buy them to grow wealth, earn the <span class="term">equity risk premium</span> (the reward over the risk-free rate), or simply to speculate. The <span class="term">Efficient Market Hypothesis</span> says prices reflect all information — yet markets clearly misbehave.</p>
+
+      <h3>When price leaves reality: bubbles</h3>
+      <p>A <span class="term">speculative bubble</span> is when price departs from intrinsic value, driven by psychology and herding rather than fundamentals. Several thinkers explain it:</p>
+      <ul>
+        <li><span class="term">Keynes's "biggest fool" theory</span> — you don't buy what's worth most; you buy what you think <em>others</em> will pay more for. Intrinsic value becomes irrelevant.</li>
+        <li><span class="term">Minsky's Financial Instability Hypothesis</span> — euphoria builds, debt and risk-taking creep up, then recognition, panic and revulsion.</li>
+        <li><span class="term">Greenspan's "irrational exuberance"</span> (1996) — when the Fed chair merely uttered the phrase, global markets dropped within hours.</li>
+      </ul>
+      <p>Trading happens via <span class="term">IPOs</span> (first public issue) on the primary market and then on the secondary market, where <span class="term">market makers</span> profit from the <span class="term">bid-offer spread</span>.</p>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>In the 1720 <span class="term">South Sea Bubble</span>, even Sir Isaac Newton lost about £20,000 (over £2 million today). His verdict: <em>"I can calculate the movement of the stars, but not the madness of men."</em> Bubbles go back further still — to Dutch <span class="term">tulipmania</span> in the 1500s.</p>
+      </div>
+      <div class="note note--fact">
+        <div class="note-k">💡 Did You Know?</div>
+        <p>The "Magnificent Seven" tech giants — Apple, Alphabet, Amazon, Meta, Microsoft, Nvidia and Tesla — held almost a <strong>third of the S&amp;P 500's ~$51.8 trillion</strong> value, with valuations near their highest since the dot-com era. Echoes of bubbles past?</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">"Biggest fool" theory: you only need someone more foolish to buy it from you.</span> A bubble is a chair-shortage waiting to happen — fine until the music stops.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2w10">
+      <div class="week-head">
+        <div class="week-num" data-n="10"><span class="lbl">10</span></div>
+        <div class="eyebrow">Week 10 · Semester 2</div>
+        <h2 class="week-title">Equity Markets II — Exchanges &amp; Indexes</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Meet the great exchanges — and grasp the subtle fact that <em>how</em> you weight an index quietly changes the story it tells.</div>
+
+      <h3>The big exchanges</h3>
+      <ul>
+        <li><span class="term">NYSE</span> — the world's largest, tracing to the 1792 Buttonwood Agreement; equity value over $44 trillion. Survived "Black Monday" 1987 and introduced circuit breakers.</li>
+        <li><span class="term">NASDAQ</span> — founded 1971, the world's first <em>electronic</em> stock market (no trading floor), heavy with tech: Apple, Amazon, Microsoft, Tesla.</li>
+        <li><span class="term">LSE</span> — one of the oldest; launched the <span class="term">FTSE 100</span> in 1984 and the junior <span class="term">AIM</span> market in 1995.</li>
+      </ul>
+
+      <h3>How indexes are weighted (this is the exam favourite)</h3>
+      <div class="ledger">
+        <div class="ledger-cap">Same two stocks · opposite conclusions</div>
+        <div class="ledger-grid">
+          <div class="ledger-col"><h5>Price-weighted (DJIA)</h5>
+            <div class="row"><span>Stock A: £300 price</span><span>dominates</span></div>
+            <div class="row"><span>Stock B: £30 price</span><span>minor</span></div>
+            <div class="row tot"><span>Driven by</span><span>share price</span></div>
+          </div>
+          <div class="ledger-col"><h5>Cap-weighted (S&amp;P, NASDAQ, FTSE)</h5>
+            <div class="row"><span>Stock A: £30bn cap</span><span>minor</span></div>
+            <div class="row"><span>Stock B: £300bn cap</span><span>dominates</span></div>
+            <div class="row tot"><span>Driven by</span><span>company size</span></div>
+          </div>
+        </div>
+      </div>
+      <p>The <span class="term">Dow (DJIA)</span> — oldest in use (1896) — is <em>price-weighted</em>: pricey stocks sway it regardless of company size. The <span class="term">S&amp;P 500</span>, <span class="term">NASDAQ</span> and <span class="term">FTSE</span> are <em>market-cap-weighted</em>, so they track the economy more faithfully.</p>
+
+      <div class="lab" data-lab="index">
+        <div class="lab-k"><span class="lab-mark">⊞</span> The Reckoner · Index Weighting</div>
+        <div class="lab-body">
+          <div class="lab-controls">
+            <label class="lab-ctl"><span class="lab-lbl">Stock A price <output data-for="pa">£300</output></span>
+              <input type="range" data-f="pa" data-pre="£" min="10" max="500" step="5" value="300" aria-label="Stock A share price"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Stock B price <output data-for="pb">£30</output></span>
+              <input type="range" data-f="pb" data-pre="£" min="10" max="500" step="5" value="30" aria-label="Stock B share price"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Stock A size <output data-for="ca">£30bn</output></span>
+              <input type="range" data-f="ca" data-pre="£" data-suf="bn" min="5" max="500" step="5" value="30" aria-label="Stock A market cap"></label>
+            <label class="lab-ctl"><span class="lab-lbl">Stock B size <output data-for="cb">£300bn</output></span>
+              <input type="range" data-f="cb" data-pre="£" data-suf="bn" min="5" max="500" step="5" value="300" aria-label="Stock B market cap"></label>
+          </div>
+          <div class="lab-out" data-out aria-live="polite"></div>
+        </div>
+      </div>
+
+      <h3>Why the market moves the economy</h3>
+      <p>A crash hits via the <span class="term">wealth effect</span> (poorer households spend less), <span class="term">harder capital-raising</span> for firms, <span class="term">tighter credit</span> (collateral loses value), dented <span class="term">confidence</span>, and <span class="term">global spillovers</span>. That's why the stock market doubles as a <em>predictor</em> of economic activity.</p>
+
+      <div class="note note--story">
+        <div class="note-k">🏛 Real Story</div>
+        <p>On <span class="term">Black Monday</span>, 19 October 1987, the Dow plunged about <strong>22% in a single day</strong>. The shock gave us <span class="term">circuit breakers</span> — automatic trading halts that still pause markets in free-fall today.</p>
+      </div>
+      <div class="note note--key">
+        <div class="note-k">🔑 Lock It In</div>
+        <p><span class="mnem">Dow = Price-weighted (Pricey stocks rule). S&amp;P/NASDAQ/FTSE = Cap-weighted (Companies' size rules).</span> Price-weighting is a quirk of history; cap-weighting tracks the real economy.</p>
+      </div>
+    </section>
+
+    <section class="week reveal" id="s2ref">
+      <div class="week-head">
+        <div class="eyebrow">Appendix · Semester 2</div>
+        <h2 class="week-title">Exam Quick Reference</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> Everything Semester 2 distilled to one revision sheet — the formulas to memorise and the fact-tables most likely to be tested.</div>
+
+      <h3>Formula sheet</h3>
+      <div class="ref-grid">
+        <div class="formula"><div class="eq">Real rate = Nominal &minus; Inflation</div><small>Fisher equation: <i>r</i> = <i>i</i> &minus; &pi;.</small></div>
+        <div class="formula"><div class="eq">Discount yield = (FV &minus; P)/FV &times; 360/<i>days</i></div><small>T-bill quoted on a 360-day discount basis.</small></div>
+        <div class="formula"><div class="eq">P = &Sigma; C/(1+<i>r</i>)<sup>t</sup> + FV/(1+<i>r</i>)<sup>n</sup></div><small>Bond price = PV of coupons + PV of face value.</small></div>
+        <div class="formula"><div class="eq">Current yield = Coupon &divide; Price</div><small>Income return only — ignores capital gain/loss.</small></div>
+        <div class="formula"><div class="eq">F/S = (1 + <i>r</i><sub>d</sub>)/(1 + <i>r</i><sub>f</sub>)</div><small>Interest-rate parity; higher home rate → forward premium.</small></div>
+        <div class="formula"><div class="eq">EUR/GBP = EUR/USD &divide; GBP/USD</div><small>Cross rate via a common third currency.</small></div>
+        <div class="formula"><div class="eq">%&Delta;S &approx; &pi;<sub>d</sub> &minus; &pi;<sub>f</sub></div><small>Relative PPP: the higher-inflation currency depreciates.</small></div>
+        <div class="formula"><div class="eq">Spread % = (Ask &minus; Bid)/Ask &times; 100</div><small>Narrower spread = more liquid market.</small></div>
+        <div class="formula"><div class="eq">P/E = Price &divide; EPS</div><small>High P/E → optimism about future earnings.</small></div>
+        <div class="formula"><div class="eq">P&#8320; = (D&#8321; + P&#8321;)/(1 + <i>r</i>)</div><small>One-period stock value = PV of dividend + PV of sale price.</small></div>
+        <div class="formula"><div class="eq">ERP = E[stock return] &minus; risk-free rate</div><small>Equity risk premium — reward for holding shares over gilts.</small></div>
+        <div class="formula"><div class="eq">Duration &uarr; ⇒ price sensitivity &uarr;</div><small>Longer maturity &amp; lower coupon → higher duration.</small></div>
+      </div>
+
+      <h3>Interest rates &amp; the yield curve</h3>
+      <table class="ref-table"><caption>Yield-curve shapes &amp; what they signal</caption>
+        <thead><tr><th>Shape</th><th>Meaning</th><th>Signal</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Normal (upward)</strong></td><td>Long rates &gt; short rates</td><td>Expansion expected</td></tr>
+          <tr><td><strong>Inverted</strong></td><td>Short rates &gt; long rates</td><td>Recession warning (12–18 months)</td></tr>
+          <tr><td><strong>Flat</strong></td><td>Similar across maturities</td><td>Uncertainty / turning point</td></tr>
+          <tr><td><strong>Humped</strong></td><td>Medium-term rates highest</td><td>Transition</td></tr>
+        </tbody>
+      </table>
+      <p><b>Three theories of the term structure:</b> <span class="term">Expectations</span> (long rate = average of expected future short rates) · <span class="term">Liquidity premium</span> (extra yield demanded for longer maturities) · <span class="term">Market segmentation</span> (different investors prefer different maturities). See <a class="xref" href="#s2w2">Interest Rates</a>.</p>
+
+      <h3>Risk &amp; regulation</h3>
+      <table class="ref-table"><caption>Basel III minimum capital (% of risk-weighted assets)</caption>
+        <thead><tr><th>Requirement</th><th>Minimum</th></tr></thead>
+        <tbody>
+          <tr><td>Common Equity Tier 1 (CET1)</td><td>4.5%</td></tr>
+          <tr><td>Tier 1 capital</td><td>6%</td></tr>
+          <tr><td>Total capital</td><td>8%</td></tr>
+          <tr><td>Capital conservation buffer</td><td>+2.5%</td></tr>
+          <tr><td>Countercyclical buffer</td><td>0–2.5%</td></tr>
+        </tbody>
+      </table>
+      <div class="note note--key"><div class="note-k">🔑 Lock It In</div><p><span class="mnem">Risk-weighted assets</span>: cash 0% · government bonds 0–20% · mortgages 35–50% · corporate loans 100%+ — the riskier the asset, the more capital it ties up. The five risk types: <span class="term">credit, market, liquidity, operational, systemic</span>. See <a class="xref" href="#s2w4">Risk Management</a>.</p></div>
+
+      <h3>Money-market instruments</h3>
+      <table class="ref-table"><caption>Short-term (&lt; 1 year), liquid, low-risk, wholesale</caption>
+        <thead><tr><th>Instrument</th><th>Issuer</th><th>Maturity</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Treasury bills</strong></td><td>Government</td><td>4 / 13 / 26 / 52 weeks</td></tr>
+          <tr><td><strong>Commercial paper</strong></td><td>Corporations</td><td>1–270 days</td></tr>
+          <tr><td><strong>Certificates of deposit</strong></td><td>Banks</td><td>1–12 months</td></tr>
+          <tr><td><strong>Repos</strong></td><td>Various</td><td>Overnight–weeks</td></tr>
+          <tr><td><strong>Banker's acceptances</strong></td><td>Banks (trade finance)</td><td>30–180 days</td></tr>
+          <tr><td><strong>SONIA</strong> (replaced LIBOR)</td><td>Interbank benchmark</td><td>Overnight–12 months</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Bonds &amp; credit ratings</h3>
+      <table class="ref-table"><caption>Credit-rating scale</caption>
+        <thead><tr><th>Band</th><th>S&amp;P / Fitch</th><th>Moody's</th><th>Meaning</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="4"><strong>Investment grade</strong></td><td>AAA</td><td>Aaa</td><td>Highest quality</td></tr>
+          <tr><td>AA</td><td>Aa</td><td>High quality</td></tr>
+          <tr><td>A</td><td>A</td><td>Upper-medium</td></tr>
+          <tr><td>BBB</td><td>Baa</td><td>Medium grade</td></tr>
+          <tr><td rowspan="2"><strong>Speculative (junk)</strong></td><td>BB, B</td><td>Ba, B</td><td>Speculative</td></tr>
+          <tr><td>CCC–D</td><td>Caa–C</td><td>High risk / default</td></tr>
+        </tbody>
+      </table>
+      <div class="note note--key"><div class="note-k">🔑 Lock It In</div><p><span class="mnem">Rates up, prices down</span> — bond prices move inversely to yields. Longer maturity + lower coupon = higher <span class="term">duration</span> = more price volatility. See <a class="xref" href="#s2w6">The Bond Market</a>.</p></div>
+
+      <h3>Foreign exchange</h3>
+      <table class="ref-table"><caption>Exchange-rate regimes</caption>
+        <thead><tr><th>Regime</th><th>How the rate is set</th><th>Example</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Free float</strong></td><td>Market only, no intervention</td><td>GBP, USD, EUR, JPY</td></tr>
+          <tr><td><strong>Managed float</strong></td><td>Market + occasional CB intervention</td><td>Many emerging markets</td></tr>
+          <tr><td><strong>Fixed / pegged</strong></td><td>Tied to a currency or basket</td><td>HK dollar → USD</td></tr>
+          <tr><td><strong>Currency board</strong></td><td>Fixed, fully backed by reserves</td><td>Bulgaria</td></tr>
+        </tbody>
+      </table>
+      <table class="ref-table"><caption>Purchasing power parity (PPP)</caption>
+        <thead><tr><th>Type</th><th>Idea</th><th>Formula</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Absolute PPP</strong></td><td>Rate = ratio of price levels</td><td>S = P<sub>d</sub> / P<sub>f</sub></td></tr>
+          <tr><td><strong>Relative PPP</strong></td><td>Rate change = inflation gap</td><td>%&Delta;S &approx; &pi;<sub>d</sub> &minus; &pi;<sub>f</sub></td></tr>
+        </tbody>
+      </table>
+      <div class="note note--fact"><div class="note-k">💡 Did You Know?</div><p>FX is the world's largest market — about <b>$7.5 trillion</b> traded daily, 24 hours, over-the-counter. The Economist's <i>Big Mac Index</i> is a light-hearted PPP test: a burger at £4.19 in the UK vs $5.69 in the US implies $1.36/£, so a market rate of $1.25/£ means the pound is ~8% undervalued. PPP holds in the long run, not the short. See <a class="xref" href="#s2w7">Forex Markets I</a>.</p></div>
+
+      <h3>Equities &amp; market efficiency</h3>
+      <table class="ref-table"><caption>Efficient Market Hypothesis — three forms</caption>
+        <thead><tr><th>Form</th><th>Information in the price</th><th>Implication</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Weak</strong></td><td>All past prices</td><td>Technical analysis useless</td></tr>
+          <tr><td><strong>Semi-strong</strong></td><td>All public information</td><td>Fundamental analysis useless</td></tr>
+          <tr><td><strong>Strong</strong></td><td>Public + private information</td><td>Nobody can beat the market</td></tr>
+        </tbody>
+      </table>
+      <table class="ref-table"><caption>Major market indices</caption>
+        <thead><tr><th>Index</th><th>Weighting</th><th>Coverage</th></tr></thead>
+        <tbody>
+          <tr><td><strong>DJIA</strong></td><td>Price-weighted</td><td>30 large US firms</td></tr>
+          <tr><td><strong>S&amp;P 500</strong></td><td>Cap-weighted</td><td>500 US firms</td></tr>
+          <tr><td><strong>NASDAQ 100</strong></td><td>Cap-weighted</td><td>100 NASDAQ (tech-heavy)</td></tr>
+          <tr><td><strong>FTSE 100</strong></td><td>Cap-weighted</td><td>100 large UK firms</td></tr>
+        </tbody>
+      </table>
+      <div class="note note--key"><div class="note-k">🔑 Lock It In</div><p><span class="mnem">FTSE 100 is UK, not US</span> — a classic exam trap. <span class="term">Common</span> shares: vote, residual (last) claim; <span class="term">preferred</span>: no vote, fixed dividend, paid first. See <a class="xref" href="#s2w9">Equity Markets I</a>.</p></div>
+
+      <h3>Alternative funds</h3>
+      <table class="ref-table"><caption>Types of alternative investment</caption>
+        <thead><tr><th>Type</th><th>What it is</th><th>Hallmarks</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Hedge funds</strong></td><td>Pooled, multi-strategy funds</td><td>"2 &amp; 20" fees, accredited investors, lightly regulated</td></tr>
+          <tr><td><strong>Private equity</strong></td><td>Stakes in private firms</td><td>Long lock-ups, leveraged buyouts, illiquid</td></tr>
+          <tr><td><strong>REITs</strong></td><td>Real-estate investment trusts</td><td>Must pay out ~90% of income; listed</td></tr>
+          <tr><td><strong>Venture capital</strong></td><td>Early-stage firms</td><td>High risk/return, hands-on</td></tr>
+          <tr><td><strong>Infrastructure</strong></td><td>Roads, utilities, airports</td><td>Stable cash flows, inflation hedge</td></tr>
+        </tbody>
+      </table>
+      <div class="note note--fact"><div class="note-k">💡 Did You Know?</div><p>Hedge-fund strategies include <span class="term">long/short equity</span>, <span class="term">market-neutral</span>, <span class="term">global macro</span>, <span class="term">event-driven</span> and <span class="term">arbitrage</span>. The reward for tying money up is the <b>illiquidity premium</b> — but watch the hidden risks: stale quarterly pricing, return smoothing, and the denominator effect in a crash. See <a class="xref" href="#s2w1">Alternative Funds</a>.</p></div>
+    </section>
+
+    <section class="week reveal" id="exam">
+      <div class="week-head">
+        <div class="eyebrow">Appendix · Whole module</div>
+        <h2 class="week-title">Exam Prep &amp; Pitfalls</h2>
+      </div>
+      <div class="big-idea"><b>The big idea</b> The traps that catch people out, the dates examiners love, and the four essay questions worth having an angle on.</div>
+
+      <h3>Common exam traps</h3>
+      <table class="ref-table"><caption>Watch the wording — the tempting answer is usually wrong</caption>
+        <thead><tr><th>The trap</th><th>The correct answer</th></tr></thead>
+        <tbody>
+          <tr><td>"Raise interest rates to fix adverse selection"</td><td>Raising rates <strong>worsens</strong> it — only the riskiest borrowers still apply. See <a class="xref" href="#s1w2">Why Institutions Exist</a>.</td></tr>
+          <tr><td>Adverse selection vs moral hazard</td><td>Adverse selection happens <strong>before</strong> the deal; moral hazard <strong>after</strong> it.</td></tr>
+          <tr><td>What is the monetary base?</td><td>Currency in circulation <strong>+</strong> reserves — both are central-bank liabilities. See <a class="xref" href="#s1w3">Banks &amp; Money Creation</a>.</td></tr>
+          <tr><td>Is the FTSE 100 a US index?</td><td><strong>No</strong> — it's UK. The US ones are DJIA, S&amp;P 500 and NASDAQ.</td></tr>
+          <tr><td>Is deposit insurance purely good?</td><td>It creates <strong>moral hazard</strong> — insured depositors stop monitoring bank risk. See <a class="xref" href="#s1w5">Banking: USA &amp; China</a>.</td></tr>
+          <tr><td>What does ring-fencing separate?</td><td><strong>Retail</strong> banking from <strong>investment</strong> banking. See <a class="xref" href="#s1w6">Investment Banks</a>.</td></tr>
+          <tr><td>Is Islamic finance debt-oriented?</td><td>No — it is <strong>equity / risk-sharing</strong> oriented (no riba). See <a class="xref" href="#s1w7">Islamic Banking</a>.</td></tr>
+          <tr><td>Is Takaful a form of Islamic social finance?</td><td>No — Takaful is <strong>insurance</strong>. Social finance = Zakat, Waqf, Qard Hassan.</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Key dates to remember</h3>
+      <table class="ref-table"><caption>The timeline examiners reach for</caption>
+        <thead><tr><th>Year</th><th>Event</th></tr></thead>
+        <tbody>
+          <tr><td><strong>1775</strong></td><td>First building societies appear in the UK</td></tr>
+          <tr><td><strong>1933</strong></td><td>Glass-Steagall Act &amp; first US deposit insurance</td></tr>
+          <tr><td><strong>1971</strong></td><td>NASDAQ founded — the first electronic exchange</td></tr>
+          <tr><td><strong>1999</strong></td><td>Gramm-Leach-Bliley Act repeals Glass-Steagall</td></tr>
+          <tr><td><strong>2000</strong></td><td>JP Morgan merges with Chase</td></tr>
+          <tr><td><strong>2008</strong></td><td>Goldman Sachs converts to a bank holding company</td></tr>
+          <tr><td><strong>2010</strong></td><td>Dodd-Frank Act — post-GFC reform</td></tr>
+          <tr><td><strong>2013</strong></td><td>UK Banking Reform Act — ring-fencing</td></tr>
+          <tr><td><strong>2020</strong></td><td>US reserve requirement cut to 0%</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Essay topics (40% assignment)</h3>
+      <div class="note note--story"><div class="note-k">🏛 Pick an angle</div>
+        <p><b>1 · "Too Big to Fail."</b> Has post-crisis regulation actually reduced moral hazard, or just relabelled it? Tie it to <a class="xref" href="#s1w9">the Great Depression</a> and Dodd-Frank / ring-fencing.</p>
+        <p><b>2 · Pension-fund alternative investments.</b> Genuine diversification, or hidden illiquidity and valuation risk? Use the illiquidity premium from <a class="xref" href="#s2w1">Alternative Funds</a>.</p>
+        <p><b>3 · ESG investing.</b> Meaningful change or greenwashing? Weigh disclosure, incentives and the difficulty of measurement.</p>
+        <p><b>4 · The yield curve as a recession predictor.</b> How strong is the evidence, and what are the limits? Build on <a class="xref" href="#s2w2">Interest Rates</a>.</p>
+      </div>
+    </section>
+
+    <footer class="foot reveal">
+      <div class="foot-orn" id="footOrn" aria-hidden="true"></div>
+      <p>The Ledger — built from your own lecture notes for the FIM module.<br/>Primary text: Mishkin &amp; Eakins, <i>Financial Markets &amp; Institutions</i>; Howells &amp; Bain; Burton, Nesiba &amp; Brown.</p>
+      <a class="to-top" href="#top">Back to the top ↑</a>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var root=document.documentElement;
+  root.classList.add('js');
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- guilloché generator (hypotrochoid rosette) ---------- */
+  function rosette(R,r,d,turns,cls){
+    var pts=[],steps=turns*120,k=(R-r)/r;
+    for(var i=0;i<=steps;i++){
+      var t=i/steps*turns*2*Math.PI;
+      var x=(R-r)*Math.cos(t)+d*Math.cos(k*t);
+      var y=(R-r)*Math.sin(t)-d*Math.sin(k*t);
+      pts.push([x,y]);
+    }
+    var max=(R-r)+d, scale=95/max, c=100;
+    var dstr=pts.map(function(p,i){return (i?'L':'M')+(c+p[0]*scale).toFixed(2)+' '+(c+p[1]*scale).toFixed(2)}).join(' ');
+    return '<path class="'+(cls||'')+'" d="'+dstr+'"/>';
+  }
+  function svg(inner){
+    return '<svg viewBox="0 0 200 200" class="guilloche" role="presentation">'+inner+'</svg>';
+  }
+
+  /* hero ornament: two interlocking rosettes, drawn in */
+  var hero=document.getElementById('heroOrn');
+  if(hero){
+    hero.innerHTML=svg(rosette(80,33,38,11)+rosette(70,20,30,7,'ring2'));
+    if(!reduce){
+      var paths=hero.querySelectorAll('path');
+      paths.forEach(function(p,idx){
+        var len=p.getTotalLength();
+        p.style.strokeDasharray=len; p.style.strokeDashoffset=len;
+        p.style.transition='stroke-dashoffset 2.6s ease '+(idx*0.35)+'s';
+      });
+      requestAnimationFrame(function(){requestAnimationFrame(function(){
+        paths.forEach(function(p){p.style.strokeDashoffset=0});
+      });});
+    }
+  }
+  var foot=document.getElementById('footOrn');
+  if(foot){foot.innerHTML=svg(rosette(80,33,38,9));}
+
+  /* week-number watermarks */
+  document.querySelectorAll('.week-num[data-n]').forEach(function(el){
+    el.insertAdjacentHTML('afterbegin', svg(rosette(78,29,34,8)));
+  });
+
+  /* ---------- reading progress ---------- */
+  var bar=document.getElementById('progress');
+  function onScroll(){
+    var h=document.documentElement, max=h.scrollHeight-h.clientHeight;
+    bar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  }
+  document.addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+  /* ---------- scroll-spy ---------- */
+  var links={};
+  document.querySelectorAll('.nav-list a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a;});
+  var spy=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        var a=links[e.target.id]; if(!a) return;
+        Object.keys(links).forEach(function(k){links[k].classList.remove('active')});
+        a.classList.add('active');
+        a.scrollIntoView({block:'nearest'});
+      }
+    });
+  },{rootMargin:'-12% 0px -78% 0px'});
+  document.querySelectorAll('.week').forEach(function(s){spy.observe(s);});
+
+  /* ---------- reveal on scroll ---------- */
+  var revEls=document.querySelectorAll('.reveal');
+  if(location.hash || reduce || !('IntersectionObserver' in window)){
+    /* deep link, reduced motion, or no support → show everything at once */
+    revEls.forEach(function(el){el.classList.add('in');});
+  }else{
+    var rev=new IntersectionObserver(function(es,o){
+      es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}});
+    },{rootMargin:'0px 0px -8% 0px'});
+    revEls.forEach(function(el){rev.observe(el);});
+  }
+
+  /* ---------- sidebar accordions ---------- */
+  document.querySelectorAll('.nav-head').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var g=document.getElementById(btn.dataset.toggle);
+      var c=g.classList.toggle('collapsed');
+      btn.setAttribute('aria-expanded', String(!c));
+    });
+  });
+
+  /* ---------- mobile drawer ---------- */
+  var sb=document.getElementById('sidebar'),
+      bd=document.getElementById('backdrop'),
+      hb=document.getElementById('hamburger');
+  function setDrawer(open){
+    sb.classList.toggle('open',open); bd.classList.toggle('show',open);
+    hb.setAttribute('aria-expanded',String(open));
+  }
+  hb.addEventListener('click',function(){setDrawer(!sb.classList.contains('open'));});
+  bd.addEventListener('click',function(){setDrawer(false);});
+  document.querySelectorAll('.nav-list a').forEach(function(a){
+    a.addEventListener('click',function(){if(window.innerWidth<=920) setDrawer(false);});
+  });
+
+  /* ---------- interactive "Reckoner" calculators ---------- */
+  function gb(n,dec){return (+n).toLocaleString('en-GB',{minimumFractionDigits:dec||0,maximumFractionDigits:dec||0});}
+  function money(v,dec){return (v<0?'−£':'£')+gb(Math.abs(v),dec||0);}
+  function cls(v){return v>0.0001?'pos':(v<-0.0001?'neg':'muted');}
+
+  var LAB={
+    arb:function(lab,r){
+      var lon=r('lon'),sgp=r('sgp'),amt=r('amt');
+      var euros=amt*lon, back=euros/sgp, profit=back-amt, pct=(lon/sgp-1)*100;
+      lab.out.innerHTML='Buy €'+gb(euros)+' for £'+gb(amt)+' in London, then sell in Singapore for £'+gb(back,2)+'.<br>'
+        +'<span class="big '+cls(profit)+'">Profit '+money(profit,2)+' ('+gb(pct,2)+'%)</span>'
+        +(Math.abs(pct)<0.01?' <span class="muted">— rates aligned: no free lunch.</span>':'');
+    },
+    lev:function(lab,r){
+      var own=r('own'),bor=r('bor'),intr=r('intr'),ret=r('ret');
+      var total=own+bor, end=total*(1+ret/100), repay=bor*(1+intr/100), left=end-repay, profit=left-own, roe=own?profit/own*100:0;
+      lab.out.innerHTML='Invest £'+gb(total)+', repay '+money(repay,2)+' of debt → you keep '+money(left,2)+'.<br>'
+        +'<span class="big '+cls(profit)+'">Return on your £'+gb(own)+': '+gb(roe,1)+'%</span> <span class="muted">(without leverage it’s just '+gb(ret,1)+'%)</span>';
+    },
+    bond:function(lab,r){
+      var coup=r('coup'),mkt=r('mkt'),yrs=r('yrs'),F=1000,C=F*coup/100,i=mkt/100,price;
+      price=(i===0)?(C*yrs+F):(C*(1-Math.pow(1+i,-yrs))/i+F*Math.pow(1+i,-yrs));
+      var d=price-F, rel=d>0.5?'a <span class="pos">premium</span>':(d<-0.5?'a <span class="neg">discount</span>':'par');
+      lab.out.innerHTML='<span class="big">Price '+money(price,2)+'</span> on a £1,000 bond — trading at '+rel+'.<br>'
+        +'<span class="muted">Coupon '+gb(coup,1)+'% vs market '+gb(mkt,1)+'%: '
+        +(mkt>coup?'market higher → price below par':(mkt<coup?'market lower → price above par':'equal → price = par'))+'. Rates up, price down.</span>';
+    },
+    mult:function(lab,r){
+      var dep=r('dep'),rr=r('rr'),m=100/rr,total=dep*m,created=total-dep;
+      lab.out.innerHTML='Multiplier ×'+gb(m,1)+': £'+gb(dep)+' of reserves can support <span class="big pos">£'+gb(total)+'</span> of deposits.<br>'
+        +'<span class="muted">New money created: £'+gb(created)+'. (The UK has no legal reserve ratio — this is the textbook model.)</span>';
+    },
+    pv:function(lab,r){
+      var cf=r('cf'),rate=r('rate'),yrs=r('yrs'),pv=cf/Math.pow(1+rate/100,yrs),disc=cf-pv;
+      lab.out.innerHTML='£'+gb(cf)+' in '+gb(yrs)+' year'+(yrs==1?'':'s')+' is worth <span class="big">'+money(pv,2)+'</span> today.<br>'
+        +'<span class="muted">Time and interest shrink it by '+money(disc,2)+'.</span>';
+    },
+    index:function(lab,r){
+      var pa=r('pa'),pb=r('pb'),ca=r('ca'),cb=r('cb'),pw=pa/(pa+pb)*100,cw=ca/(ca+cb)*100;
+      function bar(av){return '<div class="lab-bar"><i class="seg-a" style="width:'+av+'%">A '+gb(av)+'%</i><i class="seg-b" style="width:'+(100-av)+'%">B '+gb(100-av)+'%</i></div>';}
+      lab.out.innerHTML='<div class="lab-bars"><div class="lab-bar-k">Price-weighted (Dow)</div>'+bar(pw)
+        +'<div class="lab-bar-k">Cap-weighted (S&amp;P / FTSE)</div>'+bar(cw)+'</div>'
+        +'<span class="muted">Same two firms, opposite stories: price-weighting follows the bigger <em>price</em>; cap-weighting follows the bigger <em>company</em>.</span>';
+    },
+    solv:function(lab,r){
+      var cap=r('cap'),loss=r('loss'),after=cap-loss,ok=after>0;
+      lab.out.innerHTML='Capital after the loss: <span class="big '+(ok?'pos':'neg')+'">'+money(after,1)+'m</span> — '
+        +(ok?'<span class="pos">Solvent ✓</span>':'<span class="neg">Insolvent ✗ — liabilities now exceed assets</span>')+'.';
+    },
+    yieldc:function(lab){
+      var p={up:'M14,108 C90,98 150,60 306,22', inv:'M14,26 C90,42 150,78 306,108', hump:'M14,98 C90,16 180,30 306,82', flat:'M14,66 C100,64 200,63 306,61'};
+      var note={up:'Upward — the normal curve: longer loans demand more yield.',
+        inv:'Inverted — short rates above long; historically a recession omen.',
+        hump:'Humped — mid-term yields peak, then fall.',
+        flat:'Flat — little extra reward for lending longer; markets unsure.'};
+      var c=lab.dataset.choice||'up';
+      var path=lab.querySelector('.curve'); if(path) path.setAttribute('d',p[c]);
+      lab.out.innerHTML='<span class="muted">'+note[c]+'</span>';
+    },
+    hhi:function(lab,r){
+      var s=[r('h1'),r('h2'),r('h3'),r('h4')], sum=s[0]+s[1]+s[2]+s[3];
+      var hhi=s[0]*s[0]+s[1]*s[1]+s[2]*s[2]+s[3]*s[3];
+      var band=hhi<1000?'<span class="pos">un-concentrated</span>':(hhi<=2000?'moderately concentrated':'<span class="neg">highly concentrated</span>');
+      var tail=sum>100?' <span class="neg">(shares exceed 100% — adjust the sliders!)</span>'
+        :' <span class="muted">(remaining '+gb(100-sum)+'% = many tiny firms ≈ 0)</span>';
+      lab.out.innerHTML='<span class="big">HHI ≈ '+gb(hhi)+'</span> → '+band+'.'+tail;
+    },
+    gap:function(lab,r){
+      var rsa=r('rsa'),rsl=r('rsl'),di=r('di'),g=(rsa-rsl)*di/100;
+      lab.out.innerHTML='If rates move '+(di>=0?'+':'−')+gb(Math.abs(di),1)+'%, profit changes by <span class="big '+cls(g)+'">'+(g>=0?'+':'−')+'£'+gb(Math.abs(g),2)+'m</span>.<br>'
+        +'<span class="muted">Gap = (£'+gb(rsa)+'m rate-sensitive assets − £'+gb(rsl)+'m liabilities) × rate change.</span>';
+    },
+    ins:function(lab,r){
+      var claim=r('claim'),ded=r('ded'),coins=r('coins'),afterDed=Math.max(0,claim-ded),insPay=afterDed*coins/100,youPay=claim-insPay;
+      lab.out.innerHTML='On a £'+gb(claim)+' claim: insurer pays <span class="big pos">'+money(insPay,2)+'</span>, you pay <span class="big neg">'+money(youPay,2)+'</span>.<br>'
+        +'<span class="muted">£'+gb(ded)+' deductible first, then they cover '+gb(coins)+'% of the rest.</span>';
+    },
+    ppp:function(lab,r){
+      var us=r('us'),uk=r('uk'),act=r('act'),implied=us/uk,verdict;
+      verdict=Math.abs(act-implied)<0.01?'fairly valued':(act>implied?'the £ looks <span class="neg">overvalued</span>':'the £ looks <span class="pos">undervalued</span>');
+      lab.out.innerHTML='PPP implied rate: <span class="big">$'+gb(implied,2)+' = £1</span>.<br>'
+        +'<span class="muted">Market is $'+gb(act,2)+' = £1 → '+verdict+'; arbitrage should nudge them together.</span>';
+    },
+    tobin:function(lab,r){
+      var rate=r('rate'),freq=lab.dataset.choice||'day',trades={day:250,week:52,month:12}[freq],label={day:'daily',week:'weekly',month:'monthly'}[freq],annual=rate*trades;
+      lab.out.innerHTML='A '+label+' trader paying '+gb(rate,2)+'% per trade faces <span class="big '+(annual>20?'neg':'pos')+'">≈'+gb(annual,1)+'% a year</span>.<br>'
+        +'<span class="muted">Tiny per trade, brutal when repeated — that’s how a 0.2% daily levy ≈ 50% a year deters speculators yet barely touches real trade.</span>';
+    }
+  };
+
+  function initLabs(){
+    document.querySelectorAll('.lab[data-lab]').forEach(function(lab){
+      var fn=LAB[lab.dataset.lab]; if(!fn) return;
+      lab.out=lab.querySelector('[data-out]');
+      var ranges=lab.querySelectorAll('input[type=range]');
+      function r(name){var el=lab.querySelector('[data-f="'+name+'"]'); return el?+el.value:0;}
+      function sync(){
+        ranges.forEach(function(x){
+          var o=lab.querySelector('output[data-for="'+x.dataset.f+'"]'); if(!o) return;
+          o.textContent=(x.dataset.pre||'')+gb(x.value,x.dataset.dec?+x.dataset.dec:0)+(x.dataset.suf||'');
+        });
+      }
+      function update(){sync(); fn(lab,r);}
+      ranges.forEach(function(x){x.addEventListener('input',update);});
+      var btns=lab.querySelectorAll('.lab-btn[data-set]');
+      btns.forEach(function(b){
+        b.addEventListener('click',function(){
+          btns.forEach(function(y){y.classList.remove('on'); y.setAttribute('aria-pressed','false');});
+          b.classList.add('on'); b.setAttribute('aria-pressed','true'); lab.dataset.choice=b.dataset.set; update();
+        });
+      });
+      update();
+    });
+  }
+  initLabs();
+})();
+</script>
+</body>
+</html>

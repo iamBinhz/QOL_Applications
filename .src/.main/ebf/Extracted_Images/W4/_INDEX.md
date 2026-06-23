@@ -1,0 +1,82 @@
+# W4 — Image Index (76 charts/tables)
+
+Folder: `Extracted_Images/W4/`
+
+| Slide | File | Name |
+|---|---|---|
+| 13 | `W4_P13_fig0501aa-gif.png` | fig0501aa gif |
+| 13 | `W4_P13_fig0501ab-gif.png` | fig0501ab gif |
+| 13 | `W4_P13_fig0501ac-gif.png` | fig0501ac gif |
+| 13 | `W4_P13_fig0501ad-gif.png` | fig0501ad gif |
+| 14 | `W4_P14_fig0501ba-gif.png` | fig0501ba gif |
+| 14 | `W4_P14_fig0501bb-gif.png` | fig0501bb gif |
+| 14 | `W4_P14_fig0501bc-gif.png` | fig0501bc gif |
+| 14 | `W4_P14_fig0501bd-gif.png` | fig0501bd gif |
+| 15 | `W4_P15_fig0501ca-gif.png` | fig0501ca gif |
+| 15 | `W4_P15_fig0501cb-gif.png` | fig0501cb gif |
+| 15 | `W4_P15_fig0501cc-gif.png` | fig0501cc gif |
+| 15 | `W4_P15_fig0501cd-gif.png` | fig0501cd gif |
+| 16 | `W4_P16_fig0501da-gif.png` | fig0501da gif |
+| 16 | `W4_P16_fig0501db-gif.png` | fig0501db gif |
+| 16 | `W4_P16_fig0501dc-gif.png` | fig0501dc gif |
+| 16 | `W4_P16_fig0501dd-gif.png` | fig0501dd gif |
+| 17 | `W4_P17_fig0501ea-gif.png` | fig0501ea gif |
+| 17 | `W4_P17_fig0501eb-gif.png` | fig0501eb gif |
+| 17 | `W4_P17_fig0501ec-gif.png` | fig0501ec gif |
+| 17 | `W4_P17_fig0501ed-gif.png` | fig0501ed gif |
+| 22 | `W4_P22_fig0502a-gif.png` | fig0502a gif |
+| 22 | `W4_P22_fig0502b-gif.png` | fig0502b gif |
+| 22 | `W4_P22_fig0502c-gif.png` | fig0502c gif |
+| 22 | `W4_P22_fig0502d-gif.png` | fig0502d gif |
+| 22 | `W4_P22_fig0502e-gif.png` | fig0502e gif |
+| 22 | `W4_P22_fig0502f-gif.png` | fig0502f gif |
+| 22 | `W4_P22_fig0502g-gif.png` | fig0502g gif |
+| 23 | `W4_P23_fig0502h-gif.png` | fig0502h gif |
+| 27 | `W4_P27_fig0503a-gif.png` | fig0503a gif |
+| 27 | `W4_P27_fig0503b-gif.png` | fig0503b gif |
+| 27 | `W4_P27_fig0503c-gif.png` | fig0503c gif |
+| 27 | `W4_P27_fig0503d-gif.png` | fig0503d gif |
+| 31 | `W4_P31_fig0504aa-gif.png` | fig0504aa gif |
+| 31 | `W4_P31_fig0504ab-gif.png` | fig0504ab gif |
+| 31 | `W4_P31_fig0504ac-gif.png` | fig0504ac gif |
+| 31 | `W4_P31_fig0504ad-gif.png` | fig0504ad gif |
+| 31 | `W4_P31_fig0504ae-gif.png` | fig0504ae gif |
+| 31 | `W4_P31_fig0504af-gif.png` | fig0504af gif |
+| 32 | `W4_P32_fig0504ba-gif.png` | fig0504ba gif |
+| 32 | `W4_P32_fig0504bb-gif.png` | fig0504bb gif |
+| 32 | `W4_P32_fig0504bc-gif.png` | fig0504bc gif |
+| 32 | `W4_P32_fig0504bd-gif.png` | fig0504bd gif |
+| 32 | `W4_P32_fig0504be-gif.png` | fig0504be gif |
+| 32 | `W4_P32_fig0504bf-gif.png` | fig0504bf gif |
+| 33 | `W4_P33_5-1-THE-PRICE-ELASTICITY-OF-DEMAND.wmf` | 5 1 THE PRICE ELASTICITY OF DEMAND |
+| 39 | `W4_P39_fig0505aa-gif.png` | fig0505aa gif |
+| 39 | `W4_P39_fig0505ab-gif.png` | fig0505ab gif |
+| 39 | `W4_P39_fig0505ac-gif.png` | fig0505ac gif |
+| 39 | `W4_P39_fig0505ad-gif.png` | fig0505ad gif |
+| 40 | `W4_P40_fig0505ba-gif.png` | fig0505ba gif |
+| 40 | `W4_P40_fig0505bb-gif.png` | fig0505bb gif |
+| 40 | `W4_P40_fig0505bc-gif.png` | fig0505bc gif |
+| 40 | `W4_P40_fig0505bd-gif.png` | fig0505bd gif |
+| 41 | `W4_P41_fig0505ca-gif.png` | fig0505ca gif |
+| 41 | `W4_P41_fig0505cb-gif.png` | fig0505cb gif |
+| 41 | `W4_P41_fig0505cc-gif.png` | fig0505cc gif |
+| 41 | `W4_P41_fig0505cd-gif.png` | fig0505cd gif |
+| 42 | `W4_P42_fig0505da-gif.png` | fig0505da gif |
+| 42 | `W4_P42_fig0505db-gif.png` | fig0505db gif |
+| 42 | `W4_P42_fig0505dc-gif.png` | fig0505dc gif |
+| 42 | `W4_P42_fig0505dd-gif.png` | fig0505dd gif |
+| 43 | `W4_P43_fig0505ea-gif.png` | fig0505ea gif |
+| 43 | `W4_P43_fig0505eb-gif.png` | fig0505eb gif |
+| 43 | `W4_P43_fig0505ec-gif.png` | fig0505ec gif |
+| 43 | `W4_P43_fig0505ed-gif.png` | fig0505ed gif |
+| 47 | `W4_P47_fig0506a-gif.png` | fig0506a gif |
+| 47 | `W4_P47_fig0506b-gif.png` | fig0506b gif |
+| 47 | `W4_P47_fig0506c-gif.png` | fig0506c gif |
+| 47 | `W4_P47_fig0506d-gif.png` | fig0506d gif |
+| 47 | `W4_P47_fig0506e-gif.png` | fig0506e gif |
+| 47 | `W4_P47_fig0506f-gif.png` | fig0506f gif |
+| 47 | `W4_P47_fig0506g-gif.png` | fig0506g gif |
+| 48 | `W4_P48_fig0506h-gif.png` | fig0506h gif |
+| 52 | `W4_P52_fig0507a-gif.png` | fig0507a gif |
+| 52 | `W4_P52_fig0507b-gif.png` | fig0507b gif |
+| 53 | `W4_P53_fig0507c-gif.png` | fig0507c gif |

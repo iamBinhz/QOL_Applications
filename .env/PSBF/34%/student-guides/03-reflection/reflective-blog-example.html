@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reflective Learning Blog Example — Strong vs Weak</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f2f5;
+            padding: 40px;
+            color: #1a1a2e;
+        }
+
+        .page-header {
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto 32px;
+        }
+        .page-header h1 { font-size: 28px; font-weight: 800; margin-bottom: 8px; }
+        .page-header p { color: #666; font-size: 14px; }
+        .badge {
+            display: inline-block;
+            background: #ede9fe;
+            color: #6d28d9;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .grade-badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .grade-high { background: #dcfce7; color: #166534; }
+        .grade-low { background: #fef2f2; color: #991b1b; }
+
+        .document {
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            margin: 16px 0;
+            overflow: hidden;
+        }
+        .document.strong { border-color: #22c55e; }
+        .document.weak { border-color: #ef4444; }
+
+        .doc-header {
+            padding: 12px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .document.strong .doc-header { background: #f0fdf4; color: #166534; }
+        .document.weak .doc-header { background: #fef2f2; color: #991b1b; }
+
+        .annotated-section {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 0;
+        }
+        .annotated-text {
+            padding: 24px;
+            font-size: 14px;
+            line-height: 1.8;
+            color: #334155;
+            border-right: 2px solid #e2e8f0;
+        }
+        .annotated-text p { margin-bottom: 14px; }
+        .annotated-text p:last-child { margin-bottom: 0; }
+
+        .annotations-sidebar {
+            padding: 16px;
+            background: #fafafa;
+            font-size: 12px;
+        }
+        .annotation {
+            background: white;
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 10px;
+            border-left: 3px solid;
+            line-height: 1.5;
+        }
+        .annotation.good { border-color: #22c55e; }
+        .annotation.bad { border-color: #ef4444; }
+        .annotation.info { border-color: #3b82f6; }
+        .annotation.gibbs { border-color: #8b5cf6; }
+        .annotation strong {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .annotation.good strong { color: #166534; }
+        .annotation.bad strong { color: #991b1b; }
+        .annotation.info strong { color: #1d4ed8; }
+        .annotation.gibbs strong { color: #6d28d9; }
+
+        .highlight-good { background: #dcfce7; padding: 1px 4px; border-radius: 3px; }
+        .highlight-bad { background: #fef2f2; padding: 1px 4px; border-radius: 3px; }
+        .highlight-gibbs { background: #ede9fe; padding: 1px 4px; border-radius: 3px; }
+
+        .section-label {
+            display: inline-block;
+            background: #ede9fe;
+            color: #6d28d9;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .section-label.desc { background: #e0f2fe; color: #0369a1; }
+        .section-label.feel { background: #fce7f3; color: #be185d; }
+        .section-label.eval { background: #fef3c7; color: #92400e; }
+        .section-label.analysis { background: #ede9fe; color: #6d28d9; }
+        .section-label.conclusion { background: #d1fae5; color: #065f46; }
+        .section-label.action { background: #dbeafe; color: #1e40af; }
+
+        .structure-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 13px;
+        }
+        .structure-table th {
+            background: #f0f2f5;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #666;
+        }
+        .structure-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .tip-box {
+            background: #fff8e1;
+            border: 1px solid #ffe082;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin: 14px 0;
+            font-size: 13px;
+        }
+        .tip-box strong { color: #f57f17; }
+
+        .warning-box {
+            background: #fce4ec;
+            border: 1px solid #ef9a9a;
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin: 14px 0;
+            font-size: 13px;
+        }
+        .warning-box strong { color: #c62828; }
+
+        .gibbs-flow {
+            display: flex;
+            gap: 0;
+            margin: 16px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            font-size: 11px;
+            text-align: center;
+        }
+        .gibbs-step {
+            flex: 1;
+            padding: 10px 6px;
+        }
+        .gibbs-step .step-name { font-weight: 700; margin-bottom: 2px; }
+        .gibbs-step .step-words { font-weight: 400; }
+        .gibbs-1 { background: #e0f2fe; color: #0369a1; }
+        .gibbs-2 { background: #fce7f3; color: #be185d; }
+        .gibbs-3 { background: #fef3c7; color: #92400e; }
+        .gibbs-4 { background: #ede9fe; color: #6d28d9; }
+        .gibbs-5 { background: #d1fae5; color: #065f46; }
+        .gibbs-6 { background: #dbeafe; color: #1e40af; }
+
+        .word-count { font-size: 11px; color: #94a3b8; font-style: italic; }
+
+        @media (max-width: 800px) {
+            body { padding: 16px; }
+            .annotated-section { grid-template-columns: 1fr; }
+            .annotated-text { border-right: none; border-bottom: 2px solid #e2e8f0; }
+            .gibbs-flow { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="page-header">
+    <span class="badge">UMET9U-30-1 | 25 Marks</span>
+    <h1>Reflective Learning Blog: Annotated Examples</h1>
+    <p>500 words reflecting on ONE skill development experience using Gibbs' Reflective Cycle</p>
+</div>
+
+<div class="container">
+
+    <!-- GIBBS OVERVIEW -->
+    <div class="card">
+        <h2>Gibbs' Reflective Cycle — Word Allocation</h2>
+        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+            Your 500 words should follow this structure. <strong>Analysis gets the most space</strong> because it demonstrates the deepest thinking.
+        </p>
+        <div class="gibbs-flow">
+            <div class="gibbs-step gibbs-1">
+                <div class="step-name">Description</div>
+                <div class="step-words">~75 words</div>
+            </div>
+            <div class="gibbs-step gibbs-2">
+                <div class="step-name">Feelings</div>
+                <div class="step-words">~50 words</div>
+            </div>
+            <div class="gibbs-step gibbs-3">
+                <div class="step-name">Evaluation</div>
+                <div class="step-words">~75 words</div>
+            </div>
+            <div class="gibbs-step gibbs-4">
+                <div class="step-name">Analysis</div>
+                <div class="step-words">~150 words</div>
+            </div>
+            <div class="gibbs-step gibbs-5">
+                <div class="step-name">Conclusion</div>
+                <div class="step-words">~75 words</div>
+            </div>
+            <div class="gibbs-step gibbs-6">
+                <div class="step-name">Action Plan</div>
+                <div class="step-words">~75 words</div>
+            </div>
+        </div>
+        <div class="tip-box">
+            <strong>Key rule:</strong> If more than 30% of your blog describes WHAT happened (instead of analysing WHY), you need to rewrite. Description is just the setup — the reflection is where the marks are.
+        </div>
+    </div>
+
+    <!-- STRONG EXAMPLE -->
+    <div class="card">
+        <h2>
+            <span class="grade-badge grade-high">70%+ Example</span>
+            Strong Reflective Blog
+        </h2>
+        <p style="font-size: 13px; color: #666; margin-bottom: 16px;">
+            Skill: Framework analysis (strategic thinking) | Word count: 502
+        </p>
+
+        <div class="document strong">
+            <div class="doc-header">
+                <span>Strong Example — Gibbs' Cycle Annotated</span>
+                <span class="word-count">502 words</span>
+            </div>
+            <div class="annotated-section">
+                <div class="annotated-text">
+                    <p>
+                        <span class="section-label desc">Description (~75 words)</span><br>
+                        In my Responsible Business Strategy module, I completed a midterm case study analysing Vietcombank's competitive position. The task required applying <span class="highlight-good">Porter's Five Forces and PEST analysis</span> to evaluate threats and opportunities. I spent three weeks preparing, dedicating most of my time to creating visually polished slides. <span class="highlight-good">I received 58% — ten marks lower than I expected.</span>
+                    </p>
+                    <p>
+                        <span class="section-label feel">Feelings (~50 words)</span><br>
+                        My initial reaction was defensive. <span class="highlight-good">I was convinced the marker hadn't appreciated my presentation quality.</span> I felt frustrated because I had invested significant effort. Looking at classmates who scored higher with simpler slides, I felt confused about what "good analysis" actually meant.
+                    </p>
+                    <p>
+                        <span class="section-label eval">Evaluation (~75 words)</span><br>
+                        Reading the feedback carefully, a pattern emerged. <span class="highlight-good">The marker noted my PEST analysis was "descriptive rather than evaluative" and my Porter's application "identified forces without analysing their relative impact."</span> What went well: I had correctly identified all relevant factors and presented them clearly. What went badly: I had listed information without making analytical judgments about what it meant for Vietcombank's strategy.
+                    </p>
+                    <p>
+                        <span class="section-label analysis">Analysis (~150 words)</span><br>
+                        <span class="highlight-gibbs">Reflecting on this, I realise I confused thoroughness with depth.</span> I assumed that identifying more factors demonstrated stronger analysis. In reality, identifying three factors and explaining their strategic implications would have been more valuable than listing eight factors with surface-level descriptions. This connects to a broader pattern I've noticed: <span class="highlight-good">I tend to prioritise presentation over substance, breadth over depth.</span>
+                    </p>
+                    <p>
+                        <span class="highlight-gibbs">I think this stems from my secondary school experience in Vietnam, where comprehensive coverage was rewarded more than critical evaluation.</span> The transition to British-style assessment — which values argumentation and judgment — requires a fundamentally different approach. When I compare my work with a classmate who scored 72%, the difference is striking: they analysed fewer forces but explicitly stated "the most significant threat to Vietcombank is..." and explained why. That evaluative judgment is what I was missing.
+                    </p>
+                    <p>
+                        <span class="section-label conclusion">Conclusion (~75 words)</span><br>
+                        I could have approached this differently by <span class="highlight-good">starting with a clear evaluative question — "What is the most significant competitive challenge facing Vietcombank?" — and using the frameworks to answer it</span>, rather than applying frameworks comprehensively without a guiding question. I also could have sought feedback on a draft before submission, which would likely have revealed the depth problem earlier.
+                    </p>
+                    <p>
+                        <span class="section-label action">Action Plan (~75 words)</span><br>
+                        For my next framework analysis, I will: <span class="highlight-good">(1) begin with an evaluative question before applying any framework; (2) limit myself to the three most significant factors and analyse each in depth rather than listing all possible factors; (3) include an explicit "so what?" sentence after each point</span>; and (4) share a draft with a peer one week before deadline to check whether my analysis contains genuine evaluation. <span class="highlight-good">This directly connects to my capability matrix, where I rated Strategic Analysis at 2/4 — this experience is why.</span>
+                    </p>
+                </div>
+                <div class="annotations-sidebar">
+                    <div class="annotation gibbs">
+                        <strong>Gibbs: Description</strong>
+                        Brief and specific — names the module, the task, the result. Only 75 words. Doesn't narrate the whole experience.
+                    </div>
+                    <div class="annotation good">
+                        <strong>Honest Feelings</strong>
+                        Admits defensiveness and confusion. Doesn't pretend the experience was positive. Raw honesty = authenticity.
+                    </div>
+                    <div class="annotation good">
+                        <strong>Uses Actual Feedback</strong>
+                        Quotes the marker's words directly. This is concrete evidence, not vague claims about "learning."
+                    </div>
+                    <div class="annotation gibbs">
+                        <strong>Gibbs: Analysis (longest)</strong>
+                        This is where the marks are. Identifies a PATTERN (breadth over depth), traces it to a ROOT CAUSE (secondary school approach), and compares with a peer's stronger work.
+                    </div>
+                    <div class="annotation good">
+                        <strong>Cultural Self-Awareness</strong>
+                        Connects the learning gap to the Vietnam-to-UK educational transition. Deeply personal insight that could only come from this student.
+                    </div>
+                    <div class="annotation good">
+                        <strong>Specific Action Plan</strong>
+                        Four numbered, concrete actions — not "try harder." Each one is measurable and observable.
+                    </div>
+                    <div class="annotation good">
+                        <strong>Cross-References Portfolio</strong>
+                        Links back to capability matrix rating. Shows coherence across the portfolio.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEAK EXAMPLE -->
+    <div class="card">
+        <h2>
+            <span class="grade-badge grade-low">40-49% Example</span>
+            Weak Reflective Blog
+        </h2>
+        <p style="font-size: 13px; color: #666; margin-bottom: 16px;">
+            Same topic (framework analysis), but written descriptively rather than reflectively.
+        </p>
+
+        <div class="document weak">
+            <div class="doc-header">
+                <span>Weak Example — Annotated</span>
+                <span class="word-count">287 words (under minimum)</span>
+            </div>
+            <div class="annotated-section">
+                <div class="annotated-text">
+                    <p>
+                        <span class="highlight-bad">This semester I learned about framework analysis in my Business Strategy module.</span> We studied PEST analysis and Porter's Five Forces. PEST analysis looks at Political, Economic, Social and Technological factors. Porter's Five Forces looks at competitive rivalry, supplier power, buyer power, threat of new entrants, and threat of substitutes.
+                    </p>
+                    <p>
+                        <span class="highlight-bad">We had to do a case study about Vietcombank using these frameworks.</span> I worked hard on my assignment and spent a lot of time on it. I made good slides with nice design. I received my grade and it was okay.
+                    </p>
+                    <p>
+                        <span class="highlight-bad">I learned that framework analysis is important for business.</span> It helps you understand the competitive environment. I think I am quite good at using frameworks now. I need to practice more to get better.
+                    </p>
+                    <p>
+                        <span class="highlight-bad">In the future I will try harder and spend more time on analysis.</span> I will also try to get better grades. Framework analysis is a useful skill for banking and finance careers, which is what I want to do after graduation.
+                    </p>
+                    <p>
+                        <span class="highlight-bad">Overall, I learned a lot this semester about business analysis. I think these skills will be useful in my career.</span>
+                    </p>
+                </div>
+                <div class="annotations-sidebar">
+                    <div class="annotation bad">
+                        <strong>Describes the Framework</strong>
+                        Explains what PEST and Porter's are — the marker already knows this. Wasted words on textbook content instead of personal reflection.
+                    </div>
+                    <div class="annotation bad">
+                        <strong>Narrates, Doesn't Reflect</strong>
+                        "I worked hard... I made good slides... I received my grade." This is a diary entry, not reflection. No WHY.
+                    </div>
+                    <div class="annotation bad">
+                        <strong>No Honest Assessment</strong>
+                        "It was okay" hides the actual grade. "I am quite good" — compared to what? No evidence, no self-awareness.
+                    </div>
+                    <div class="annotation bad">
+                        <strong>Vague Action Plan</strong>
+                        "Try harder" and "spend more time" are not plans. How? When? What specifically will change?
+                    </div>
+                    <div class="annotation bad">
+                        <strong>No Gibbs' Cycle</strong>
+                        No feelings, no evaluation, no analysis, no conclusion. Just description + vague future intentions.
+                    </div>
+                    <div class="annotation bad">
+                        <strong>Could Be Anyone</strong>
+                        Nothing personal, no specific grade, no specific feedback, no specific insight. Fails the authenticity test.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SIDE BY SIDE -->
+    <div class="card">
+        <h2>The Key Differences</h2>
+        <table class="structure-table">
+            <thead>
+                <tr>
+                    <th>Element</th>
+                    <th>Strong (70%+)</th>
+                    <th>Weak (40s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Opening</strong></td>
+                    <td style="color: #166534;">"I received 58% — ten marks lower than I expected"</td>
+                    <td style="color: #991b1b;">"I received my grade and it was okay"</td>
+                </tr>
+                <tr>
+                    <td><strong>Feelings</strong></td>
+                    <td style="color: #166534;">"My initial reaction was defensive. I was convinced the marker hadn't appreciated my work"</td>
+                    <td style="color: #991b1b;">(No feelings mentioned at all)</td>
+                </tr>
+                <tr>
+                    <td><strong>Evidence</strong></td>
+                    <td style="color: #166534;">Quotes the marker's actual feedback; compares with a classmate who scored 72%</td>
+                    <td style="color: #991b1b;">No feedback, no comparison, no concrete evidence</td>
+                </tr>
+                <tr>
+                    <td><strong>Analysis</strong></td>
+                    <td style="color: #166534;">Identifies root cause: "I confused thoroughness with depth" — traces it to Vietnamese education style</td>
+                    <td style="color: #991b1b;">"I learned that framework analysis is important" — no analysis of WHY</td>
+                </tr>
+                <tr>
+                    <td><strong>Action Plan</strong></td>
+                    <td style="color: #166534;">4 specific, numbered actions: "begin with an evaluative question", "limit to 3 factors", etc.</td>
+                    <td style="color: #991b1b;">"Try harder and spend more time"</td>
+                </tr>
+                <tr>
+                    <td><strong>Portfolio link</strong></td>
+                    <td style="color: #166534;">"This connects to my capability matrix, where I rated Strategic Analysis at 2/4"</td>
+                    <td style="color: #991b1b;">"These skills will be useful in my career" (no link to any component)</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="warning-box">
+            <strong>The #1 mistake:</strong> Writing about what PEST analysis IS instead of what it taught you about YOURSELF. The marker knows what Porter's Five Forces is. They want to know what YOU discovered about your learning, your assumptions, and your development.
+        </div>
+    </div>
+
+    <!-- SKILL CHOICE GUIDE -->
+    <div class="card">
+        <h2>Choosing Your Skill</h2>
+        <table class="structure-table">
+            <thead>
+                <tr>
+                    <th style="width: 50%;">Good Choices (Rich Reflection)</th>
+                    <th style="width: 50%;">Poor Choices (No Learning Story)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="color: #166534;">A framework analysis where feedback surprised you</td>
+                    <td style="color: #991b1b;">A skill you were already good at ("I've always been good at presentations")</td>
+                </tr>
+                <tr>
+                    <td style="color: #166534;">A group project where you discovered something about your leadership style</td>
+                    <td style="color: #991b1b;">Something too broad ("communication" or "teamwork")</td>
+                </tr>
+                <tr>
+                    <td style="color: #166534;">An economics concept that only "clicked" after initial confusion</td>
+                    <td style="color: #991b1b;">Something you can't provide concrete evidence for</td>
+                </tr>
+                <tr>
+                    <td style="color: #166534;">A presentation that pushed your comfort zone (especially presenting in English)</td>
+                    <td style="color: #991b1b;">Something that went perfectly (no struggle = no reflection)</td>
+                </tr>
+                <tr>
+                    <td style="color: #166534;">Adapting to British-style assessment after Vietnamese secondary school</td>
+                    <td style="color: #991b1b;">A topic you find interesting but haven't applied ("I like economics")</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="tip-box">
+            <strong>The best blogs are slightly uncomfortable to write.</strong> If it feels easy, you're probably describing, not reflecting. Real learning involves struggle, surprise, or discomfort — that's where the insight lives.
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

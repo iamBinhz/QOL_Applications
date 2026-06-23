@@ -1,0 +1,1539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Nexus — Personal Academic Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f8ef7;
+            --primary-light: #e8f0fe;
+            --accent-1: #f59e0b;
+            --accent-2: #10b981;
+            --accent-3: #8b5cf6;
+            --bg: #fafbfc;
+            --surface: rgba(255, 255, 255, 0.72);
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --border: rgba(255, 255, 255, 0.5);
+            --shadow: 0 8px 32px rgba(31, 38, 135, 0.07);
+            --shadow-hover: 0 20px 60px rgba(31, 38, 135, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ===== ANIMATED MESH GRADIENT BACKGROUND ===== */
+        .mesh-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(79, 142, 247, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(245, 158, 11, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 70%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                linear-gradient(135deg, #f0f4ff 0%, #fff 50%, #f5fff8 100%);
+            animation: meshShift 20s ease-in-out infinite;
+        }
+
+        @keyframes meshShift {
+            0%, 100% { 
+                background-position: 0% 0%, 100% 0%, 0% 100%, 100% 100%, 0% 0%; 
+            }
+            25% { 
+                background-position: 10% 20%, 90% 10%, 20% 90%, 80% 80%, 0% 0%; 
+            }
+            50% { 
+                background-position: 20% 10%, 80% 30%, 10% 80%, 90% 60%, 0% 0%; 
+            }
+            75% { 
+                background-position: 15% 25%, 85% 15%, 25% 85%, 75% 75%, 0% 0%; 
+            }
+        }
+
+        /* ===== FLOATING PARTICLES CANVAS ===== */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* ===== GLASSMORPHISM NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.2rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.65);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            padding: 0.8rem 4%;
+            background: rgba(255, 255, 255, 0.85);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: var(--shadow);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent-3));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--primary), var(--accent-3));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            -webkit-text-fill-color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent-3));
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ===== NAVBAR DROPDOWN MENU ===== */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            background: none;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        .dropdown-toggle:hover {
+            color: var(--text);
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
+        }
+
+        .dropdown.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 0.8rem);
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            background: rgba(255, 255, 255, 0.95);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 0.6rem;
+            min-width: 180px;
+            box-shadow: var(--shadow-hover);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            list-style: none;
+        }
+
+        .dropdown.active .dropdown-menu {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .dropdown-menu::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.95);
+            border-left: 1px solid var(--border);
+            border-top: 1px solid var(--border);
+            rotate: 45deg;
+        }
+
+        .dropdown-menu li {
+            margin: 0;
+        }
+
+        .dropdown-menu a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.7rem 1rem;
+            border-radius: 10px;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .dropdown-menu a::after {
+            display: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .dropdown-subject-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            flex-shrink: 0;
+        }
+
+        .dropdown-subject-icon.afdm { background: rgba(79, 142, 247, 0.1); }
+        .dropdown-subject-icon.fim { background: rgba(16, 185, 129, 0.1); }
+        .dropdown-subject-icon.ebf { background: rgba(245, 158, 11, 0.1); }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: var(--surface);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            animation: floatIn 1s ease-out 0.2s both;
+            box-shadow: var(--shadow);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-2);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            margin-bottom: 1.5rem;
+            animation: floatIn 1s ease-out 0.4s both;
+        }
+
+        .hero h1 .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent-3), var(--accent-1));
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 5s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            animation: floatIn 1s ease-out 0.6s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            animation: floatIn 1s ease-out 0.8s both;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2.2rem;
+            border-radius: 14px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent-3));
+            color: white;
+            box-shadow: 0 10px 30px rgba(79, 142, 247, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(79, 142, 247, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            color: var(--text);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ===== SCROLL INDICATOR ===== */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            animation: bounce 2s infinite;
+            cursor: pointer;
+        }
+
+        .scroll-indicator span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--primary), transparent);
+            border-radius: 2px;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        @keyframes floatIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== SUBJECTS SECTION ===== */
+        .subjects {
+            padding: 6rem 4%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+        }
+
+        .subject-card {
+            background: var(--surface);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow);
+            cursor: pointer;
+        }
+
+        .subject-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--card-accent), var(--card-accent-2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-8px) rotateX(2deg);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .subject-card:hover::before {
+            opacity: 1;
+        }
+
+        .card-glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.15;
+            top: -50px;
+            right: -50px;
+            transition: opacity 0.3s ease;
+            background: var(--card-accent);
+        }
+
+        .subject-card:hover .card-glow {
+            opacity: 0.25;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--card-accent), var(--card-accent-2));
+            color: white;
+            box-shadow: 0 8px 20px var(--card-shadow);
+        }
+
+        .subject-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .subject-card .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .subject-card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .card-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .card-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.85rem 1.2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .card-link:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(5px);
+            border-color: var(--card-accent);
+        }
+
+        .card-link .link-arrow {
+            transition: transform 0.3s ease;
+            color: var(--card-accent);
+        }
+
+        .card-link:hover .link-arrow {
+            transform: translateX(4px);
+        }
+
+        .card-link .tag {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 100px;
+            background: var(--card-accent-light);
+            color: var(--card-accent);
+            font-weight: 600;
+        }
+
+        /* Subject-specific colors */
+        .subject-card.afdm {
+            --card-accent: #4f8ef7;
+            --card-accent-2: #60a5fa;
+            --card-accent-light: rgba(79, 142, 247, 0.1);
+            --card-shadow: rgba(79, 142, 247, 0.2);
+        }
+
+        .subject-card.fim {
+            --card-accent: #10b981;
+            --card-accent-2: #34d399;
+            --card-accent-light: rgba(16, 185, 129, 0.1);
+            --card-shadow: rgba(16, 185, 129, 0.2);
+        }
+
+        .subject-card.ebf {
+            --card-accent: #f59e0b;
+            --card-accent-2: #fbbf24;
+            --card-accent-light: rgba(245, 158, 11, 0.1);
+            --card-shadow: rgba(245, 158, 11, 0.2);
+        }
+
+        /* ===== CARD MOCK TEST DROPDOWN ===== */
+        .card-dropdown {
+            position: relative;
+        }
+
+        .card-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0.85rem 1.2rem;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .card-dropdown-toggle:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: var(--card-accent);
+        }
+
+        .card-dropdown-toggle .toggle-left {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-dropdown-toggle .toggle-arrow {
+            transition: transform 0.3s ease;
+            color: var(--card-accent);
+            font-size: 0.8rem;
+        }
+
+        .card-dropdown.active .toggle-arrow {
+            transform: rotate(180deg);
+        }
+
+        .card-dropdown-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, padding 0.3s ease;
+            opacity: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            padding: 0 0.5rem;
+        }
+
+        .card-dropdown.active .card-dropdown-menu {
+            max-height: 300px;
+            opacity: 1;
+            padding: 0.5rem 0.5rem 0;
+        }
+
+        .card-dropdown-menu a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.7rem 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .card-dropdown-menu a:hover {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: var(--card-accent);
+            transform: translateX(3px);
+        }
+
+        .card-dropdown-menu a .dd-arrow {
+            color: var(--card-accent);
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+        }
+
+        .card-dropdown-menu a:hover .dd-arrow {
+            transform: translateX(3px);
+        }
+
+        .card-dropdown-menu .dd-tag {
+            font-size: 0.65rem;
+            padding: 0.15rem 0.5rem;
+            border-radius: 100px;
+            background: var(--card-accent-light);
+            color: var(--card-accent);
+            font-weight: 600;
+            font-family: 'Space Mono', monospace;
+        }
+
+        /* ===== QUOTES & WISDOM SECTION ===== */
+        .wisdom {
+            padding: 6rem 4%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .quote-carousel {
+            position: relative;
+            background: var(--surface);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 3.5rem 3rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .quote-carousel::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            font-size: 10rem;
+            color: var(--primary);
+            opacity: 0.08;
+            font-family: Georgia, serif;
+            line-height: 1;
+            pointer-events: none;
+        }
+
+        .quote-slide {
+            position: absolute;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 700px;
+            padding: 0 2rem;
+        }
+
+        .quote-slide.active {
+            opacity: 1;
+            transform: translateY(0);
+            position: relative;
+        }
+
+        .quote-text {
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .quote-author {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        .quote-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Space Mono', monospace;
+        }
+
+        .quote-dots {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 2rem;
+        }
+
+        .quote-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(79, 142, 247, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .quote-dot.active {
+            background: var(--primary);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* ===== FUN FACTS SECTION ===== */
+        .fun-facts {
+            padding: 4rem 4% 6rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .fact-card {
+            background: var(--surface);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .fact-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--fact-color), var(--fact-color-2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .fact-card:hover::after {
+            opacity: 1;
+        }
+
+        .fact-emoji {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .fact-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--fact-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .fact-text {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .fact-card.fact-1 { --fact-color: #4f8ef7; --fact-color-2: #60a5fa; }
+        .fact-card.fact-2 { --fact-color: #10b981; --fact-color-2: #34d399; }
+        .fact-card.fact-3 { --fact-color: #f59e0b; --fact-color-2: #fbbf24; }
+        .fact-card.fact-4 { --fact-color: #8b5cf6; --fact-color-2: #a78bfa; }
+
+        /* ===== KNOWLEDGE PATH SECTION ===== */
+        .knowledge-path {
+            padding: 6rem 4%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .path-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .path-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent-2), var(--accent-1));
+            transform: translateX(-50%);
+            opacity: 0.2;
+        }
+
+        .path-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 3rem;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .path-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .path-item:nth-child(even) {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        .path-item:nth-child(even) .path-content {
+            align-items: flex-end;
+        }
+
+        .path-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0 3rem;
+        }
+
+        .path-spacer {
+            flex: 1;
+        }
+
+        .path-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--primary);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 0 6px rgba(79, 142, 247, 0.1);
+            flex-shrink: 0;
+        }
+
+        .path-item:nth-child(2) .path-dot { border-color: var(--accent-2); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.1); }
+        .path-item:nth-child(3) .path-dot { border-color: var(--accent-1); box-shadow: 0 0 0 6px rgba(245, 158, 11, 0.1); }
+
+        .path-label {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .path-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .path-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 300px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.5);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        footer .heart {
+            color: #ef4444;
+            display: inline-block;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .subjects-grid { grid-template-columns: 1fr; }
+            .path-item, .path-item:nth-child(even) {
+                flex-direction: column;
+                text-align: left;
+                align-items: flex-start;
+                padding-left: 2rem;
+            }
+            .path-item:nth-child(even) .path-content {
+                align-items: flex-start;
+            }
+            .path-line { left: 10px; }
+            .path-dot { position: absolute; left: 0; transform: translateX(-50%); }
+            .path-content { padding: 0 0 0 2rem; }
+            .quote-carousel { padding: 2.5rem 1.5rem; }
+            .dropdown-menu { left: 0; transform: translateX(0) translateY(-10px); }
+            .dropdown.active .dropdown-menu { transform: translateX(0) translateY(0); }
+            .dropdown-menu::before { left: 30px; transform: translateX(0); }
+        }
+
+        /* ===== REVEAL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Animated Background Layers -->
+    <div class="mesh-bg"></div>
+    <canvas id="particles"></canvas>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="logo">
+            <div class="logo-icon">◈</div>
+            StudyNexus
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li class="dropdown" id="subjectDropdown">
+                <button class="dropdown-toggle" onclick="toggleDropdown(event)">
+                    Subjects <span class="dropdown-arrow">▾</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href=".main/afdm/review.html">
+                            <span class="dropdown-subject-icon afdm">📐</span>
+                            AFDM
+                        </a>
+                    </li>
+                    <li>
+                        <a href=".main/fim/review.html">
+                            <span class="dropdown-subject-icon fim">📊</span>
+                            FIM
+                        </a>
+                    </li>
+                    <li>
+                        <a href=".main/ebf/review.html">
+                            <span class="dropdown-subject-icon ebf">📈</span>
+                            EBF
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li><a href="#path">Path</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-badge">
+            Personal Academic Hub
+        </div>
+        <h1>
+            Master Your<br>
+            <span class="gradient-text">Academic Journey</span>
+        </h1>
+        <p class="hero-subtitle">
+            A curated knowledge base for AFDM, FIM, and EBF. 
+            Structured reviews, formula sheets, and mock tests — all in one place.
+        </p>
+        <div class="hero-cta">
+            <a href="#subjects" class="btn btn-primary">
+                Explore Subjects →
+            </a>
+            <a href=".main/afdm/review.html" class="btn btn-secondary">
+                Start Studying
+            </a>
+        </div>
+
+        <div class="scroll-indicator" onclick="document.getElementById('subjects').scrollIntoView({behavior:'smooth'})">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Subjects Grid -->
+    <section class="subjects" id="subjects">
+        <div class="section-header reveal">
+            <h2>Subject Hub</h2>
+            <p>Three pillars of knowledge. Dive into structured reviews, practice tests, and formula references.</p>
+        </div>
+
+        <div class="subjects-grid">
+            <!-- AFDM Card -->
+            <div class="subject-card afdm reveal">
+                <div class="card-glow"></div>
+                <div class="card-icon">📐</div>
+                <h3>AFDM</h3>
+                <div class="subtitle">"The Blueprint"</div>
+                <p>Accounting and Finance for Decision Making. Investment evaluation, risk analysis, and capital budgeting frameworks.</p>
+                <div class="card-links">
+                    <a href=".main/afdm/review.html" class="card-link">
+                        <span>📋 Knowledge Summary</span>
+                        <span class="link-arrow">→</span>
+                    </a>
+                    <a href=".main/afdm/formulas/formula-summary.html" class="card-link">
+                        <span>🧮 Formula Summary</span>
+                        <span class="tag">Ref</span>
+                    </a>
+                    <a href=".main/afdm/formulas/investment-evaluation.html" class="card-link">
+                        <span>💰 Investment Evaluation</span>
+                        <span class="tag">Ref</span>
+                    </a>
+                    <!-- Mock Tests Dropdown -->
+                    <div class="card-dropdown" id="mockDropdown">
+                        <button class="card-dropdown-toggle" onclick="toggleCardDropdown(event)">
+                            <span class="toggle-left">
+                                <span>📝</span> Mock Tests
+                            </span>
+                            <span class="toggle-arrow">▾</span>
+                        </button>
+                        <div class="card-dropdown-menu">
+                            <a href=".main/afdm/mock-tests/mock-test-3.html">
+                                <span>Mock Test 3</span>
+                                <span class="dd-arrow">→</span>
+                            </a>
+                            <a href=".main/afdm/mock-tests/mock-test-4.html">
+                                <span>Mock Test 4</span>
+                                <span class="dd-arrow">→</span>
+                            </a>
+                            <a href=".main/afdm/mock-tests/mock-test-5.html">
+                                <span>Mock Test 5</span>
+                                <span class="dd-arrow">→</span>
+                            </a>
+                            <a href=".main/afdm/mock-tests/mock-test-6.html">
+                                <span>Mock Test 6</span>
+                                <span class="dd-arrow">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FIM Card -->
+            <div class="subject-card fim reveal">
+                <div class="card-glow"></div>
+                <div class="card-icon">📊</div>
+                <h3>FIM</h3>
+                <div class="subtitle">"The Ledger"</div>
+                <p>Financial Institutions and Markets. Banking systems, money creation, central banking, risk management, and many more!</p>
+                <div class="card-links">
+                    <a href=".main/fim/review.html" class="card-link">
+                        <span>📋 Knowledge Summary</span>
+                        <span class="link-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- EBF Card -->
+            <div class="subject-card ebf reveal">
+                <div class="card-glow"></div>
+                <div class="card-icon">📈</div>
+                <h3>EBF</h3>
+                <div class="subtitle">"Marginal Notes"</div>
+                <p>Economics for Banking and Finance. Market dynamics, micro and macroeconomic principles applied to business.</p>
+                <div class="card-links">
+                    <a href=".main/ebf/review.html" class="card-link">
+                        <span>📋 Knowledge Summary</span>
+                        <span class="link-arrow">→</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wisdom / Quotes Section -->
+    <section class="wisdom" id="wisdom">
+        <div class="section-header reveal">
+            <h2>Wall Street Wisdom</h2>
+            <p>Words from the legends who shaped modern finance. Fuel for your study sessions.</p>
+        </div>
+        <div class="quote-carousel reveal">
+            <div class="quote-slide active" data-index="0">
+                <p class="quote-text">"Price is what you pay. Value is what you get."</p>
+                <p class="quote-author">Warren Buffett</p>
+                <p class="quote-role">Chairman & CEO, Berkshire Hathaway</p>
+            </div>
+            <div class="quote-slide" data-index="1">
+                <p class="quote-text">"The individual investor should act consistently as an investor and not as a speculator."</p>
+                <p class="quote-author">Benjamin Graham</p>
+                <p class="quote-role">Father of Value Investing</p>
+            </div>
+            <div class="quote-slide" data-index="2">
+                <p class="quote-text">"In the business world, the rearview mirror is always clearer than the windshield."</p>
+                <p class="quote-author">Warren Buffett</p>
+                <p class="quote-role">The Oracle of Omaha</p>
+            </div>
+            <div class="quote-slide" data-index="3">
+                <p class="quote-text">"The four most dangerous words in investing are: 'This time it's different.'"</p>
+                <p class="quote-author">Sir John Templeton</p>
+                <p class="quote-role">Pioneer of Global Investing</p>
+            </div>
+            <div class="quote-slide" data-index="4">
+                <p class="quote-text">"The stock market is a device for transferring money from the impatient to the patient."</p>
+                <p class="quote-author">Warren Buffett</p>
+                <p class="quote-role">Berkshire Hathaway</p>
+            </div>
+            <div class="quote-slide" data-index="5">
+                <p class="quote-text">"Diversification is a protection against ignorance. It makes very little sense for those who know what they're doing."</p>
+                <p class="quote-author">Warren Buffett</p>
+                <p class="quote-role">Investor & Philanthropist</p>
+            </div>
+            <div class="quote-slide" data-index="6">
+                <p class="quote-text">"The time to buy is when there's blood in the streets."</p>
+                <p class="quote-author">Baron Rothschild</p>
+                <p class="quote-role">18th Century British Financier</p>
+            </div>
+            <div class="quote-slide" data-index="7">
+                <p class="quote-text">"Compound interest is the eighth wonder of the world. He who understands it, earns it. He who doesn't, pays it."</p>
+                <p class="quote-author">Albert Einstein</p>
+                <p class="quote-role">Physicist (allegedly)</p>
+            </div>
+            <div class="quote-dots">
+                <button class="quote-dot active" aria-label="Go to quote 1" onclick="goToQuote(0)"></button>
+                <button class="quote-dot" aria-label="Go to quote 2" onclick="goToQuote(1)"></button>
+                <button class="quote-dot" aria-label="Go to quote 3" onclick="goToQuote(2)"></button>
+                <button class="quote-dot" aria-label="Go to quote 4" onclick="goToQuote(3)"></button>
+                <button class="quote-dot" aria-label="Go to quote 5" onclick="goToQuote(4)"></button>
+                <button class="quote-dot" aria-label="Go to quote 6" onclick="goToQuote(5)"></button>
+                <button class="quote-dot" aria-label="Go to quote 7" onclick="goToQuote(6)"></button>
+                <button class="quote-dot" aria-label="Go to quote 8" onclick="goToQuote(7)"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Facts Section -->
+    <section class="fun-facts" id="facts">
+        <div class="section-header reveal">
+            <h2>Did You Know?</h2>
+            <p>Random finance facts to impress your study group — or just yourself.</p>
+        </div>
+        <div class="facts-grid">
+            <div class="fact-card fact-1 reveal">
+                <span class="fact-emoji">🧠</span>
+                <div class="fact-label">Fun Fact #01</div>
+                <p class="fact-text">The New York Stock Exchange was founded under a buttonwood tree in 1792. The original agreement was signed by just 24 stockbrokers.</p>
+            </div>
+            <div class="fact-card fact-2 reveal">
+                <span class="fact-emoji">💸</span>
+                <div class="fact-label">Fun Fact #02</div>
+                <p class="fact-text">The term "bull market" comes from the way a bull attacks — thrusting its horns upward. A "bear market" refers to a bear swiping its paws downward.</p>
+            </div>
+            <div class="fact-card fact-3 reveal">
+                <span class="fact-emoji">🏦</span>
+                <div class="fact-label">Fun Fact #03</div>
+                <p class="fact-text">The world's oldest bank still in operation is Banca Monte dei Paschi di Siena, founded in 1472 in Italy. That's over 550 years of banking!</p>
+            </div>
+            <div class="fact-card fact-4 reveal">
+                <span class="fact-emoji">🎲</span>
+                <div class="fact-label">Fun Fact #04</div>
+                <p class="fact-text">The concept of "risk" in finance comes from the Italian word "risicare," meaning "to dare." Every investment is essentially a dare against uncertainty.</p>
+            </div>
+            <div class="fact-card fact-1 reveal">
+                <span class="fact-emoji">📉</span>
+                <div class="fact-label">Fun Fact #05</div>
+                <p class="fact-text">The 1929 stock market crash led to the creation of the SEC. Before that, insider trading was basically legal — and wildly common on Wall Street.</p>
+            </div>
+            <div class="fact-card fact-2 reveal">
+                <span class="fact-emoji">🌍</span>
+                <div class="fact-label">Fun Fact #06</div>
+                <p class="fact-text">The global derivatives market is estimated to be worth over $600 trillion. That's roughly 6 times the size of the entire world's GDP.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Knowledge Path -->
+    <section class="knowledge-path" id="path">
+        <div class="section-header reveal">
+            <h2>Study Path</h2>
+            <p>Your structured roadmap from review to mastery.</p>
+        </div>
+        <div class="path-container">
+            <div class="path-line"></div>
+
+            <div class="path-item">
+                <div class="path-content">
+                    <span class="path-label">Step 01</span>
+                    <span class="path-title">Review the Blueprint</span>
+                    <span class="path-desc">Start with the knowledge summary to build your conceptual foundation.</span>
+                </div>
+                <div class="path-dot"></div>
+                <div class="path-spacer"></div>
+            </div>
+
+            <div class="path-item">
+                <div class="path-spacer"></div>
+                <div class="path-dot"></div>
+                <div class="path-content">
+                    <span class="path-label">Step 02</span>
+                    <span class="path-title">Master the Formulas</span>
+                    <span class="path-desc">Dive into formula references and investment evaluation frameworks.</span>
+                </div>
+            </div>
+
+            <div class="path-item">
+                <div class="path-content">
+                    <span class="path-label">Step 03</span>
+                    <span class="path-title">Test Your Knowledge</span>
+                    <span class="path-desc">Apply what you've learned with mock tests and check your answers.</span>
+                </div>
+                <div class="path-dot"></div>
+                <div class="path-spacer"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>StudyNexus &copy; 2026</p>
+    </footer>
+
+    <script>
+        // ===== PARTICLE SYSTEM =====
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.speedY = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.5 + 0.1;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(79, 142, 247, ' + this.opacity + ')';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const count = Math.min(window.innerWidth / 10, 100);
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticles();
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(function(p) {
+                p.update();
+                p.draw();
+            });
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 120) {
+                        ctx.strokeStyle = 'rgba(79, 142, 247, ' + (0.08 * (1 - dist / 120)) + ')';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // ===== NAVBAR SCROLL EFFECT =====
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== NAVBAR DROPDOWN TOGGLE =====
+        function toggleDropdown(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('subjectDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('subjectDropdown');
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // ===== CARD MOCK TEST DROPDOWN TOGGLE =====
+        function toggleCardDropdown(event) {
+            event.stopPropagation();
+            const dropdown = document.getElementById('mockDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            const dropdown = document.getElementById('mockDropdown');
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // ===== SCROLL REVEAL =====
+        const revealElements = document.querySelectorAll('.reveal, .path-item');
+        const revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(function(el) { revealObserver.observe(el); });
+
+        // ===== 3D TILT EFFECT ON CARDS =====
+        document.querySelectorAll('.subject-card').forEach(function(card) {
+            card.addEventListener('mousemove', function(e) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                card.style.setProperty('transform', 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-8px)');
+            });
+            card.addEventListener('mouseleave', function() {
+                card.style.setProperty('transform', 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)');
+            });
+        });
+
+        // ===== QUOTE CAROUSEL =====
+        let currentQuote = 0;
+        const quoteSlides = document.querySelectorAll('.quote-slide');
+        const quoteDots = document.querySelectorAll('.quote-dot');
+        let quoteInterval;
+
+        function goToQuote(index) {
+            quoteSlides[currentQuote].classList.remove('active');
+            quoteDots[currentQuote].classList.remove('active');
+            currentQuote = index;
+            quoteSlides[currentQuote].classList.add('active');
+            quoteDots[currentQuote].classList.add('active');
+            resetQuoteTimer();
+        }
+
+        function nextQuote() {
+            const next = (currentQuote + 1) % quoteSlides.length;
+            goToQuote(next);
+        }
+
+        function resetQuoteTimer() {
+            clearInterval(quoteInterval);
+            quoteInterval = setInterval(nextQuote, 6000);
+        }
+
+        resetQuoteTimer();
+    </script>
+</body>
+</html>
