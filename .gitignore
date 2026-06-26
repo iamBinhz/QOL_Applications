@@ -2,6 +2,7 @@
 .env/
 Lecture_Contents/
 Extracted_Lecture_Contents/
+Extracted_Lectures_Contents/
 Sources/
 
 # Dependency directories
