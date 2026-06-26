@@ -1,5 +1,8 @@
 # Local environment and raw coursework folder
 .env/
+Lecture_Contents/
+Extracted_Lecture_Contents/
+Sources/
 
 # Dependency directories
 **/node_modules/
